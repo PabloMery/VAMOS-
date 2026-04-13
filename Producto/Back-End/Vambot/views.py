@@ -1,5 +1,4 @@
-# Ejemplo conceptual para tu vista (ej. en views.py)
-from django.http import JsonResponse
+from django.shortcuts import render
 from .ai_services import consultar_agente_gemini
 # from .models import Evento
 
