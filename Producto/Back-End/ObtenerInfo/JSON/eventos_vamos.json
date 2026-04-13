@@ -1,0 +1,249 @@
+[
+  {
+    "id_externo": "provi_0",
+    "titulo": "Actividades deportivas",
+    "descripcion": "Todo el mes Según actividad",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/"
+  },
+  {
+    "id_externo": "provi_1",
+    "titulo": "Exposición Encuentros: Palabra e imagen GRATUITA",
+    "descripcion": "Todo el mes 9:00 a 18:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_2",
+    "titulo": "Afterschool",
+    "descripcion": "Todo el mes 12:30 a 19:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/"
+  },
+  {
+    "id_externo": "provi_3",
+    "titulo": "Gimnasio Fitness Club Providencia",
+    "descripcion": "Todo el mes Lunes a viernes de 07:00 a 21:45 Hrs. Sábado y domingo de 09:00 a 14:25 hrs.",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl"
+  },
+  {
+    "id_externo": "provi_4",
+    "titulo": "Exposición \"El volcán, la ballena y el paisaje\" GRATUITA",
+    "descripcion": "1 al 30 de abril 9:00 a 17:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_5",
+    "titulo": "Exposición \"Tramares: Comunidades textiles para el futuro\" GRATUITA",
+    "descripcion": "1 al 30 de abril 9:00 a 17:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_6",
+    "titulo": "Exposición \"Ejercicios de incertidumbre\" GRATUITA",
+    "descripcion": "1 al 27 de abril 9:00 a 17:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_7",
+    "titulo": "Exposición: \"Bellavista, raíces y recuerdos\" GRATUITA",
+    "descripcion": "1 al 27 de abril 9:00 a 17:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_8",
+    "titulo": "Exposición \"Fungi córporea\" GRATUITA",
+    "descripcion": "1 al 27 de abril 9:00 a 17:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_9",
+    "titulo": "Feria Mercado Verde Urbano GRATUITA",
+    "descripcion": "Lunes, miércoles y sábados 11:00 a 17:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_10",
+    "titulo": "Red de Artesanos de Providencia GRATUITA",
+    "descripcion": "Lunes a viernes 10:00 a 18:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_11",
+    "titulo": "Mercado LTO GRATUITA",
+    "descripcion": "Lunes a sábado 11:00 a 12:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_12",
+    "titulo": "Micro Ferias libres \"Mercadito en tu Barrio\" GRATUITA",
+    "descripcion": "Miercoles; martes: miércoles 10:00 a 15:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Plaza Río de Janeiro; Montecarmelo; Parque Bustamante",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_13",
+    "titulo": "Feria Santa Isabel; Feria Santa Maria; Feria Los Concilios GRATUITA",
+    "descripcion": "Sábado; Jueves, Domingo; Viernes 08:00 a 15:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Av. Santa Isabel con Caupolicán; Av Santa Maria; Los Concilios",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_14",
+    "titulo": "Mercado Gata Feria GRATUITA",
+    "descripcion": "Viernes en Francisco Noguera y sábados en Guardia Vieja 11:00 a 19:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello. Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_15",
+    "titulo": "Piscina recreativa Spa",
+    "descripcion": "Sábados y festivos del mes 15:30 a 18:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/"
+  },
+  {
+    "id_externo": "provi_16",
+    "titulo": "Taller Tejiendo Encuentros GRATUITA",
+    "descripcion": "Jueves 10:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Miguel Claro 543",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_17",
+    "titulo": "Feria Mercado Drugstore GRATUITA",
+    "descripcion": "Sábados 10:00 a 17:00 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  },
+  {
+    "id_externo": "provi_18",
+    "titulo": "Clases gratuitas todos los domingos Más info en clubprovidencia@clubprovidencia.cl",
+    "descripcion": "Domingos 11:00 a 12:00 y 15:30 a 16:30 horas",
+    "categoria": "municipal",
+    "estado_logistico": "confirmado",
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null
+  }
+]
