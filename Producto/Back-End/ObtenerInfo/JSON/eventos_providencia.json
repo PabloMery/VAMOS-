@@ -1,249 +1,4638 @@
 [
   {
-    "id_externo": "provi_actividade_club_provi",
-    "titulo": "Actividades deportivas",
-    "descripcion": "Todo el mes Según actividad",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_actividade_club_pro_20260401_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
     "lugar_texto": "Club Providencia",
     "coordenadas": {
-      "latitud": -33.430747,
-      "longitud": -70.593004
+      "latitud": -33.431052,
+      "longitud": -70.592854
     },
-    "url_oficial": "https://zonasocios.clubprovidencia.cl/"
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_exposición_biblioteca",
-    "titulo": "Exposición Encuentros: Palabra e imagen GRATUITA",
-    "descripcion": "Todo el mes 9:00 a 18:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_exposición_bibliote_20260401_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
     "coordenadas": {
       "latitud": -33.429907,
       "longitud": -70.620114
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_afterschoo_club_provi",
-    "titulo": "Afterschool",
-    "descripcion": "Todo el mes 12:30 a 19:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_afterschoo_club_pro_20260401_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
     "lugar_texto": "Club Providencia",
     "coordenadas": {
-      "latitud": -33.430747,
-      "longitud": -70.593004
+      "latitud": -33.431052,
+      "longitud": -70.592854
     },
-    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/"
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_gimnasio_f_gimnasio_f",
-    "titulo": "Gimnasio Fitness Club Providencia",
-    "descripcion": "Todo el mes Lunes a viernes de 07:00 a 21:45 Hrs. Sábado y domingo de 09:00 a 14:25 hrs.",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_gimnasio_f_gimnasio_20260401_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
     "lugar_texto": "Gimnasio fitness Club Providencia",
     "coordenadas": {
-      "latitud": -33.430747,
-      "longitud": -70.593004
+      "latitud": null,
+      "longitud": null
     },
-    "url_oficial": "https://zonasocios.clubprovidencia.cl"
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_exposición_centro_cul",
-    "titulo": "Exposición \"Fungi córporea\" GRATUITA",
-    "descripcion": "1 al 27 de abril 9:00 a 17:30 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_exposición_centro_c_20260401_0900",
+    "nombre_evento": "Exposición \"Fungi córporea\"",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "09:00",
+    "hora_fin": "17:30",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Centro Cultural Montecarmelo",
     "coordenadas": {
       "latitud": -33.430273,
       "longitud": -70.628126
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_feria_merc_padre_mari",
-    "titulo": "Feria Mercado Verde Urbano GRATUITA",
-    "descripcion": "Lunes, miércoles y sábados 11:00 a 17:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_feria_merc_padre_ma_20260401_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Padre Mariano 140",
     "coordenadas": {
       "latitud": -33.42506,
       "longitud": -70.61706
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_red_de_art_providenci",
-    "titulo": "Red de Artesanos de Providencia GRATUITA",
-    "descripcion": "Lunes a viernes 10:00 a 18:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_red_de_art_providen_20260401_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Providencia esquina Salvador",
     "coordenadas": {
-      "latitud": -33.431201,
-      "longitud": -70.626154
+      "latitud": null,
+      "longitud": null
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_mercado_lt_luis_thaye",
-    "titulo": "Mercado LTO GRATUITA",
-    "descripcion": "Lunes a sábado 11:00 a 12:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_mercado_lt_luis_tha_20260401_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
     "coordenadas": {
-      "latitud": -33.418706,
-      "longitud": -70.603373
+      "latitud": null,
+      "longitud": null
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_micro_feri_plaza_río_",
-    "titulo": "Micro Ferias libres \"Mercadito en tu Barrio\" GRATUITA",
-    "descripcion": "Miercoles; martes: miércoles 10:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_micro_feri_plaza_rí_20260401_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Plaza Río de Janeiro",
     "coordenadas": {
       "latitud": -33.432213,
       "longitud": -70.594642
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_micro_feri_montecarme",
-    "titulo": "Micro Ferias libres \"Mercadito en tu Barrio\" GRATUITA",
-    "descripcion": "Miercoles; martes: miércoles 10:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Montecarmelo",
-    "coordenadas": {
-      "latitud": -33.430181,
-      "longitud": -70.627814
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_micro_feri_parque_bus",
-    "titulo": "Micro Ferias libres \"Mercadito en tu Barrio\" GRATUITA",
-    "descripcion": "Miercoles; martes: miércoles 10:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_micro_feri_parque_b_20260401_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-01",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Parque Bustamante",
     "coordenadas": {
       "latitud": -33.442804,
       "longitud": -70.631959
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_feria_sant_av._santa_",
-    "titulo": "Feria Santa Isabel; Feria Santa Maria; Feria Los Concilios GRATUITA",
-    "descripcion": "Sábado; Jueves, Domingo; Viernes 08:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Av. Santa Isabel con Caupolicán",
-    "coordenadas": {
-      "latitud": -33.444738,
-      "longitud": -70.616654
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_feria_sant_av_santa_m",
-    "titulo": "Feria Santa Isabel; Feria Santa Maria; Feria Los Concilios GRATUITA",
-    "descripcion": "Sábado; Jueves, Domingo; Viernes 08:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Av Santa Maria",
-    "coordenadas": {
-      "latitud": -33.422,
-      "longitud": -70.62
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_feria_sant_los_concil",
-    "titulo": "Feria Santa Isabel; Feria Santa Maria; Feria Los Concilios GRATUITA",
-    "descripcion": "Sábado; Jueves, Domingo; Viernes 08:00 a 15:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Los Concilios",
-    "coordenadas": {
-      "latitud": -33.4356,
-      "longitud": -70.5898
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_mercado_ga_francisco_",
-    "titulo": "Mercado Gata Feria GRATUITA",
-    "descripcion": "Viernes en Francisco Noguera y sábados en Guardia Vieja 11:00 a 19:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello. Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
-    "coordenadas": {
-      "latitud": -33.4227,
-      "longitud": -70.6111
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_piscina_re_club_provi",
-    "titulo": "Piscina recreativa Spa",
-    "descripcion": "Sábados y festivos del mes 15:30 a 18:30 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_actividade_club_pro_20260402_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
     "lugar_texto": "Club Providencia",
     "coordenadas": {
-      "latitud": -33.430747,
-      "longitud": -70.593004
+      "latitud": -33.431052,
+      "longitud": -70.592854
     },
-    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/"
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_taller_tej_miguel_cla",
-    "titulo": "Taller Tejiendo Encuentros GRATUITA",
-    "descripcion": "Jueves 10:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_exposición_bibliote_20260402_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260402_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260402_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260402_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260402_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260402_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_taller_tej_miguel_c_20260402_1000",
+    "nombre_evento": "Taller Tejiendo Encuentros",
+    "fecha_evento": "2026-04-02",
+    "hora_inicio": "10:00",
+    "hora_fin": null,
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
     "lugar_texto": "Miguel Claro 543",
     "coordenadas": {
       "latitud": -33.434464,
       "longitud": -70.619833
     },
-    "url_oficial": null
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
   },
   {
-    "id_externo": "provi_feria_merc_andrés_fue",
-    "titulo": "Feria Mercado Drugstore GRATUITA",
-    "descripcion": "Sábados 10:00 a 17:00 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
-    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
-    "coordenadas": {
-      "latitud": -33.420658,
-      "longitud": -70.606901
-    },
-    "url_oficial": null
-  },
-  {
-    "id_externo": "provi_clases_gra_club_provi",
-    "titulo": "Clases gratuitas todos los domingos Más info en clubprovidencia@clubprovidencia.cl",
-    "descripcion": "Domingos 11:00 a 12:00 y 15:30 a 16:30 horas",
-    "categoria": "municipal",
-    "estado_logistico": "confirmado",
+    "id_externo": "provi_actividade_club_pro_20260403_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
     "lugar_texto": "Club Providencia",
     "coordenadas": {
-      "latitud": -33.430747,
-      "longitud": -70.593004
+      "latitud": -33.431052,
+      "longitud": -70.592854
     },
-    "url_oficial": null
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260403_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260403_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260403_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260403_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260403_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_los__los_conc_20260403_0800",
+    "nombre_evento": "Feria Los Concilios",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Los Concilios",
+    "coordenadas": {
+      "latitud": -33.441771,
+      "longitud": -70.593227
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_francisc_20260403_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-03",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260404_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260404_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260404_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260404_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260404_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260404_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av._sant_20260404_0800",
+    "nombre_evento": "Feria Santa Isabel",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av. Santa Isabel con Caupolicán",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_guardia__20260404_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_piscina_re_club_pro_20260404_1530",
+    "nombre_evento": "Piscina recreativa Spa",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "15:30",
+    "hora_fin": "18:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_andrés_f_20260404_1000",
+    "nombre_evento": "Feria Mercado Drugstore",
+    "fecha_evento": "2026-04-04",
+    "hora_inicio": "10:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260405_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260405_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260405_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260405_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260405_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260405_1100",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260405_1530",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-05",
+    "hora_inicio": "15:30",
+    "hora_fin": "16:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260406_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260406_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260406_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260406_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260406_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260406_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260406_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-06",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260407_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260407_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260407_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260407_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260407_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260407_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_montecar_20260407_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-07",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430181,
+      "longitud": -70.627814
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260408_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260408_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260408_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260408_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260408_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260408_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260408_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_plaza_rí_20260408_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Plaza Río de Janeiro",
+    "coordenadas": {
+      "latitud": -33.432213,
+      "longitud": -70.594642
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_parque_b_20260408_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-08",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Parque Bustamante",
+    "coordenadas": {
+      "latitud": -33.442804,
+      "longitud": -70.631959
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260409_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260409_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260409_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260409_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260409_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260409_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260409_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_taller_tej_miguel_c_20260409_1000",
+    "nombre_evento": "Taller Tejiendo Encuentros",
+    "fecha_evento": "2026-04-09",
+    "hora_inicio": "10:00",
+    "hora_fin": null,
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Miguel Claro 543",
+    "coordenadas": {
+      "latitud": -33.434464,
+      "longitud": -70.619833
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260410_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260410_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260410_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260410_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260410_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260410_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_los__los_conc_20260410_0800",
+    "nombre_evento": "Feria Los Concilios",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Los Concilios",
+    "coordenadas": {
+      "latitud": -33.441771,
+      "longitud": -70.593227
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_francisc_20260410_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-10",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260411_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260411_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260411_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260411_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260411_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260411_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av._sant_20260411_0800",
+    "nombre_evento": "Feria Santa Isabel",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av. Santa Isabel con Caupolicán",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_guardia__20260411_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_piscina_re_club_pro_20260411_1530",
+    "nombre_evento": "Piscina recreativa Spa",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "15:30",
+    "hora_fin": "18:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_andrés_f_20260411_1000",
+    "nombre_evento": "Feria Mercado Drugstore",
+    "fecha_evento": "2026-04-11",
+    "hora_inicio": "10:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260412_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260412_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260412_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260412_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260412_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260412_1100",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260412_1530",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-12",
+    "hora_inicio": "15:30",
+    "hora_fin": "16:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260413_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260413_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260413_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260413_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260413_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260413_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260413_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-13",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260414_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260414_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260414_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260414_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260414_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260414_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_montecar_20260414_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-14",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430181,
+      "longitud": -70.627814
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260415_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260415_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260415_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260415_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260415_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260415_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260415_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_plaza_rí_20260415_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Plaza Río de Janeiro",
+    "coordenadas": {
+      "latitud": -33.432213,
+      "longitud": -70.594642
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_parque_b_20260415_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-15",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Parque Bustamante",
+    "coordenadas": {
+      "latitud": -33.442804,
+      "longitud": -70.631959
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260416_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260416_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260416_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260416_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260416_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260416_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260416_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_taller_tej_miguel_c_20260416_1000",
+    "nombre_evento": "Taller Tejiendo Encuentros",
+    "fecha_evento": "2026-04-16",
+    "hora_inicio": "10:00",
+    "hora_fin": null,
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Miguel Claro 543",
+    "coordenadas": {
+      "latitud": -33.434464,
+      "longitud": -70.619833
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260417_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260417_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260417_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260417_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260417_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260417_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_los__los_conc_20260417_0800",
+    "nombre_evento": "Feria Los Concilios",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Los Concilios",
+    "coordenadas": {
+      "latitud": -33.441771,
+      "longitud": -70.593227
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_francisc_20260417_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-17",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Finalizado",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260418_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260418_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260418_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260418_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260418_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260418_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av._sant_20260418_0800",
+    "nombre_evento": "Feria Santa Isabel",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av. Santa Isabel con Caupolicán",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_guardia__20260418_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_piscina_re_club_pro_20260418_1530",
+    "nombre_evento": "Piscina recreativa Spa",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "15:30",
+    "hora_fin": "18:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_andrés_f_20260418_1000",
+    "nombre_evento": "Feria Mercado Drugstore",
+    "fecha_evento": "2026-04-18",
+    "hora_inicio": "10:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260419_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260419_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260419_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260419_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260419_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260419_1100",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260419_1530",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-19",
+    "hora_inicio": "15:30",
+    "hora_fin": "16:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260420_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260420_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260420_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260420_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260420_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260420_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260420_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-20",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260421_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260421_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260421_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260421_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260421_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260421_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_montecar_20260421_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-21",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430181,
+      "longitud": -70.627814
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260422_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260422_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260422_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260422_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260422_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260422_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260422_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_plaza_rí_20260422_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Plaza Río de Janeiro",
+    "coordenadas": {
+      "latitud": -33.432213,
+      "longitud": -70.594642
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_parque_b_20260422_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-22",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Parque Bustamante",
+    "coordenadas": {
+      "latitud": -33.442804,
+      "longitud": -70.631959
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260423_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260423_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260423_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260423_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260423_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260423_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260423_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_taller_tej_miguel_c_20260423_1000",
+    "nombre_evento": "Taller Tejiendo Encuentros",
+    "fecha_evento": "2026-04-23",
+    "hora_inicio": "10:00",
+    "hora_fin": null,
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Miguel Claro 543",
+    "coordenadas": {
+      "latitud": -33.434464,
+      "longitud": -70.619833
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260424_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260424_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260424_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260424_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260424_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260424_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_los__los_conc_20260424_0800",
+    "nombre_evento": "Feria Los Concilios",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Los Concilios",
+    "coordenadas": {
+      "latitud": -33.441771,
+      "longitud": -70.593227
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_francisc_20260424_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-24",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Francisco Noguera entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260425_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260425_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260425_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260425_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260425_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260425_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av._sant_20260425_0800",
+    "nombre_evento": "Feria Santa Isabel",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av. Santa Isabel con Caupolicán",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_ga_guardia__20260425_1100",
+    "nombre_evento": "Mercado Gata Feria",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "11:00",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Guardia Vieja entre Av. Providencia y Av. Nueva Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_piscina_re_club_pro_20260425_1530",
+    "nombre_evento": "Piscina recreativa Spa",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "15:30",
+    "hora_fin": "18:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_andrés_f_20260425_1000",
+    "nombre_evento": "Feria Mercado Drugstore",
+    "fecha_evento": "2026-04-25",
+    "hora_inicio": "10:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Andrés Fuenzalida entre Av. Providencia y Av. Andrés Bello",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260426_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260426_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260426_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260426_0900",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "09:00",
+    "hora_fin": "14:25",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260426_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260426_1100",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_clases_club_pro_20260426_1530",
+    "nombre_evento": "Clases",
+    "fecha_evento": "2026-04-26",
+    "hora_inicio": "15:30",
+    "hora_fin": "16:30",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": "Gratuito",
+    "requiere_inscripcion": true,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260427_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260427_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260427_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260427_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_centro_c_20260427_0900",
+    "nombre_evento": "Exposición \"Fungi córporea\"",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "09:00",
+    "hora_fin": "17:30",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430273,
+      "longitud": -70.628126
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260427_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260427_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260427_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-27",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260428_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260428_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260428_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260428_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260428_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260428_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_montecar_20260428_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-28",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430181,
+      "longitud": -70.627814
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260429_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260429_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260429_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260429_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_merc_padre_ma_20260429_1100",
+    "nombre_evento": "Feria Mercado Verde Urbano",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "11:00",
+    "hora_fin": "17:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Padre Mariano 140",
+    "coordenadas": {
+      "latitud": -33.42506,
+      "longitud": -70.61706
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260429_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260429_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_plaza_rí_20260429_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Plaza Río de Janeiro",
+    "coordenadas": {
+      "latitud": -33.432213,
+      "longitud": -70.594642
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_micro_feri_parque_b_20260429_1000",
+    "nombre_evento": "Micro Ferias libres \"Mercadito en tu Barrio\"",
+    "fecha_evento": "2026-04-29",
+    "hora_inicio": "10:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Parque Bustamante",
+    "coordenadas": {
+      "latitud": -33.442804,
+      "longitud": -70.631959
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_actividade_club_pro_20260430_None",
+    "nombre_evento": "Actividades deportivas",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": null,
+    "hora_fin": null,
+    "horario_variable": true,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_bibliote_20260430_0900",
+    "nombre_evento": "Exposición Encuentros: Palabra e imagen",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "09:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Biblioteca Municipal (Av. Manuel Montt 101)",
+    "coordenadas": {
+      "latitud": -33.429907,
+      "longitud": -70.620114
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_afterschoo_club_pro_20260430_1230",
+    "nombre_evento": "Afterschool",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "12:30",
+    "hora_fin": "19:00",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Club Providencia",
+    "coordenadas": {
+      "latitud": -33.431052,
+      "longitud": -70.592854
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_gimnasio_f_gimnasio_20260430_0700",
+    "nombre_evento": "Gimnasio Fitness Club Providencia",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "07:00",
+    "hora_fin": "21:45",
+    "horario_variable": false,
+    "categoria": "Deportiva",
+    "precio": null,
+    "requiere_inscripcion": false,
+    "lugar_texto": "Gimnasio fitness Club Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": "https://zonasocios.clubprovidencia.cl",
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_exposición_centro_c_20260430_0900",
+    "nombre_evento": "Exposición \"Tramares: Comunidades textiles para el futuro\"",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "09:00",
+    "hora_fin": "17:30",
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Centro Cultural Montecarmelo",
+    "coordenadas": {
+      "latitud": -33.430273,
+      "longitud": -70.628126
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_red_de_art_providen_20260430_1000",
+    "nombre_evento": "Red de Artesanos de Providencia",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "10:00",
+    "hora_fin": "18:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Providencia esquina Salvador",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_mercado_lt_luis_tha_20260430_1100",
+    "nombre_evento": "Mercado LTO",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "11:00",
+    "hora_fin": "12:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Luis Thayer Ojeda entre Nueva Providencia y Av. Providencia",
+    "coordenadas": {
+      "latitud": null,
+      "longitud": null
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_feria_sant_av_santa_20260430_0800",
+    "nombre_evento": "Feria Santa Maria",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "08:00",
+    "hora_fin": "15:00",
+    "horario_variable": false,
+    "categoria": "Feria",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Av Santa Maria",
+    "coordenadas": {
+      "latitud": -33.434259,
+      "longitud": -70.630564
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
+  },
+  {
+    "id_externo": "provi_taller_tej_miguel_c_20260430_1000",
+    "nombre_evento": "Taller Tejiendo Encuentros",
+    "fecha_evento": "2026-04-30",
+    "hora_inicio": "10:00",
+    "hora_fin": null,
+    "horario_variable": false,
+    "categoria": "Cultura",
+    "precio": "Gratuito",
+    "requiere_inscripcion": false,
+    "lugar_texto": "Miguel Claro 543",
+    "coordenadas": {
+      "latitud": -33.434464,
+      "longitud": -70.619833
+    },
+    "url_oficial": null,
+    "estado_evento": "Activo",
+    "origen_datos": "Municipalidad de Providencia"
   }
 ]

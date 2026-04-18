@@ -1,5 +1,5 @@
 import os
-from .geocoding_strategy import EstrategiaProvidencia, EstrategiaNunoa
+from .geocoding_strategy import EstrategiaProvidencia
 
 class FabricaGeolocalizacion:
     @staticmethod
@@ -10,8 +10,6 @@ class FabricaGeolocalizacion:
         
         if comuna_limpia == "providencia":
             return EstrategiaProvidencia()
-        elif comuna_limpia in ["ñuñoa", "nunoa"]:
-            return EstrategiaNunoa()
         else:
             raise ValueError(f"❌ Comuna no soportada: '{carpeta_padre}'")
 
