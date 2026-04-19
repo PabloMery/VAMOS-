@@ -45,3 +45,22 @@ app-example
 **/venv/
 **/__pycache__/
 .env
+
+# Ignorar todos los entornos virtuales en cualquier subcarpeta
+**/venv/
+**/env/
+venv/
+
+# Ignorar archivos temporales de Python
+**/__pycache__/
+*.pyc
+
+# Ignorar el archivo de variables de entorno (SEGURIDAD)
+.env
+**/DataSeeder/.env
+**/ObtenerInfo/.env
+
+# Ignorar los DATOS FÍSICOS de la base de datos (Docker)
+# Esto es vital para que tus amigos no descarguen TU base de datos
+DB/pgdata/
+**/DB/pgdata/
