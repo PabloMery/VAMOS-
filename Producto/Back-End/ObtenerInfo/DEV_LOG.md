@@ -33,6 +33,13 @@ El módulo `ObtenerInfo` funciona como un **Data Pipeline de Ingesta**. Su objet
 - **Cambio:** Purgado total del archivo histórico JSON antiguo para regenerar la base de datos limpia con la nueva estructura de IDs.
 ---
 
+### [2026-04-19] - Persistencia y Dockerización de la Base de Datos
+- **Añadido:** Orquestación de infraestructura local usando **Docker Compose**. Ahora la base de datos corre de forma aislada en un contenedor.
+- **Añadido:** Nuevo microservicio `DataSeeder`. Su función única es leer el staging area (JSON) y sincronizar los datos con la base de datos relacional.
+- **Añadido:** Persistencia física de datos en la carpeta `/DB/pgdata` (ignorada en Git para evitar conflictos binarios).
+- **Cambio:** Migración definitiva a **PostgreSQL** para aprovechar capacidades relacionales y futuras extensiones geoespaciales (PostGIS).
+- **Seguridad:** Configuración avanzada de `.gitignore` para soportar múltiples entornos virtuales (`venv`) y proteger la integridad de los datos locales del contenedor.
+
 ## 💡 Ideas y Próximos Pasos (Roadmap)
 - [ ] **Desarrollo del Sincronizador:** Crear el script/API que leerá este `eventos_providencia.json` y hará los `POST`/`PUT` a la Base de Datos final de Django/PostgreSQL.
 - [ ] **Sistema de Alertas (Fallback):** Implementar alertas o logs detallados en caso de que un evento no se suba (ej. porque Nominatim falló y no está en el diccionario de alias).

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: vamos_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: freddy
+      POSTGRES_PASSWORD: superpassword123
+      POSTGRES_DB: vamos_bd
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./DB/pgdata:/var/lib/postgresql/data
