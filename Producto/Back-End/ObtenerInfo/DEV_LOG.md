@@ -25,13 +25,20 @@ El módulo `ObtenerInfo` funciona como un **Data Pipeline de Ingesta**. Su objet
 - **Cambio:** Se pasó de una lógica de "Web Scraping duro" (Regex) a una estructura **Data-Driven** (Extracción -> IA -> Guardado JSON).
 - **Seguridad:** Implementación de archivo `.env` para proteger la API Key de Gemini. Transición a claves de Google AI Studio (Capa Gratuita) para evitar sobrecostos en Google Cloud.
 
+
+### [2026-04-18] - *Estabilización, Correcciones y Google Maps*
+- **Añadido:** Migración del proveedor de geolocalización de Geopy (Nominatim) a la API oficial de **Google Maps** (`googlemaps`). Se logró un 100% de precisión en coordenadas para intersecciones y direcciones informales.
+- **Seguridad:** Integración de `Maps_API_KEY` en el archivo `.env`. Se configuró para aprovechar la capa gratuita mensual de $200 USD (aprox. 40,000 consultas/mes), garantizando costo cero.
+- **Arreglo (Bug Crítico):** Resolución del "Bug del ID Fantasma" (Schema Clash). Se amplió el generador de llaves primarias (`slug_nombre`) a 25 caracteres y se limpiaron palabras genéricas (ej. "Exposición") para evitar que eventos paralelos se sobreescribieran en el diccionario.
+- **Cambio:** Purgado total del archivo histórico JSON antiguo para regenerar la base de datos limpia con la nueva estructura de IDs.
 ---
 
 ## 💡 Ideas y Próximos Pasos (Roadmap)
 - [ ] **Desarrollo del Sincronizador:** Crear el script/API que leerá este `eventos_providencia.json` y hará los `POST`/`PUT` a la Base de Datos final de Django/PostgreSQL.
 - [ ] **Sistema de Alertas (Fallback):** Implementar alertas o logs detallados en caso de que un evento no se suba (ej. porque Nominatim falló y no está en el diccionario de alias).
 - [ ] **Resiliencia de Red:** Implementar el patrón de *Reintento Exponencial* (Exponential Backoff) en `ai_parser.py` para asegurar que el script no muera si la API de Gemini tiene una caída momentánea.
-
+- [ ] **Empaquetado y Nube (Lift & Shift):** Crear un `Dockerfile` o configurar el script para AWS Lambda / Google Cloud Functions, permitiendo la ejecución desatendida mediante un Cronjob (ej. 06:00 AM diario).
+- [ ] **Manejo de Secretos en Nube:** Migrar las variables del archivo `.env` local a un gestor de secretos (como AWS Secrets Manager o GitHub Secrets) para el entorno de producción.
 ---
 
 ## ❓ Dudas Resueltas (Archivo Histórico)

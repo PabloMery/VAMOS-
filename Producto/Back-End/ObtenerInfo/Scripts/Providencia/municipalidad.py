@@ -128,7 +128,9 @@ def orquestador_scraping():
 
         for fecha in fechas_reales:
             # Crear ID inmutable
-            slug_nombre = p.get('nombre_evento', 'evento').lower().replace(' ', '_')[:10]
+            nombre_limpio = p.get('nombre_evento', 'evento').lower()
+            nombre_limpio = nombre_limpio.replace('exposición ', '').replace('exposicion ', '').replace('"', '')
+            slug_nombre = nombre_limpio.replace(' ', '_')[:25]
             slug_lugar = lugar_limpio.lower().replace(' ', '_')[:8]
             hora_str = str(p.get('hora_inicio', '0000')).replace(':', '')
             id_unico = f"provi_{slug_nombre}_{slug_lugar}_{fecha.replace('-', '')}_{hora_str}"
