@@ -5,6 +5,10 @@
 venv/
 env/
 .venv/
+# ========
+# Claves o datos privados
+# ========
+
 .env
 
 # Archivos compilados y caché de Python
