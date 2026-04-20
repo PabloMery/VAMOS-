@@ -1,98 +1,138 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Text,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
+import MapView from "react-native-maps";
+import * as Location from "expo-location";
+import { Event } from "@/types/Event";
+import { useEvents } from "@/hooks/useEvents";
+import { EventMarker } from "@/components/EventMarker";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
-export default function HomeScreen() {
+export default function MapScreen() {
+  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") return;
+      const loc = await Location.getCurrentPositionAsync({});
+      setCoords({ lat: loc.coords.latitude, lng: loc.coords.longitude });
+    })();
+  }, []);
+
+  const { events, loading, error } = useEvents(coords.lat, coords.lng);
+
+  if (!coords.lat) return <ActivityIndicator style={styles.loader} size="large" />;
+  if (error) return <Text style={{ padding: 20 }}>❌ {error}</Text>;
+
+  const horario = selectedEvent
+    ? selectedEvent.horario_variable
+      ? "Horario variable"
+      : selectedEvent.hora_inicio
+      ? `${selectedEvent.hora_inicio} - ${selectedEvent.hora_fin ?? "?"}`
+      : "Sin horario"
+    : "";
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: coords.lat,
+          longitude: coords.lng,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+        showsUserLocation={true}
+      >
+        {events.map((event) => (
+          <EventMarker
+            key={event.id_externo}
+            event={event}
+            onPress={setSelectedEvent} //  guarda el evento tocado
+          />
+        ))}
+      </MapView>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Modal FUERA del MapView */}
+      <Modal
+        visible={selectedEvent !== null}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setSelectedEvent(null)}
+      >
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={() => setSelectedEvent(null)}
+        >
+          <TouchableOpacity style={styles.card} activeOpacity={1}>
+            <Text style={styles.title}>{selectedEvent?.nombre_evento}</Text>
+            <Text> {selectedEvent?.lugar_texto}</Text>
+            <Text> {selectedEvent?.fecha_evento}</Text>
+            <Text> {horario}</Text>
+            <Text> {selectedEvent?.categoria}</Text>
+
+            {selectedEvent && (
+              <>
+                {selectedEvent.precio === null && <Text>Sin info de precio</Text>}
+                {selectedEvent.precio === 0 && <Text>Gratis</Text>}
+                {selectedEvent.precio !== null && selectedEvent.precio > 0 && (
+                  <Text> ${selectedEvent.precio}</Text>
+                )}
+              </>
+            )}
+
+            <Text>
+               {selectedEvent?.requiere_inscripcion ? "Requiere inscripción" : "Sin inscripción"}
+            </Text>
+            <Text style={styles.estado}>{selectedEvent?.estado_evento}</Text>
+            <Text style={styles.origen}>Fuente: {selectedEvent?.origen_datos}</Text>
+
+            <TouchableOpacity
+              style={styles.botonCerrar}
+              onPress={() => setSelectedEvent(null)}
+            >
+              <Text style={styles.botonTexto}>Cerrar</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { flex: 1 },
+  map: { flex: 1 },
+  loader: { flex: 1 },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "flex-end",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  card: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    gap: 6,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: { fontWeight: "bold", fontSize: 16, marginBottom: 4 },
+  estado: { marginTop: 4, color: "gray", fontStyle: "italic" },
+  origen: { fontSize: 11, color: "#aaa" },
+  botonCerrar: {
+    marginTop: 16,
+    backgroundColor: "#007AFF",
+    borderRadius: 10,
+    padding: 12,
+    alignItems: "center",
   },
+  botonTexto: { color: "white", fontWeight: "bold" },
 });
