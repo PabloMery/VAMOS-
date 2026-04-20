@@ -41,35 +41,3 @@ app-example
 # generated native folders
 /ios
 /android
-# =========================
-# Python / Django
-# =========================
-
-# Archivos compilados de Python
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Entornos Virtuales (¡Aquí está el 'env' que creamos en el paso anterior!)
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Variables de entorno y Secretos (CRUCIAL para no filtrar tu usuario/password de PostgreSQL)
-.env
-.env.*
-!.env.example
-
-# Base de datos local (por si Django la llega a crear por accidente antes de conectar Postgres)
-db.sqlite3
-db.sqlite3-journal
-
-# Archivos estáticos y multimedia (archivos subidos)
-media/
-static/
-staticfiles/
-
-# Logs de Python o Django
-*.log
