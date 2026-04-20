@@ -5,6 +5,7 @@
 venv/
 env/
 .venv/
+.env
 
 # Archivos compilados y caché de Python
 __pycache__/
@@ -12,7 +13,7 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
-
+.en
 # Logs y bases de datos locales
 *.log
 *.sqlite3
