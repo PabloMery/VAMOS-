@@ -45,6 +45,7 @@ def extraer_eventos_estructurados(lista_textos_brutos):
     - "horario_variable": true si depende de la actividad/no hay hora fija, false si el horario está claro.
     - "precio": Si hay monto, ponlo. Si dice gratis/liberada, pon "Gratuito". Si varía, pon "Consultar precio en lugar". Si no menciona nada, pon null.
     - "requiere_inscripcion": true si menciona cupos, inscripciones o correos de reserva. false si no.
+    - "cupos_llenos": true SOLO SI el texto dice explícitamente "Agotado", "Cupos llenos", "Sin cupos" o similar. false en caso contrario.
     - "url_oficial": Extrae la URL que viene al final de cada bloque de texto original. Si dice 'null', pon null.
 
     ESTRUCTURA EXACTA DEL JSON ESPERADO (Array de objetos):
@@ -57,10 +58,11 @@ def extraer_eventos_estructurados(lista_textos_brutos):
         "hora_fin": "HH:MM o null",
         "horario_variable": true o false,
         "tipo_recurrencia": "mensual | semanal | rango | unico",
-        "dias_semana": ["Lunes", "Martes"], // Vacío si no aplica
-        "fechas_especificas": ["2026-04-27"], // Fechas exactas en YYYY-MM-DD si es rango/unico
+        "dias_semana": ["Lunes", "Martes"], 
+        "fechas_especificas": ["2026-04-27"], 
         "precio": "String o null",
         "requiere_inscripcion": true o false,
+        "cupos_llenos": true o false,
         "url_oficial": "String o null"
       }}
     ]
