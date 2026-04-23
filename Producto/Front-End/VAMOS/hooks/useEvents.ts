@@ -1,27 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { mockEvents } from "../data/mockEvents";
 import { Event } from "../types/Event";
-import { mockEvents } from "../data/mockEvents"; // 👈 importa el mock
 
-const USE_MOCK = true; // 🔧 cambia a false cuando tengas la API lista
+const USE_MOCK = true;
 
-export function useEvents(lat: number, lng: number) {
+export function useEvents(lat: number, lng: number, date: Date) { // 👈 recibe date
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Convierte Date a string "2026-04-22" para comparar con fecha_evento
+  const dateString = date.toISOString().split("T")[0];
+
   useEffect(() => {
+    setLoading(true);
+
     if (USE_MOCK) {
-      // Simula un pequeño delay como si fuera una API real
       setTimeout(() => {
-        setEvents(mockEvents);
+        const filtered = mockEvents.filter(
+          (e) => e.fecha_evento === dateString  // 👈 solo eventos de ese día
+        );
+        setEvents(filtered);
         setLoading(false);
-      }, 500);
+      }, 300);
       return;
     }
 
     if (!lat || !lng) return;
 
-    fetch(`https://tu-api.com/events?lat=${lat}&lng=${lng}&radius=5000`)
+    fetch(`https://tu-api.com/events?lat=${lat}&lng=${lng}&date=${dateString}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener eventos");
         return res.json();
@@ -29,7 +36,7 @@ export function useEvents(lat: number, lng: number) {
       .then((data: Event[]) => setEvents(data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [lat, lng]);
+  }, [lat, lng, dateString]); // 👈 se re-ejecuta cuando cambia la fecha
 
   return { events, loading, error };
 }
