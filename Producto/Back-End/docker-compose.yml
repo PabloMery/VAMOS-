@@ -1,15 +1,40 @@
 version: '3.8'
 
 services:
-  postgres_db:
+  # 1. EL CONTENEDOR DE BASE DE DATOS (Simula tu futuro Amazon RDS)
+  db:
     image: postgres:15-alpine
-    container_name: vamos_postgres
+    container_name: vamos_postgres_db
     restart: always
     environment:
-      POSTGRES_USER: freddy
-      POSTGRES_PASSWORD: superpassword123
-      POSTGRES_DB: vamos_bd
+      - POSTGRES_USER=vamos_admin
+      - POSTGRES_PASSWORD=vamos_secreto
+      # No definimos POSTGRES_DB aquí porque usamos el script init-db.sql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Aquí le inyectamos el script para que cree las 2 BD al arrancar
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5432:5432"
+
+  # 2. EL CONTENEDOR DEL BACKEND (Simula tu futura instancia EC2 t3.micro)
+  api:
+    build: .
+    container_name: vamos_django_api
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./DB/pgdata:/var/lib/postgresql/data
+      - .:/app  # Sincroniza tu código local para no tener que reiniciar Docker en cada cambio
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      # Estas variables le dirán a Django cómo conectarse
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=vamos_admin
+      - DB_PASSWORD=vamos_secreto
+      # (Las credenciales de Gemini y demás irán aquí o en un .env)
+
+volumes:
+  postgres_data:
