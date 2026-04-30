@@ -1,40 +1,55 @@
-version: '3.8'
-
 services:
-  # 1. EL CONTENEDOR DE BASE DE DATOS (Simula tu futuro Amazon RDS)
+  # 1. LA BASE DE DATOS (Ahora con superpoderes de IA: pgvector)
   db:
-    image: postgres:15-alpine
+    image: ankane/pgvector:latest
     container_name: vamos_postgres_db
     restart: always
+    env_file:
+      - .env # <-- Le decimos a Docker que lea tus secretos de aquí
     environment:
-      - POSTGRES_USER=vamos_admin
-      - POSTGRES_PASSWORD=vamos_secreto
-      # No definimos POSTGRES_DB aquí porque usamos el script init-db.sql
+      # Inyectamos las variables de forma segura
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      # Aquí le inyectamos el script para que cree las 2 BD al arrancar
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5432:5432"
 
-  # 2. EL CONTENEDOR DEL BACKEND (Simula tu futura instancia EC2 t3.micro)
+  # 2. PGADMIN (Interfaz gráfica para tu compañero)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: vamos_pgadmin
+    restart: always
+    environment:
+      # Estas puedes dejarlas así porque son solo locales, o pasarlas al .env después si quieres
+      - PGADMIN_DEFAULT_EMAIL=admin@vamos.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  # 3. EL BACKEND (Tu API)
   api:
     build: .
     container_name: vamos_django_api
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app  # Sincroniza tu código local para no tener que reiniciar Docker en cada cambio
+      - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+    env_file:
+      - .env # <-- Django también necesita leer los secretos
     environment:
-      # Estas variables le dirán a Django cómo conectarse
+      # Los datos de conexión interna de Docker se quedan igual
       - DB_HOST=db
       - DB_PORT=5432
-      - DB_USER=vamos_admin
-      - DB_PASSWORD=vamos_secreto
-      # (Las credenciales de Gemini y demás irán aquí o en un .env)
+      # Usamos las credenciales dinámicas
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
 
 volumes:
   postgres_data:

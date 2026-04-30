@@ -7,19 +7,19 @@ from datetime import datetime
 RUTA_ACTUAL = os.path.dirname(os.path.abspath(__file__))
 RUTA_JSON = os.path.join(RUTA_ACTUAL, '..', 'ObtenerInfo', 'JSON', 'eventos_providencia.json')
 
-# Credenciales DB
-DB_HOST = "localhost"
+# Nuevas Credenciales DB (Apuntando a tu Docker)
+DB_HOST = "localhost" # Sigue siendo localhost porque corres el script desde tu PC
 DB_PORT = "5432"
-DB_NAME = "vamos_bd"
-DB_USER = "freddy"
-DB_PASS = "superpassword123"
+DB_NAME = "vamos_eventos" # ¡Cambio crucial! Ahora apunta al piso correcto
+DB_USER = "vamos_admin"   # ¡Cambio crucial!
+DB_PASS = "vamos_secreto" # ¡Cambio crucial!
 
 def inicializar_base_de_datos(cursor):
     """Crea las tablas relacionadas en PostgreSQL si no existen."""
     cursor.execute('DROP TABLE IF EXISTS fechas_eventos CASCADE;')
     cursor.execute('DROP TABLE IF EXISTS eventos CASCADE;')
     
-    # 1. Tabla Padre (El Evento principal)
+    # 1. Tabla Padre (El Evento principal + IA)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS eventos (
             id_externo VARCHAR(255) PRIMARY KEY,
@@ -35,9 +35,12 @@ def inicializar_base_de_datos(cursor):
             latitud DOUBLE PRECISION,
             longitud DOUBLE PRECISION,
             url_oficial TEXT,
-            estado_general VARCHAR(50), -- Activo, Copado, No Listado, etc.
+            estado_general VARCHAR(50), 
             origen_datos VARCHAR(100),
-            ultima_actualizacion TIMESTAMP
+            ultima_actualizacion TIMESTAMP,
+            
+            -- EL NUEVO CAMPO PARA TU AMIGO (Admite nulos por ahora)
+            embedding VECTOR(768) 
         )
     ''')
 
@@ -78,7 +81,7 @@ def sincronizar_datos():
             lat = coords.get('latitud') if coords else None
             lng = coords.get('longitud') if coords else None
             
-            # 1. Insertar el Evento Padre (ON CONFLICT DO UPDATE)
+            # Nota: No insertamos el 'embedding' aquí, el script de tu amigo lo hará después
             cursor.execute('''
                 INSERT INTO eventos (
                     id_externo, nombre_evento, hora_inicio, hora_fin, 
@@ -117,7 +120,7 @@ def sincronizar_datos():
                 ))
 
         conexion.commit()
-        print(f"✅ ¡Éxito! Base de datos PostgreSQL actualizada con {len(eventos_json)} registros agrupados.")
+        print(f"✅ ¡Éxito! Base de datos PostgreSQL actualizada con {len(eventos_json)} registros.")
         
     except Exception as e:
         if 'conexion' in locals():
