@@ -1,0 +1,89 @@
+-- ====================================================================
+-- 0. HABILITACIÓN DE INTELIGENCIA ARTIFICIAL (CRÍTICO)
+-- ====================================================================
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- ====================================================================
+-- 1. LIMPIEZA TOTAL DEL ESQUEMA (Ordenado por dependencias)
+-- ====================================================================
+DROP VIEW IF EXISTS vista_monitoreo_agente;
+DROP TABLE IF EXISTS logs_conversacion CASCADE;
+DROP TABLE IF EXISTS historial_conversacion CASCADE;
+DROP TABLE IF EXISTS sesiones CASCADE;
+DROP TABLE IF EXISTS usuarios CASCADE;
+DROP TABLE IF EXISTS eventos CASCADE;
+
+-- ====================================================================
+-- 2. CREACIÓN DE TABLA DE EVENTOS (Estructura Actualizada)
+-- ====================================================================
+CREATE TABLE eventos (
+    id_externo VARCHAR(255) PRIMARY KEY,
+    nombre_evento VARCHAR(255),
+    descripcion TEXT, 
+    categoria VARCHAR(100),
+    estado_evento VARCHAR(50),
+    origen_datos VARCHAR(100),
+    fecha_evento DATE,
+    hora_inicio TIME,
+    hora_fin TIME,
+    horario_variable BOOLEAN DEFAULT FALSE,
+    precio VARCHAR(100),
+    requiere_inscripcion BOOLEAN DEFAULT FALSE,
+    url_oficial TEXT,
+    lugar_texto TEXT,
+    latitud DOUBLE PRECISION,
+    longitud DOUBLE PRECISION,
+    ultima_actualizacion TIMESTAMP DEFAULT NOW(),
+    embedding VECTOR(768) 
+);
+
+-- ====================================================================
+-- 3. CREACIÓN DE TABLAS BASE DEL AGENTE (Arquitectura V2.0)
+-- ====================================================================
+CREATE TABLE usuarios (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nombre          TEXT,
+  email           TEXT UNIQUE,
+  preferencias    JSONB NULL,
+  creado_en       TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE sesiones (
+  session_id      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  usuario_id      UUID REFERENCES usuarios(id) NULL,
+  creado_en       TIMESTAMP DEFAULT NOW(),
+  ultimo_acceso   TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE historial_conversacion (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id      UUID REFERENCES sesiones(session_id),
+  rol             TEXT CHECK (rol IN ('user', 'assistant')),
+  mensaje         TEXT,
+  creado_en       TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE logs_conversacion (
+  id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id            UUID,
+  mensaje_evaluado_id   UUID,
+  tipo_evento           TEXT,
+  datos_frescos         BOOLEAN DEFAULT TRUE,
+  feedback_usuario      SMALLINT,
+  detalle               JSONB,
+  creado_en             TIMESTAMP DEFAULT NOW()
+);
+
+-- ====================================================================
+-- 4. CREACIÓN DE VISTA DE MONITOREO
+-- ====================================================================
+CREATE VIEW vista_monitoreo_agente AS
+SELECT 
+    l.session_id,
+    l.tipo_evento AS "Evento",
+    l.datos_frescos AS "Frescura",
+    l.feedback_usuario AS "Feedback UI",
+    l.detalle->>'user_query' AS "Pregunta",
+    l.creado_en AS "Fecha"
+FROM logs_conversacion l
+ORDER BY l.creado_en DESC;

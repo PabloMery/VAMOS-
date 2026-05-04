@@ -64,3 +64,32 @@ venv/
 # Esto es vital para que tus amigos no descarguen TU base de datos
 DB/pgdata/
 **/DB/pgdata/
+
+# =========================
+# Backend / Python
+# =========================
+# Entornos virtuales
+venv/
+env/
+.venv/
+# ========
+# Claves o datos privados
+# ========
+
+.env
+
+# Archivos compilados y caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.en
+# Logs y bases de datos locales
+*.log
+*.sqlite3
+
+# Herramientas de tipado y testing (para cuando hagamos QA)
+.mypy_cache/
+.pytest_cache/
+.coverage
