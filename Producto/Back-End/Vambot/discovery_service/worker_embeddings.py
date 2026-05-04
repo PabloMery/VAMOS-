@@ -1,102 +1,143 @@
 import os
 import time
+import logging
 import psycopg2
+from psycopg2 import OperationalError as PgOperationalError
 from dotenv import load_dotenv
 import google.generativeai as genai
+from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
 from pgvector.psycopg2 import register_vector
 
-# Cargar variables de entorno
+# ──────────────────────────────────────────────
+# 1. Configuración Inicial
+# ──────────────────────────────────────────────
 load_dotenv()
-
-# Configurar Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("embedding-worker")
+
 MODEL_EMBEDDING = "models/gemini-embedding-001"
-BATCH_SIZE = 20
-SLEEP_SECONDS = 60
+BATCH_SIZE      = 20
+SLEEP_SECONDS   = 60
 
+# ──────────────────────────────────────────────
+# 2. Conexión a BD (sin pool, worker es single-thread)
+# ──────────────────────────────────────────────
 def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
-            dbname=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASS")
-        )
-        register_vector(conn)
-        return conn
-    except Exception as e:
-        print(f"[ERROR CRÍTICO] No se pudo conectar a la BD: {e}")
-        return None
+    conn = psycopg2.connect(
+        host=os.getenv("DB_HOST"),
+        port=os.getenv("DB_PORT"),
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASS"),
+        connect_timeout=5,
+    )
+    register_vector(conn)
+    return conn
 
-def procesar_embeddings():
-    conn = get_db_connection()
-    if not conn:
-        return
+# ──────────────────────────────────────────────
+# 3. Construcción del texto a vectorizar
+# ──────────────────────────────────────────────
+def construir_texto_embedding(nombre: str, categoria: str, lugar: str) -> str:
+    """
+    Combina los campos disponibles en un texto limpio.
+    Omite los campos que vengan vacíos o nulos.
+    """
+    partes = [
+        nombre    or "",
+        categoria or "",
+        lugar     or "",
+    ]
+    return " | ".join(p for p in partes if p.strip())
+
+# ──────────────────────────────────────────────
+# 4. Procesamiento del batch
+# ──────────────────────────────────────────────
+def procesar_embeddings() -> bool:
+    """
+    Retorna True si no había eventos que procesar (worker debe dormir).
+    Retorna False si procesó un batch (puede haber más, continuar pronto).
+    """
+    try:
+        conn = get_db_connection()
+    except PgOperationalError as e:
+        logger.error("No se pudo conectar a la BD: %s", e)
+        return True  # dormir y reintentar
 
     try:
         cursor = conn.cursor()
-        
-        # 1. Buscar eventos sin vector usando la nueva llave primaria (id_externo)
+
+        # — Buscar eventos sin vector —
         cursor.execute("""
-            SELECT id_externo, descripcion 
-            FROM eventos 
-            WHERE embedding IS NULL AND descripcion IS NOT NULL 
+            SELECT id_externo, nombre_evento, categoria, lugar_texto
+            FROM eventos
+            WHERE embedding IS NULL
+              AND nombre_evento IS NOT NULL
             LIMIT %s;
         """, (BATCH_SIZE,))
-        
+
         eventos = cursor.fetchall()
-        
+
         if not eventos:
-            print(f"[{time.strftime('%H:%M:%S')}] Sin eventos nuevos. Durmiendo {SLEEP_SECONDS}s...")
+            logger.info("Sin eventos nuevos. Durmiendo %ss...", SLEEP_SECONDS)
             return True
 
-        print(f"[{time.strftime('%H:%M:%S')}] Procesando batch de {len(eventos)} eventos...")
-        
-        textos = [evento[1] for evento in eventos]
-        
-        # 2. Llamar a Gemini text-embedding-004
-        resultado = genai.embed_content(
-            model=MODEL_EMBEDDING,
-            content=textos,
-            task_type="RETRIEVAL_DOCUMENT"
-        )
-        
-        embeddings = resultado['embedding']
+        logger.info("Procesando batch de %d eventos...", len(eventos))
 
-        # 3. Actualizar la base de datos usando id_externo
+        # — Construir textos combinados —
+        textos = [
+            construir_texto_embedding(r[1], r[2], r[3])
+            for r in eventos
+        ]
+
+        # — Generar embeddings con Gemini —
+        try:
+            resultado   = genai.embed_content(
+                model=MODEL_EMBEDDING,
+                content=textos,
+                task_type="RETRIEVAL_DOCUMENT",
+            )
+            embeddings = resultado["embedding"]
+
+        except ResourceExhausted as e:
+            logger.warning("Gemini rate limit. Durmiendo %ss antes de reintentar: %s",
+                           SLEEP_SECONDS, e)
+            return True  # dormir y reintentar
+        except (DeadlineExceeded, ServiceUnavailable) as e:
+            logger.error("Gemini no disponible: %s", e)
+            return True  # dormir y reintentar
+
+        # — Actualizar BD —
         for i, evento in enumerate(eventos):
-            id_ext = evento[0]
-            vector = embeddings[i][:768]
-            
             cursor.execute("""
-                UPDATE eventos 
-                SET embedding = %s 
+                UPDATE eventos
+                SET embedding = %s
                 WHERE id_externo = %s;
-            """, (vector, id_ext))
-            
+            """, (embeddings[i][:768], evento[0]))
+
         conn.commit()
-        print(f"[ÉXITO] {len(eventos)} eventos vectorizados y guardados.")
-        
+        logger.info("✅ %d eventos vectorizados y guardados.", len(eventos))
+        return False  # puede haber más batches, continuar pronto
+
     except Exception as e:
         conn.rollback()
-        print(f"[ERROR] Falló el procesamiento del batch: {e}")
+        logger.error("Error inesperado en el batch: %s", e)
+        return True  # dormir y reintentar
+
     finally:
         cursor.close()
         conn.close()
-        
-    return False
 
+# ──────────────────────────────────────────────
+# 5. Loop Principal
+# ──────────────────────────────────────────────
 if __name__ == "__main__":
-    print("Iniciando Worker Asíncrono de Embeddings...")
-    print("Presiona Ctrl+C para detener.")
-    
+    logger.info("Iniciando Worker de Embeddings. Presiona Ctrl+C para detener.")
+
     try:
         while True:
-            durmiendo = procesar_embeddings()
-            if durmiendo:
-                time.sleep(SLEEP_SECONDS)
-            else:
-                time.sleep(1) # Pequeña pausa entre batches pesados
+            debe_dormir = procesar_embeddings()
+            time.sleep(SLEEP_SECONDS if debe_dormir else 1)
     except KeyboardInterrupt:
-        print("\nWorker detenido manualmente.")
+        logger.info("Worker detenido manualmente.")

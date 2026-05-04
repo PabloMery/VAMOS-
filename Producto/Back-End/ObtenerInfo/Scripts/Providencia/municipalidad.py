@@ -119,60 +119,86 @@ def orquestador_scraping():
     # 2. Procesamiento y Geolocalización
     for p in plantillas_ia:
         fechas_reales = generar_fechas_evento(p.get('tipo_recurrencia'), p.get('dias_semana', []), p.get('fechas_especificas', []))
-        
-        # Buscamos coordenadas solo una vez por plantilla
+    
         lugar_limpio = p.get('lugar_texto', '')
         coords = geolocalizador.obtener_coordenadas(lugar_limpio)
-        if lugar_limpio and lugar_limpio not in geolocalizador.alias_locales:
-            time.sleep(1.5) # Respeto a OpenStreetMap
 
-        for fecha in fechas_reales:
-            # Crear ID inmutable
-            nombre_limpio = p.get('nombre_evento', 'evento').lower()
-            nombre_limpio = nombre_limpio.replace('exposición ', '').replace('exposicion ', '').replace('"', '')
-            slug_nombre = nombre_limpio.replace(' ', '_')[:25]
-            slug_lugar = lugar_limpio.lower().replace(' ', '_')[:8]
-            hora_str = str(p.get('hora_inicio', '0000')).replace(':', '')
-            id_unico = f"provi_{slug_nombre}_{slug_lugar}_{fecha.replace('-', '')}_{hora_str}"
+        nombre_limpio = p.get('nombre_evento', 'evento').lower()
+        slug_nombre = nombre_limpio.replace(' ', '_')[:25]
+        slug_lugar = lugar_limpio.lower().replace(' ', '_')[:8]
+        hora_str = str(p.get('hora_inicio', '0000')).replace(':', '')
+        
+        id_unico = f"provi_{slug_nombre}_{slug_lugar}_{hora_str}"
+        ids_encontrados_hoy.add(id_unico)
+
+        # Lógica de Fechas (Solo 2 estados iniciales: Listado o Finalizado)
+        fechas_con_estado = []
+        for f in fechas_reales:
+            estado_dia = "Finalizado" if f < HOY_STR else "Listado"
+            fechas_con_estado.append({"fecha": f, "estado": estado_dia})
+
+        # Fusión o Creación
+        if id_unico in bd_local:
+            fechas_existentes = {item['fecha']: item['estado'] for item in bd_local[id_unico]['fechas_evento']}
+            for nuevo_dia in fechas_con_estado:
+                # Si lo volvimos a ver, se asegura como Listado (sin tocar los ya finalizados)
+                if nuevo_dia['fecha'] >= HOY_STR:
+                    fechas_existentes[nuevo_dia['fecha']] = "Listado"
             
-            ids_encontrados_hoy.add(id_unico)
-
-            # Lógica del Estado
-            estado = "Activo"
-            if fecha < HOY_STR:
-                estado = "Finalizado"
-
-            # Construir el objeto final respetando tus etiquetas exactas
+            bd_local[id_unico]['fechas_evento'] = [{"fecha": k, "estado": v} for k, v in fechas_existentes.items()]
+            
+            # Actualizamos la disponibilidad por si hoy se llenaron los cupos
+            bd_local[id_unico]['cupos_llenos'] = p.get('cupos_llenos', False)
+        
+        else:
             bd_local[id_unico] = {
                 "id_externo": id_unico,
                 "nombre_evento": p.get('nombre_evento'),
-                "fecha_evento": fecha,
+                "fechas_evento": fechas_con_estado,
                 "hora_inicio": p.get('hora_inicio'),
                 "hora_fin": p.get('hora_fin'),
                 "horario_variable": p.get('horario_variable', False),
                 "categoria": p.get('categoria', 'Municipal'),
+                "lugar_texto": lugar_limpio,
+                "coordenadas": coords,
                 "precio": p.get('precio'),
                 "requiere_inscripcion": p.get('requiere_inscripcion', False),
-                "lugar_texto": p.get('lugar_texto'),
-                "coordenadas": coords,
+                "cupos_llenos": p.get('cupos_llenos', False), # <--- Dimensión independiente
                 "url_oficial": p.get('url_oficial'),
-                "estado_evento": estado,
+                "estado_evento": "Activo", # Se calcula en la limpieza
                 "origen_datos": "Municipalidad de Providencia"
             }
 
-    # 3. Lógica de "Limpieza / Cancelaciones"
+    # 3. Lógica de "Limpieza / No Listados" y Estado Contenedor
     for id_viejo, evento_viejo in bd_local.items():
-        if id_viejo not in ids_encontrados_hoy:
-            if evento_viejo['fecha_evento'] >= HOY_STR:
-                evento_viejo['estado_evento'] = "Cancelado"
+        hay_listados = False
+        todas_pasadas = True
+
+        for dia in evento_viejo['fechas_evento']:
+            if dia['fecha'] < HOY_STR:
+                dia['estado'] = "Finalizado"
             else:
-                evento_viejo['estado_evento'] = "Finalizado"
+                todas_pasadas = False
+                # Si el evento NO fue visto por el scraper hoy, se marca "No Listado"
+                if id_viejo not in ids_encontrados_hoy and dia['estado'] == "Listado":
+                    dia['estado'] = "No Listado"
+
+                if dia['estado'] == "Listado":
+                    hay_listados = True
+
+        # Resolver el estado del contenedor general
+        if todas_pasadas:
+            evento_viejo['estado_evento'] = "Finalizado"
+        elif hay_listados:
+            evento_viejo['estado_evento'] = "Activo"
+        else:
+            evento_viejo['estado_evento'] = "No Listado"
 
     # 4. Guardar BD Actualizada
     eventos_finales_json = list(bd_local.values())
     print(f"\n-> Guardando en: {RUTA_JSON}")
     
-    eventos_finales_json.sort(key=lambda x: x['fecha_evento'])
+    eventos_finales_json.sort(key=lambda x: x['fechas_evento'][0]['fecha'] if x['fechas_evento'] else "9999-99-99")
     
     total_guardados = repositorio.guardar(eventos_finales_json)
     print(f"✅ ¡Proceso completado! Hay {total_guardados} eventos en total en la base de datos.")
