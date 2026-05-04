@@ -1,33 +1,47 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import Entypo from "@expo/vector-icons/Entypo";
+import { Tabs } from "expo-router";
+import { Text } from "react-native";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+function Icon({ emoji, focused }: { emoji: string; focused: boolean }) {
+  return (
+    <Text style={{ fontSize: 22, opacity: focused ? 1 : 0.5 }}>{emoji}</Text>
+  );
+}
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarActiveTintColor: "#6f00ff",
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="notifications"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Notificaciones",
+          tabBarIcon: ({ focused }) => <Entypo name="bell" size={24} color="#ff7300" />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="index"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Mapa",
+          tabBarIcon: ({ focused }) => <Entypo name="map" size={24} color="#ff7300" />,
+        }}
+      />
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: "Guardados",
+          tabBarIcon: ({ focused }) => <Entypo name="save" size={24} color="#ff7300" />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Perfil",
+          tabBarIcon: ({ focused }) => <Entypo name="user" size={24} color="#ff7300" />,
         }}
       />
     </Tabs>
