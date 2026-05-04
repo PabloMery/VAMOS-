@@ -1,0 +1,120 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+
+# generated native folders
+/ios
+/android
+
+**/venv/
+**/__pycache__/
+.env
+
+# Ignorar todos los entornos virtuales en cualquier subcarpeta
+**/venv/
+**/env/
+venv/
+
+# Ignorar archivos temporales de Python
+**/__pycache__/
+*.pyc
+
+# Ignorar el archivo de variables de entorno (SEGURIDAD)
+.env
+**/DataSeeder/.env
+**/ObtenerInfo/.env
+
+# Ignorar los DATOS FÍSICOS de la base de datos (Docker)
+# Esto es vital para que tus amigos no descarguen TU base de datos
+DB/pgdata/
+**/DB/pgdata/
+
+venv/
+env/
+.env
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+node_modules/
+
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+
+# generated native folders
+/ios
+/android
