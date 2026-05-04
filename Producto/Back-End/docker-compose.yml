@@ -1,15 +1,55 @@
-version: '3.8'
-
 services:
-  postgres_db:
-    image: postgres:15-alpine
-    container_name: vamos_postgres
+  # 1. LA BASE DE DATOS (Ahora con superpoderes de IA: pgvector)
+  db:
+    image: ankane/pgvector:latest
+    container_name: vamos_postgres_db
     restart: always
+    env_file:
+      - .env # <-- Le decimos a Docker que lea tus secretos de aquí
     environment:
-      POSTGRES_USER: freddy
-      POSTGRES_PASSWORD: superpassword123
-      POSTGRES_DB: vamos_bd
+      # Inyectamos las variables de forma segura
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5432:5432"
+
+  # 2. PGADMIN (Interfaz gráfica para tu compañero)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: vamos_pgadmin
+    restart: always
+    environment:
+      # Estas puedes dejarlas así porque son solo locales, o pasarlas al .env después si quieres
+      - PGADMIN_DEFAULT_EMAIL=admin@vamos.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  # 3. EL BACKEND (Tu API)
+  api:
+    build: .
+    container_name: vamos_django_api
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./DB/pgdata:/var/lib/postgresql/data
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env # <-- Django también necesita leer los secretos
+    environment:
+      # Los datos de conexión interna de Docker se quedan igual
+      - DB_HOST=db
+      - DB_PORT=5432
+      # Usamos las credenciales dinámicas
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+volumes:
+  postgres_data:
