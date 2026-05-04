@@ -1,9 +1,10 @@
+
+import { Event } from "@/types/Event";
 import { Marker } from "react-native-maps";
-import { Event } from "../types/Event";
 
 type Props = {
   event: Event;
-  onPress: (event: Event) => void; // 👈 avisa al padre cuando se toca
+  onPress: (event: Event) => void; 
 };
 
 export function EventMarker({ event, onPress }: Props) {

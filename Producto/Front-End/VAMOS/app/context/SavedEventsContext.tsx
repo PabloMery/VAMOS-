@@ -51,3 +51,4 @@ export function SavedEventsProvider({ children }: { children: ReactNode }) {
     </SavedEventsContext.Provider>
   );
 }
+export default function SavedEventsContextPlaceholder() { return null; }
