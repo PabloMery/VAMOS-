@@ -1,120 +1,175 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# ============================================================
+# VAMOS — .gitignore UNIFICADO (raíz del repositorio)
+# Cubre: React Native / Expo, Django, FastAPI, Docker, Python
+# ============================================================
 
-# dependencies
-node_modules/
 
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
-
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
-*.pem
-
-# local env files
-.env*.local
-
-# typescript
-*.tsbuildinfo
-
-app-example
-
-# generated native folders
-/ios
-/android
-
-**/venv/
-**/__pycache__/
+# ========================
+# 🔑 SEGURIDAD — NUNCA subir
+# ========================
 .env
-
-# Ignorar todos los entornos virtuales en cualquier subcarpeta
-**/venv/
-**/env/
-venv/
-
-# Ignorar archivos temporales de Python
-**/__pycache__/
-*.pyc
-
-# Ignorar el archivo de variables de entorno (SEGURIDAD)
-.env
+.env.*
+!.env.example          # Sí se puede subir el archivo de ejemplo
 **/DataSeeder/.env
 **/ObtenerInfo/.env
+**/discovery_service/.env
 
-# Ignorar los DATOS FÍSICOS de la base de datos (Docker)
-# Esto es vital para que tus amigos no descarguen TU base de datos
-DB/pgdata/
-**/DB/pgdata/
-
-venv/
-env/
-.env
-
-__pycache__/
-*.py[cod]
-*$py.class
-
-node_modules/
-
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
-node_modules/
-
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
-
-# Native
-.kotlin/
-*.orig.*
-*.jks
+# Claves y certificados
+*.key
+*.pem
 *.p8
 *.p12
-*.key
+*.jks
 *.mobileprovision
+*.keystore
+google-services.json
+GoogleService-Info.plist
 
-# Metro
-.metro-health-check*
 
-# debug
+# ========================
+# 🐘 BASE DE DATOS — NUNCA subir datos físicos
+# ========================
+DB/pgdata/
+**/DB/pgdata/
+*.sqlite3
+db.sqlite3
+
+
+# ========================
+# 🐍 PYTHON
+# ========================
+# Entornos virtuales
+venv/
+env/
+.venv/
+**/venv/
+**/env/
+**/.venv/
+
+# Caché y compilados
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*$py.class
+.Python
+
+# Distribución / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# Testing y coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+
+# Tipado
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# Logs
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+
+# ========================
+# 🟨 NODE / JAVASCRIPT
+# ========================
+**/node_modules/
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+.pnp/
+.pnp.js
+.yarn/
 
-# macOS
-.DS_Store
-*.pem
 
-# local env files
-.env*.local
+# ========================
+# 📱 EXPO / REACT NATIVE
+# ========================
+.expo/
+expo-env.d.ts
+web-build/
 
-# typescript
-*.tsbuildinfo
-
-app-example
-
-# generated native folders
+# Carpetas nativas generadas (se regeneran con prebuild)
 /ios
 /android
+.kotlin/
+
+# Metro bundler
+.metro-health-check*
+
+# Expo Router
+app-example/
+
+
+# ========================
+# 📦 BUILD / OUTPUTS
+# ========================
+dist/
+*.tsbuildinfo
+*.orig.*
+
+
+# ========================
+# 🍎 macOS
+# ========================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+
+# ========================
+# 🪟 Windows
+# ========================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+
+# ========================
+# 💻 IDEs y editores
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+
+# ========================
+# 🐳 DOCKER
+# ========================
+# No ignorar docker-compose.yml ni Dockerfile (son configuración, no datos)
+# Sí ignorar volúmenes y datos generados
+postgres_data/
+**/postgres_data/
+
+
+# ========================
+# 📊 DATOS SCRAPEADOS (opcional — ver nota)
+# ========================
+# Descomenta si NO quieres versionar los JSONs generados por el scraper.
+# Si los quieres versionar para tener historial, déjalos comentados.
+#
+# Producto/Back-End/ObtenerInfo/JSON/*.json

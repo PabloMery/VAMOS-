@@ -2,15 +2,17 @@ import os
 import logging
 import psycopg2
 import psycopg2.pool
+import google.generativeai as genai
+import re
 from psycopg2 import OperationalError as PgOperationalError
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from dotenv import load_dotenv
-import google.generativeai as genai
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
 from pgvector.psycopg2 import register_vector
 from datetime import datetime, timezone
+from pydantic import BaseModel, Field, validator, ValidationError
 
 # ──────────────────────────────────────────────
 # 1. Configuración Inicial
@@ -50,11 +52,33 @@ except PgOperationalError as e:
 # ──────────────────────────────────────────────
 # 3. Esquemas de Datos
 # ──────────────────────────────────────────────
-class ChatRequest(BaseModel):
-    mensaje:  str
-    latitud:  Optional[float] = None
-    longitud: Optional[float] = None
+# ──────────────────────────────────────────────
+# 3. Esquemas de Datos  (reemplaza el bloque anterior)
+# ──────────────────────────────────────────────
 
+# Patrones que intentan manipular al LLM
+_PROMPT_INJECTION_PATTERNS = re.compile(
+    r"(ignore|ignora|olvida|forget|override|bypass|pretend|actúa como|act as"
+    r"|system:|<\|im_start\|>|###\s*instruc)",
+    re.IGNORECASE,
+)
+
+class ChatRequest(BaseModel):
+    mensaje:  str           = Field(..., min_length=1, max_length=500,
+                                    description="Pregunta del usuario")
+    latitud:  Optional[float] = Field(None, ge=-90,   le=90)
+    longitud: Optional[float] = Field(None, ge=-180,  le=180)
+
+    @validator("mensaje")
+    def sanitizar_mensaje(cls, v: str) -> str:
+        v = v.strip()
+        if _PROMPT_INJECTION_PATTERNS.search(v):
+            raise ValueError(
+                "El mensaje contiene patrones no permitidos. "
+                "Por favor reformula tu pregunta."
+            )
+        return v
+    
 class EventoResponse(BaseModel):
     titulo:              str
     resumen_corto:       str
