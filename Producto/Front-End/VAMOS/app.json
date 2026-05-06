@@ -40,6 +40,7 @@
         }
       ],
       "@react-native-community/datetimepicker",
+      "expo-secure-store",
       "expo-web-browser"
     ],
     "experiments": {
