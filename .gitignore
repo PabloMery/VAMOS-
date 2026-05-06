@@ -147,6 +147,7 @@ $RECYCLE.BIN/
 # ========================
 # 💻 IDEs y editores
 # ========================
+**.vscode/
 .vscode/
 .idea/
 *.swp
