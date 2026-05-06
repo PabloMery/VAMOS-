@@ -2,6 +2,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 
+// Pablo lo h1zo 
 // Necesario para que el navegador cierre correctamente al volver a la app
 WebBrowser.maybeCompleteAuthSession();
 
