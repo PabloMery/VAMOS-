@@ -1,4 +1,4 @@
-import { useColors } from "@/hooks/useColors";
+import { useColors } from "@/hooks/use-theme-color";
 import Entypo from "@expo/vector-icons/Entypo";
 import { StyleSheet, Text, View } from "react-native";
 
