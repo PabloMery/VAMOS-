@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+from pgvector.django import VectorField
 
 class UsuarioVAMOS(AbstractUser):
     # ── Datos personales ──────────────────────
@@ -21,5 +23,18 @@ class UsuarioVAMOS(AbstractUser):
         help_text="El usuario acepta recibir notificaciones push"
     )
 
+    class Meta:
+        
+        db_table = 'vamos_usuarios'
+
     def __str__(self):
         return f"{self.email} ({self.get_full_name()})"
+
+class AsistenciaEvento(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    evento_id = models.CharField(max_length=255) 
+    estado = models.CharField(max_length=50)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'vamos_asistencia'

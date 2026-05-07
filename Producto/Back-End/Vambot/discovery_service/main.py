@@ -25,7 +25,7 @@ logger = logging.getLogger("discovery-service")
 
 app = FastAPI(title="Discovery Service - Agente RAG Municipal")
 
-MODEL_CHAT  = "gemini-1.5-flash"
+MODEL_CHAT  = "gemini-2.5-flash"
 MODEL_EMBED = "models/gemini-embedding-001"
 TOP_K       = int(os.getenv("RAG_TOP_N", 5))
 FRESHNESS_THRESHOLD_HOURS = int(os.getenv("SYNC_FRESHNESS_THRESHOLD_HOURS", 24))
@@ -124,16 +124,21 @@ def buscar_eventos_vector(query_text: str) -> list:
     )
     query_vector = result["embedding"][:768]
 
-    # — Búsqueda en BD —
+# — Búsqueda en BD —
     conn = get_db_connection()
     try:
         cur = conn.cursor()
         cur.execute("""
-            SELECT nombre_evento, fecha_evento,
-                   url_oficial, ultima_actualizacion
-            FROM eventos
-            WHERE embedding IS NOT NULL
-            ORDER BY embedding <=> %s
+            SELECT 
+                e.nombre_evento, 
+                f.fecha, 
+                e.url_oficial, 
+                e.ultima_actualizacion
+            FROM eventos e
+            INNER JOIN fechas_eventos f ON e.id_externo = f.id_evento
+            WHERE e.embedding IS NOT NULL
+            AND f.fecha >= CURRENT_DATE
+            ORDER BY e.embedding <=> %s::vector 
             LIMIT %s;
         """, (query_vector, TOP_K))
         results = cur.fetchall()
@@ -287,4 +292,4 @@ async def ask_agent(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

@@ -93,35 +93,35 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": null,
@@ -135,7 +135,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": "https://zonasocios.clubprovidencia.cl/",
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -232,35 +232,35 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "09:00",
@@ -274,7 +274,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -371,35 +371,35 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "12:30",
@@ -413,7 +413,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": "https://zonasocios.clubprovidencia.cl/mi-cuenta/afterschool/",
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -486,27 +486,27 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "07:00",
@@ -520,7 +520,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": "https://zonasocios.clubprovidencia.cl",
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -569,15 +569,15 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "11:00",
@@ -591,7 +591,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -664,27 +664,27 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -698,7 +698,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -783,31 +783,31 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-27",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "11:00",
@@ -821,7 +821,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -846,11 +846,11 @@
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -864,7 +864,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -889,11 +889,11 @@
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -907,7 +907,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -940,15 +940,15 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "08:00",
@@ -962,7 +962,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -983,11 +983,11 @@
       },
       {
         "fecha": "2026-04-23",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-30",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -1001,7 +1001,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1022,7 +1022,7 @@
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "08:00",
@@ -1036,7 +1036,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1057,7 +1057,7 @@
       },
       {
         "fecha": "2026-04-24",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "11:00",
@@ -1071,7 +1071,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1104,11 +1104,11 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "09:00",
@@ -1122,7 +1122,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": "https://zonasocios.clubprovidencia.cl",
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1143,7 +1143,7 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "08:00",
@@ -1157,7 +1157,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1178,7 +1178,7 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "11:00",
@@ -1192,7 +1192,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1213,7 +1213,7 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "15:30",
@@ -1227,7 +1227,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": "https://clubprovidencia.cl/piscina-recreativa-spa/",
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1248,7 +1248,7 @@
       },
       {
         "fecha": "2026-04-25",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -1262,7 +1262,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1283,7 +1283,7 @@
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "11:00",
@@ -1297,7 +1297,7 @@
     "requiere_inscripcion": true,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1318,7 +1318,7 @@
       },
       {
         "fecha": "2026-04-26",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "15:30",
@@ -1332,7 +1332,7 @@
     "requiere_inscripcion": true,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
@@ -1353,11 +1353,11 @@
       },
       {
         "fecha": "2026-04-28",
-        "estado": "Listado"
+        "estado": "Finalizado"
       },
       {
         "fecha": "2026-04-29",
-        "estado": "Listado"
+        "estado": "Finalizado"
       }
     ],
     "hora_inicio": "10:00",
@@ -1371,7 +1371,7 @@
     "requiere_inscripcion": false,
     "cupos_llenos": false,
     "url_oficial": null,
-    "estado_evento": "Activo",
+    "estado_evento": "Finalizado",
     "origen_datos": "Municipalidad de Providencia"
   },
   {
