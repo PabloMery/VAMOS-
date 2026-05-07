@@ -3,10 +3,6 @@
 # dependencies
 node_modules/
 
-#contexto del proyecto
-resumen-vamos-app.md
-vamos-implementacion.txt
-
 # Expo
 .expo/
 dist/
