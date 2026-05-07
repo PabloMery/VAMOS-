@@ -16,4 +16,6 @@ export type Event = {
   url_oficial: string;
   estado_evento: string;
   origen_datos: string;
+  descripcion: string;
+  imagen_url: string | null;
 };
