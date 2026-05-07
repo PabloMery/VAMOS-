@@ -21,5 +21,9 @@ class UsuarioVAMOS(AbstractUser):
         help_text="El usuario acepta recibir notificaciones push"
     )
 
+    class Meta:
+        # Esto obliga a Django a nombrar la tabla exactamente así en la BD
+        db_table = 'usuarios_vamos'
+
     def __str__(self):
         return f"{self.email} ({self.get_full_name()})"
