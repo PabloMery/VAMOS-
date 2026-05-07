@@ -1,7 +1,7 @@
 import { AIChatModal } from "@/components/AIChatModal";
 import { DateSelector } from "@/components/DateSelector";
 import { EventMarker, EventStatus } from "@/components/EventMarker";
-import { useColors } from "@/hooks/useColors";
+import { useColors } from "@/hooks/use-theme-color";
 import { useEvents } from "@/hooks/useEvents";
 import { Event } from "@/types/Event";
 import Entypo from "@expo/vector-icons/Entypo";

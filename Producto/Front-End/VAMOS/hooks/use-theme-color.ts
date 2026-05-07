@@ -1,21 +1,17 @@
+// app/hooks/useColors.ts
+//
+// SHIM: hook legacy que devuelve solo los colores del tema actual.
+// Se mantiene para que el código viejo siga funcionando sin cambios.
+//
+// Para código nuevo, usá `useTheme()` directamente — te da acceso también
+// a spacing, radius, tipografía y sombras.
+ 
+import { useTheme } from "@/hooks/useTheme";
+ 
 /**
- * Learn more about light and dark modes:
- * https://docs.expo.dev/guides/color-schemes/
+ * @deprecated Usá `useTheme()` desde `@/hooks/useTheme` en su lugar.
  */
-
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export function useThemeColor(
-  props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
-) {
-  const theme = useColorScheme() ?? 'light';
-  const colorFromProps = props[theme];
-
-  if (colorFromProps) {
-    return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
-  }
+export function useColors() {
+  return useTheme().colors;
 }
+ 
