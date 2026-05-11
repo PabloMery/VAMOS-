@@ -25,11 +25,11 @@ const STATUS_CONFIG: Record<
     icon: "location",
   },
   guardado: {
-    color: "#F97316", // morado
+    color: "#8B5CF6", // morado
     icon: "help-outline",
   },
   confirmado: {
-    color: "#8B5CF6", // naranjo
+    color: "#F97316", // naranjo
     icon: "alert-outline",
   },
 };
