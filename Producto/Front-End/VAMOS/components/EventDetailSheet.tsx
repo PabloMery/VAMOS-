@@ -83,7 +83,7 @@ export function EventDetailSheet({ event, isSaved, isConfirmed, onClose, onSave,
                 style={[styles.actionBtn, { backgroundColor: isSaved ? theme.colors.primary : theme.colors.primary + "18", borderColor: theme.colors.primary }]}
                 onPress={onSave}
               >
-                <Ionicons name={isSaved ? "heart" : "heart-outline"} size={18} color={isSaved ? "white" : theme.colors.primary} />
+                <Ionicons name={isSaved ? "help" : "help-outline"} size={18} color={isSaved ? "white" : theme.colors.primary} />
                 <Text style={[styles.actionBtnText, { color: isSaved ? "white" : theme.colors.primary }]}>
                   {isSaved ? "Guardado" : "Guardar"}
                 </Text>
@@ -92,7 +92,7 @@ export function EventDetailSheet({ event, isSaved, isConfirmed, onClose, onSave,
                 style={[styles.actionBtn, { backgroundColor: isConfirmed ? theme.colors.confirm : theme.colors.confirm + "18", borderColor: theme.colors.confirm }]}
                 onPress={onConfirm}
               >
-                <Ionicons name={isConfirmed ? "checkmark-circle" : "checkmark-circle-outline"} size={18} color={isConfirmed ? "white" : theme.colors.confirm} />
+                <Ionicons name={isConfirmed ? "alert" : "alert-outline"} size={18} color={isConfirmed ? "white" : theme.colors.confirm} />
                 <Text style={[styles.actionBtnText, { color: isConfirmed ? "white" : theme.colors.confirm }]}>
                   {isConfirmed ? "Confirmado" : "Confirmar"}
                 </Text>
