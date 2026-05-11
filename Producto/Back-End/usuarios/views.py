@@ -7,6 +7,14 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from django.conf import settings
 from .models import UsuarioVAMOS
+from eventos.models import Evento, FechaEvento
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from django.utils import timezone
+from .models import AsistenciaEvento
+from .serializers import AsistenciaEventoSerializer
 
 def generar_tokens_para_usuario(usuario):
     """Genera el par de tokens JWT para un usuario dado."""
@@ -107,3 +115,48 @@ def perfil_usuario(request):
         'fecha_nacimiento': usuario.fecha_nacimiento,
         'avatar_url':       usuario.avatar_url,
     })
+
+class ActualizarEstadoAsistenciaView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = AsistenciaEventoSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            evento_id = serializer.validated_data['evento_id']
+            nuevo_estado = serializer.validated_data['estado']
+            
+            try:
+                # 1. Verificamos que el evento exista
+                evento = Evento.objects.using('eventos_db').get(id_externo=evento_id)
+                
+                # 2. VALIDACIÓN ESTRELLA: ¿Alguna de las fechas de este evento es HOY?
+                hoy = timezone.now().date()
+                
+                es_hoy = FechaEvento.objects.using('eventos_db').filter(
+                    evento=evento, 
+                    fecha=hoy
+                ).exists()
+
+                if not es_hoy:
+                    return Response(
+                        {"error": "Aún no es el día del evento o el evento ya pasó. Solo puedes cambiar tu estado el mismo día."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+                # 3. Guardar el estado si pasó la prueba
+                asistencia, created = AsistenciaEvento.objects.update_or_create(
+                    usuario=request.user,
+                    evento_id=evento_id,
+                    defaults={'estado': nuevo_estado}
+                )
+
+                return Response({
+                    "message": "Estado actualizado correctamente",
+                    "estado": asistencia.estado
+                }, status=status.HTTP_200_OK)
+
+            except Evento.DoesNotExist:
+                return Response({"error": "El evento no existe en la base de datos."}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

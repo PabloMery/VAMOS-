@@ -1,3 +1,4 @@
+print("1. El archivo arrancó...")
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -6,6 +7,9 @@ import os
 import json
 from datetime import datetime
 import calendar
+from tqdm import tqdm
+import time
+print("2. Librerías importadas...")
 
 # Ajuste para que Python encuentre la carpeta 'Utils'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -13,7 +17,11 @@ from Utils.geocoding_factory import FabricaGeolocalizacion
 from Utils.repositorio_eventos import RepositorioJSON
 from Utils.ai_parser import extraer_eventos_estructurados
 
-URL_MUNICIPALIDAD = 'https://providencia.cl/provi/explora/actividades/del-mes/actividades-de-abril-2026'
+MESES_ES = {
+    1: "enero", 2: "febrero", 3: "marzo", 4: "abril",
+    5: "mayo", 6: "junio", 7: "julio", 8: "agosto",
+    9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre"
+}
 
 # Obtenemos la hora actual del servidor/PC
 AHORA = datetime.now()
@@ -65,14 +73,34 @@ def leer_historial_json():
                 return {}
     return {}
 
+def construir_url_del_mes():
+    """Genera la URL exacta con la estructura actual de la municipalidad."""
+    mes_texto = MESES_ES[AHORA.month]
+    año_actual = AHORA.year
+    
+    # Aquí inyectamos las variables en la ruta que proporcionaste
+    url = f"https://providencia.cl/provi/site/tax/port/fid_actividades/provi/actividades-de-{mes_texto}-{año_actual}"
+    
+    return url
+
 def orquestador_scraping():
     print(f"=== INICIANDO VAMOS ENGINE: {geolocalizador.nombre_comuna} ===")
     
+    # 1. Obtener la URL armada para este mes específico
+    url_objetivo = construir_url_del_mes()
+    print(f"🚀 Conectando a: {url_objetivo}")
+    
     try:
-        respuesta = requests.get(URL_MUNICIPALIDAD, headers={'User-Agent': 'Mozilla/5.0'})
+        respuesta = requests.get(url_objetivo, headers={'User-Agent': 'Mozilla/5.0'})
+        
+        # 2. Control de daños: ¿Qué pasa si la municipalidad aún no crea la página?
+        if respuesta.status_code == 404:
+            print(f"⚠️ La página de {MESES_ES[AHORA.month]} aún no ha sido publicada por la municipalidad.")
+            return {"status": "error", "mensaje": "Página 404 No Encontrada"}
+            
         soup = BeautifulSoup(respuesta.text, 'html.parser')
     except Exception as e:
-        print(f"❌ Error al conectar: {e}")
+        print(f"❌ Error crítico de red al conectar: {e}")
         return {"status": "error"}
     
     tabla = soup.find('table')
@@ -109,15 +137,25 @@ def orquestador_scraping():
             texto_completo = f"Actividad: {titulo_base} | Cuándo: {fecha_hora} | Dónde: {lugar_texto} | URL_Oficial: {url_referencia}"
             lote_eventos_para_ia.append(texto_completo)
             
-    print(f"\n🧠 Enviando un lote de {len(lote_eventos_para_ia)} eventos a la IA en una sola llamada...")
+    print(f"\n🧠 Total de eventos extraídos de la web: {len(lote_eventos_para_ia)}")
     
-    # --- PEAJE ÚNICO DE IA (Gasta 1 RPD) ---
-    plantillas_ia = extraer_eventos_estructurados(lote_eventos_para_ia)
+    # 1.1 Configurar Lotes (Batching de 10 en 10)
+    tamano_lote = 10 
+    lotes = [lote_eventos_para_ia[i:i + tamano_lote] for i in range(0, len(lote_eventos_para_ia), tamano_lote)]
     
-    print(f"✅ La IA estructuró {len(plantillas_ia)} plantillas de eventos. Geolocalizando e insertando en BD...")
+    plantillas_ia = []
     
-    # 2. Procesamiento y Geolocalización
-    for p in plantillas_ia:
+    # --- PROCESAMIENTO CON IA (CON BARRA DE PROGRESO) ---
+    for lote in tqdm(lotes, desc="🤖 Procesando lotes en IA", unit="lote"):
+        resultados_lote = extraer_eventos_estructurados(lote)
+        if resultados_lote:
+            plantillas_ia.extend(resultados_lote)
+        time.sleep(1) # Pausa de 1 segundo para no saturar la API
+
+    print(f"\n✅ La IA estructuró exitosamente {len(plantillas_ia)} plantillas de eventos.")
+    
+    # 2. Procesamiento y Geolocalización (CON BARRA DE PROGRESO)
+    for p in tqdm(plantillas_ia, desc="🗺️ Geolocalizando", unit="evento"):
         fechas_reales = generar_fechas_evento(p.get('tipo_recurrencia'), p.get('dias_semana', []), p.get('fechas_especificas', []))
     
         lugar_limpio = p.get('lugar_texto', '')

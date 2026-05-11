@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 from . import views
+from .views import ActualizarEstadoAsistenciaView
 
 urlpatterns = [
     # Auth con Google (viene del celular)
@@ -11,4 +12,6 @@ urlpatterns = [
 
     # Perfil del usuario autenticado
     path('perfil/',       views.perfil_usuario,       name='perfil-usuario'),
-]
+
+    path('mi-asistencia/', ActualizarEstadoAsistenciaView.as_view(), name='mi_asistencia'),
+]    

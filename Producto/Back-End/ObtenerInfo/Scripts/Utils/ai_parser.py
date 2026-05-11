@@ -18,9 +18,9 @@ print(f"🔑 VERIFICACIÓN: Usando la API Key de AI Studio...")
 if not mi_clave:
     print("⚠️ ¡ALERTA CRÍTICA!: No se encontró la API Key en el archivo .env.")
 
-client = genai.Client(api_key=mi_clave)
-
 def extraer_eventos_estructurados(lista_textos_brutos):
+    mi_clave = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client(api_key=mi_clave)
     # Unimos todos los eventos en un solo gran bloque de texto separándolos claramente
     texto_combinado = "\n\n--- SIGUIENTE EVENTO ---\n\n".join(lista_textos_brutos)
     

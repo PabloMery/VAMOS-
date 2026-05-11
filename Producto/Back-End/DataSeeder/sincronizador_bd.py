@@ -9,7 +9,7 @@ RUTA_JSON = os.path.join(RUTA_ACTUAL, '..', 'ObtenerInfo', 'JSON', 'eventos_prov
 
 # Nuevas Credenciales DB (Apuntando a tu Docker)
 DB_HOST = "localhost" # Sigue siendo localhost porque corres el script desde tu PC
-DB_PORT = "5432"
+DB_PORT = "5435"
 DB_NAME = "vamos_eventos" # ¡Cambio crucial! Ahora apunta al piso correcto
 DB_USER = "vamos_admin"   # ¡Cambio crucial!
 DB_PASS = "vamos_secreto" # ¡Cambio crucial!
@@ -18,7 +18,7 @@ def inicializar_base_de_datos(cursor):
     """Crea las tablas relacionadas en PostgreSQL si no existen."""
     cursor.execute('DROP TABLE IF EXISTS fechas_eventos CASCADE;')
     cursor.execute('DROP TABLE IF EXISTS eventos CASCADE;')
-    
+    cursor.execute('CREATE EXTENSION IF NOT EXISTS vector;')  # Asegura que la extensión de pgvector esté disponible
     # 1. Tabla Padre (El Evento principal + IA)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS eventos (

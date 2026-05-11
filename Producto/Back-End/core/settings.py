@@ -80,56 +80,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-'''''
+
 DATABASES = {
-        'default': { # Esta será para Usuarios, Auth, Admin y Sesiones
-
+    'default': { # Esta será para Usuarios, Auth, Admin y Sesiones
         'ENGINE': 'django.db.backends.postgresql',
-
         'NAME': 'vamos_usuarios',
-
         'USER': os.environ.get('DB_USER', 'vamos_admin'),
-
         'PASSWORD': os.environ.get('DB_PASSWORD', 'vamos_secreto'),
-
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-
+        'HOST': os.environ.get('DB_HOST', 'db'), # <-- Asegúrate de que el default sea 'db'
         'PORT': os.environ.get('DB_PORT', '5432'),
-
     },
-
     'eventos_db': { # Esta será EXCLUSIVA para la app de Eventos y Scrapers
-
         'ENGINE': 'django.db.backends.postgresql',
-
         'NAME': 'vamos_eventos',
-
         'USER': os.environ.get('DB_USER', 'vamos_admin'),
-
         'PASSWORD': os.environ.get('DB_PASSWORD', 'vamos_secreto'),
-
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-
+        'HOST': os.environ.get('DB_HOST', 'db'), # <-- Asegúrate de que el default sea 'db'
         'PORT': os.environ.get('DB_PORT', '5432'),
-
-    }
-
-}
-'''
-#==============TEMPORAL========
-
-# ══════════════════════════════════════════
-# BASE DE DATOS — MODO DESARROLLO (SQLite)
-# Cambiar a PostgreSQL cuando Docker esté listo
-# ══════════════════════════════════════════
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'eventos_db': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db_eventos.sqlite3',
     }
 }
 

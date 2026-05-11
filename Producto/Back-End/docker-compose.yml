@@ -1,28 +1,26 @@
 services:
-  # 1. LA BASE DE DATOS (Ahora con superpoderes de IA: pgvector)
+  # 1. LA BASE DE DATOS
   db:
     image: ankane/pgvector:latest
     container_name: vamos_postgres_db
     restart: always
     env_file:
-      - .env # <-- Le decimos a Docker que lea tus secretos de aquí
+      - .env
     environment:
-      # Inyectamos las variables de forma segura
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
-      - "5432:5432"
+      - "5435:5432"
 
-  # 2. PGADMIN (Interfaz gráfica para tu compañero)
+  # 2. PGADMIN
   pgadmin:
     image: dpage/pgadmin4
     container_name: vamos_pgadmin
     restart: always
     environment:
-      # Estas puedes dejarlas así porque son solo locales, o pasarlas al .env después si quieres
       - PGADMIN_DEFAULT_EMAIL=admin@vamos.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     ports:
@@ -30,7 +28,7 @@ services:
     depends_on:
       - db
 
-  # 3. EL BACKEND (Tu API)
+  # 3. EL BACKEND (Django API)
   api:
     build: .
     container_name: vamos_django_api
@@ -42,14 +40,44 @@ services:
     depends_on:
       - db
     env_file:
-      - .env # <-- Django también necesita leer los secretos
+      - .env
     environment:
-      # Los datos de conexión interna de Docker se quedan igual
       - DB_HOST=db
       - DB_PORT=5432
-      # Usamos las credenciales dinámicas
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+
+  # 4. EL WORKER DE EMBEDDINGS (Ajustado a Vambot/)
+  worker:
+    build: .
+    container_name: vamos_worker_embeddings
+    command: python Vambot/discovery_service/worker_embeddings.py
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+
+  # 5. EL DISCOVERY SERVICE (Ajustado a Vambot/discovery_service/)
+  discovery:
+    build: .
+    container_name: vamos_discovery_service
+    command: uvicorn Vambot.discovery_service.main:app --host 0.0.0.0 --port 8001
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
 
 volumes:
   postgres_data:
