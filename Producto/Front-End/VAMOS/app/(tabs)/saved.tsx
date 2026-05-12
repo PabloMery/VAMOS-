@@ -1,6 +1,6 @@
 // app/(tabs)/saved.tsx
 
-import { useGroups } from "@/hooks/useGroups";
+import { useGrupos } from "../context/GruposContext";
 import { useTheme } from "@/hooks/useTheme";
 import { Event } from "@/types/Event";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -19,7 +19,6 @@ const ESTADO_LABELS: Record<string, string> = {
 };
 
 // ─── Navegar al mapa abriendo el evento ───────────────────────────────────────
-// index.tsx recibe openEventId + eventDate, ajusta la fecha y abre el sheet
 const irAlEvento = (item: Event) => {
   router.push({
     pathname: "/",
@@ -38,7 +37,6 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
   return (
     <View style={[styles.card, { backgroundColor: colors.card, borderLeftColor: colors.primary }]}>
 
-      {/* Cabecera */}
       <View style={styles.cardHeader}>
         <View style={[styles.iconoBadge, { backgroundColor: colors.primary + "18" }]}>
           <Ionicons name="help" size={16} color={colors.primary} />
@@ -48,7 +46,6 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
         </Text>
       </View>
 
-      {/* Detalles */}
       <View style={styles.cardDetails}>
         <View style={styles.detailRow}>
           <Ionicons name="location-outline" size={14} color={colors.subtext} />
@@ -64,7 +61,6 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
         </View>
       </View>
 
-      {/* Acciones */}
       <View style={styles.actionsRow}>
         <TouchableOpacity
           style={[styles.verBtn, { backgroundColor: colors.primary + "18" }]}
@@ -73,7 +69,6 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
           <Ionicons name="map-outline" size={14} color={colors.primary} />
           <Text style={[styles.verBtnText, { color: colors.primary }]}>Ver en mapa</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.removeBtn} onPress={onRemove}>
           <Ionicons name="trash-outline" size={14} color={colors.error} />
           <Text style={[styles.removeBtnText, { color: colors.error }]}>Quitar</Text>
@@ -86,15 +81,19 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
 
 // ─── Tarjeta: evento CONFIRMADO ───────────────────────────────────────────────
 type TarjetaConfirmadoProps = TarjetaProps & {
-  grupo: { invite_code: string; miembros: { usuario_id: string; estado: string }[] } | null;
+  grupoId: string | null;
+  eventoNombre: string;
 };
 
-function TarjetaConfirmado({ event, onRemove, grupo }: TarjetaConfirmadoProps) {
+function TarjetaConfirmado({ event, onRemove, grupoId, eventoNombre }: TarjetaConfirmadoProps) {
   const { colors } = useTheme();
+  const { misGrupos } = useGrupos();
+
+  const grupo = grupoId ? misGrupos.find(g => g.id === grupoId) : null;
+
   return (
     <View style={[styles.card, { backgroundColor: colors.card, borderLeftColor: colors.confirm }]}>
 
-      {/* Cabecera */}
       <View style={styles.cardHeader}>
         <View style={[styles.iconoBadge, { backgroundColor: colors.confirm + "18" }]}>
           <Ionicons name="alert" size={16} color={colors.confirm} />
@@ -104,7 +103,6 @@ function TarjetaConfirmado({ event, onRemove, grupo }: TarjetaConfirmadoProps) {
         </Text>
       </View>
 
-      {/* Detalles */}
       <View style={styles.cardDetails}>
         <View style={styles.detailRow}>
           <Ionicons name="location-outline" size={14} color={colors.subtext} />
@@ -120,22 +118,14 @@ function TarjetaConfirmado({ event, onRemove, grupo }: TarjetaConfirmadoProps) {
         </View>
       </View>
 
-      {/* ── Bloque de grupo ──────────────────────────────────────────────────
-          Cuando useGroups esté conectado al backend, `grupo` vendrá con datos
-          y este bloque mostrará los miembros y sus estados automáticamente.
-      ─────────────────────────────────────────────────────────────────────── */}
+      {/* ── Bloque de grupo ──────────────────────────────────────────────── */}
       <View style={[styles.grupoDivider, { borderTopColor: colors.border }]} />
 
-      <View style={styles.grupoSection}>
-        <Ionicons name="people-outline" size={14} color={colors.subtext} />
-        {grupo ? (
+      {grupo ? (
+        // Tiene grupo: muestra chips de estado de miembros
+        <View style={styles.grupoSection}>
+          <Ionicons name="people" size={14} color={colors.confirm} />
           <View style={{ flex: 1, gap: 6 }}>
-            <Text style={[styles.grupoLabel, { color: colors.subtext }]}>
-              Código de grupo:{" "}
-              <Text style={{ color: colors.confirm, fontWeight: "700" }}>
-                {grupo.invite_code}
-              </Text>
-            </Text>
             <View style={styles.miembrosList}>
               {grupo.miembros.map((m) => (
                 <View
@@ -149,22 +139,42 @@ function TarjetaConfirmado({ event, onRemove, grupo }: TarjetaConfirmadoProps) {
               ))}
             </View>
           </View>
-        ) : (
+        </View>
+      ) : (
+        // Sin grupo
+        <View style={styles.grupoSection}>
+          <Ionicons name="people-outline" size={14} color={colors.subtext} />
           <Text style={[styles.grupoLabel, { color: colors.subtext }]}>
-            Sin grupo activo — puedes unirte con el link de alguien
+            Sin grupo activo
           </Text>
-        )}
-      </View>
+        </View>
+      )}
 
       {/* Acciones */}
       <View style={styles.actionsRow}>
-        <TouchableOpacity
-          style={[styles.verBtn, { backgroundColor: colors.confirm + "18" }]}
-          onPress={() => irAlEvento(event)}
-        >
-          <Ionicons name="map-outline" size={14} color={colors.confirm} />
-          <Text style={[styles.verBtnText, { color: colors.confirm }]}>Ver en mapa</Text>
-        </TouchableOpacity>
+        <View style={styles.leftActions}>
+          <TouchableOpacity
+            style={[styles.verBtn, { backgroundColor: colors.confirm + "18" }]}
+            onPress={() => irAlEvento(event)}
+          >
+            <Ionicons name="map-outline" size={14} color={colors.confirm} />
+            <Text style={[styles.verBtnText, { color: colors.confirm }]}>Ver en mapa</Text>
+          </TouchableOpacity>
+
+          {/* Botón Ver grupo — solo si tiene grupo */}
+          {grupo && (
+            <TouchableOpacity
+              style={[styles.verBtn, { backgroundColor: colors.primary + "18" }]}
+              onPress={() => router.push({
+                pathname: "/grupo/[id]",
+                params: { id: grupo.id, eventoNombre },
+              })}
+            >
+              <Ionicons name="people-outline" size={14} color={colors.primary} />
+              <Text style={[styles.verBtnText, { color: colors.primary }]}>Ver grupo</Text>
+            </TouchableOpacity>
+          )}
+        </View>
 
         <TouchableOpacity style={styles.removeBtn} onPress={onRemove}>
           <Ionicons name="close-circle-outline" size={14} color={colors.error} />
@@ -201,7 +211,7 @@ export default function SavedScreen() {
 
   const { saved, confirmed, removeEvent } = useSavedEvents();
   const { colors } = useTheme();
-  const { misGrupos } = useGroups();
+  const { getGrupoPorEvento } = useGrupos();
 
   const data = tab === "guardados" ? saved : confirmed;
 
@@ -250,15 +260,13 @@ export default function SavedScreen() {
                 />
               );
             }
-            const grupoRaw = misGrupos.find((g) => g.evento_id === item.id_externo);
-            const grupo = grupoRaw
-              ? { invite_code: grupoRaw.invite_code, miembros: grupoRaw.miembros ?? [] }
-              : null;
+            const grupo = getGrupoPorEvento(item.id_externo);
             return (
               <TarjetaConfirmado
                 event={item}
                 onRemove={() => removeEvent(item.id_externo)}
-                grupo={grupo}
+                grupoId={grupo?.id ?? null}
+                eventoNombre={item.nombre_evento}
               />
             );
           }}
@@ -281,12 +289,9 @@ const styles = StyleSheet.create({
   list:           { paddingBottom: 32 },
 
   card: {
-    borderRadius: 14,
-    padding: 14,
-    marginBottom: 10,
-    borderLeftWidth: 4,
-    elevation: 2,
-    shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6, shadowOffset: { width: 0, height: 2 },
+    borderRadius: 14, padding: 14, marginBottom: 10, borderLeftWidth: 4,
+    elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
   },
   cardHeader:     { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: 10 },
   iconoBadge:     { width: 30, height: 30, borderRadius: 15, alignItems: "center",
@@ -305,6 +310,7 @@ const styles = StyleSheet.create({
   estadoChipText: { fontSize: 11, fontWeight: "600" },
 
   actionsRow:     { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 4 },
+  leftActions:    { flexDirection: "row", gap: 8 },
   verBtn:         { flexDirection: "row", alignItems: "center", gap: 5,
                     paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20 },
   verBtnText:     { fontSize: 12, fontWeight: "600" },

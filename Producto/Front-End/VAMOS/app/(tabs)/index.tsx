@@ -5,12 +5,13 @@ import { DateSelector } from "@/components/DateSelector";
 import { EventDetailSheet } from "@/components/EventDetailSheet";
 import { EventMarker, EventStatus } from "@/components/EventMarker";
 import { RouteMode, RoutePanel, RouteStep } from "@/components/RoutePanel";
+import { useGrupos } from "../context/GruposContext";
 import { useTheme } from "@/hooks/useTheme";
 import { useEvents } from "@/hooks/useEvents";
 import { Event } from "@/types/Event";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Location from "expo-location";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -50,9 +51,10 @@ export default function MapScreen() {
     );
   };
 
-    // ── Hooks ─────────────────────────────────────────────────────────────────
+  // ── Hooks ─────────────────────────────────────────────────────────────────
   const { saveEvent, confirmEvent, isSaved, isConfirmed } = useSavedEvents();
   const { colors } = useTheme();
+  const { getGrupoPorEvento, crearGrupo } = useGrupos();
 
   useEffect(() => {
     (async () => {
@@ -66,9 +68,6 @@ export default function MapScreen() {
   const { events, loading, error } = useEvents(coords.lat, coords.lng, date);
 
   // ── Navegación desde saved.tsx ────────────────────────────────────────────
-  // Cuando el usuario toca "Ver en mapa" en un evento guardado/confirmado,
-  // saved.tsx hace router.push("/", { params: { openEventId, eventDate } }).
-  // Este ref guarda el id hasta que los eventos terminen de cargar.
   const pendingEventId = useRef<string | null>(null);
 
   const { openEventId, eventDate } = useLocalSearchParams<{
@@ -76,17 +75,14 @@ export default function MapScreen() {
     eventDate?: string;
   }>();
 
-  // 1. Cuando llegan los params: ajusta la fecha y marca el evento como pendiente
+  // 1. Cuando llegan los params: ajusta la fecha y marca el evento pendiente
   useEffect(() => {
     if (!openEventId || !eventDate) return;
     pendingEventId.current = openEventId;
-
-    // Soporta tanto "YYYY-MM-DD" como "DD-MM-YYYY"
     const partes = eventDate.split("-");
     const fechaParsed = partes[0].length === 4
-      ? new Date(eventDate)                                          // YYYY-MM-DD
-      : new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);        // DD-MM-YYYY
-
+      ? new Date(eventDate)
+      : new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
     if (!isNaN(fechaParsed.getTime())) setDate(fechaParsed);
   }, [openEventId, eventDate]);
 
@@ -120,6 +116,11 @@ export default function MapScreen() {
     setRouteSteps([]);
     setRouteError(false);
   };
+
+  // ── Grupo del evento seleccionado ─────────────────────────────────────────
+  const grupoDelEvento = selectedEvent
+    ? getGrupoPorEvento(selectedEvent.id_externo)
+    : null;
 
   // ── Guardias ──────────────────────────────────────────────────────────────
   if (!coords.lat)
@@ -195,13 +196,27 @@ export default function MapScreen() {
         event={selectedEvent}
         isSaved={selectedEvent ? isSaved(selectedEvent.id_externo) : false}
         isConfirmed={selectedEvent ? isConfirmed(selectedEvent.id_externo) : false}
+        grupoId={grupoDelEvento?.id ?? null}
         onClose={() => setSelectedEvent(null)}
         onSave={() => { if (selectedEvent) { saveEvent(selectedEvent); setSelectedEvent(null); } }}
         onConfirm={() => { if (selectedEvent) { confirmEvent(selectedEvent); setSelectedEvent(null); } }}
         onNavigate={() => { if (selectedEvent) iniciarRuta(selectedEvent); }}
+        onCreateGroup={async () => {
+          if (!selectedEvent) return;
+          await crearGrupo(selectedEvent.id_externo);
+          // El sheet se actualiza solo porque grupoDelEvento viene del contexto reactivo
+        }}
+        onViewGroup={() => {
+          if (!grupoDelEvento || !selectedEvent) return;
+          setSelectedEvent(null);
+          router.push({
+            pathname: "/grupo/[id]",
+            params: { id: grupoDelEvento.id, eventoNombre: selectedEvent.nombre_evento },
+          });
+        }}
       />
 
-      {/* DateSelector y FABs — ocultos cuando hay ruta activa, evento abierto o chat visible */}
+      {/* DateSelector y FABs */}
       {!routeTarget && !selectedEvent && !chatVisible && (
         <DateSelector date={date} onChange={setDate} />
       )}
