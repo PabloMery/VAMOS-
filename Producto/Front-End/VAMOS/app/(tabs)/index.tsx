@@ -4,18 +4,16 @@ import { AIChatModal } from "@/components/AIChatModal";
 import { DateSelector } from "@/components/DateSelector";
 import { EventDetailSheet } from "@/components/EventDetailSheet";
 import { EventMarker, EventStatus } from "@/components/EventMarker";
-import { useColors } from "@/hooks/use-theme-color";
+import { RouteMode, RoutePanel, RouteStep } from "@/components/RoutePanel";
+import { useTheme } from "@/hooks/useTheme";
 import { useEvents } from "@/hooks/useEvents";
 import { Event } from "@/types/Event";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Location from "expo-location";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
-  Animated,
-  Dimensions,
-  PanResponder,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -27,31 +25,6 @@ import { useSavedEvents } from "../context/SavedEventsContext";
 
 // ─── API Key ───────────────────────────────────────────────────────────────────
 const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
-
-// ─── Constantes del panel de ruta deslizable ──────────────────────────────────
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-const PANEL_HEIGHT   = SCREEN_HEIGHT * 0.88;
-const HALF_TRANSLATE = PANEL_HEIGHT - SCREEN_HEIGHT * 0.52;
-const FULL_TRANSLATE = 0;
-
-// ─── Tipos ────────────────────────────────────────────────────────────────────
-type RouteStep = {
-  html_instructions: string;
-  distance: { text: string };
-  duration: { text: string };
-};
-type RouteMode = "WALKING" | "DRIVING" | "TRANSIT";
-type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
-
-const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "");
-
-function iconoPaso(texto: string, esUltimo: boolean): IoniconName {
-  if (esUltimo) return "location";
-  const t = texto.toLowerCase();
-  if (t.includes("izquierda") || t.includes("left"))  return "arrow-back";
-  if (t.includes("derecha")   || t.includes("right")) return "arrow-forward";
-  return "arrow-up";
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -68,42 +41,18 @@ export default function MapScreen() {
   const [routeSteps, setRouteSteps]   = useState<RouteStep[]>([]);
   const [routeError, setRouteError]   = useState(false);
 
-  // ── Panel de ruta deslizable ──────────────────────────────────────────────
-  const panOffset = useRef(HALF_TRANSLATE);
-  const panelY    = useRef(new Animated.Value(HALF_TRANSLATE)).current;
-
-  const snapPanel = (to: "half" | "full") => {
-    const toValue = to === "full" ? FULL_TRANSLATE : HALF_TRANSLATE;
-    panOffset.current = toValue;
-    Animated.spring(panelY, { toValue, useNativeDriver: false, friction: 8, tension: 65 }).start();
+  // ── Botón de centrar personalizado ────────────────────────────────────────
+  const mapRef = useRef<MapView>(null);
+  const centrarMapa = () => {
+    mapRef.current?.animateToRegion(
+      { latitude: coords.lat, longitude: coords.lng, latitudeDelta: 0.05, longitudeDelta: 0.05 },
+      400
+    );
   };
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder:  (_, gs) => Math.abs(gs.dy) > 5,
-      onPanResponderGrant: () => {
-        panelY.setOffset(panOffset.current);
-        panelY.setValue(0);
-      },
-      onPanResponderMove: (_, gs) => {
-        const raw     = panOffset.current + gs.dy;
-        const clamped = Math.max(FULL_TRANSLATE, Math.min(HALF_TRANSLATE, raw));
-        panelY.setValue(clamped - panOffset.current);
-      },
-      onPanResponderRelease: (_, gs) => {
-        panelY.flattenOffset();
-        const raw     = panOffset.current + gs.dy;
-        const clamped = Math.max(FULL_TRANSLATE, Math.min(HALF_TRANSLATE, raw));
-        const mid     = (FULL_TRANSLATE + HALF_TRANSLATE) / 2;
-        snapPanel(clamped < mid ? "full" : "half");
-      },
-    })
-  ).current;
-
-  // ── Hooks ─────────────────────────────────────────────────────────────────
+    // ── Hooks ─────────────────────────────────────────────────────────────────
   const { saveEvent, confirmEvent, isSaved, isConfirmed } = useSavedEvents();
-  const colors = useColors();
+  const { colors } = useTheme();
 
   useEffect(() => {
     (async () => {
@@ -115,6 +64,41 @@ export default function MapScreen() {
   }, []);
 
   const { events, loading, error } = useEvents(coords.lat, coords.lng, date);
+
+  // ── Navegación desde saved.tsx ────────────────────────────────────────────
+  // Cuando el usuario toca "Ver en mapa" en un evento guardado/confirmado,
+  // saved.tsx hace router.push("/", { params: { openEventId, eventDate } }).
+  // Este ref guarda el id hasta que los eventos terminen de cargar.
+  const pendingEventId = useRef<string | null>(null);
+
+  const { openEventId, eventDate } = useLocalSearchParams<{
+    openEventId?: string;
+    eventDate?: string;
+  }>();
+
+  // 1. Cuando llegan los params: ajusta la fecha y marca el evento como pendiente
+  useEffect(() => {
+    if (!openEventId || !eventDate) return;
+    pendingEventId.current = openEventId;
+
+    // Soporta tanto "YYYY-MM-DD" como "DD-MM-YYYY"
+    const partes = eventDate.split("-");
+    const fechaParsed = partes[0].length === 4
+      ? new Date(eventDate)                                          // YYYY-MM-DD
+      : new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);        // DD-MM-YYYY
+
+    if (!isNaN(fechaParsed.getTime())) setDate(fechaParsed);
+  }, [openEventId, eventDate]);
+
+  // 2. Cuando los eventos cargan: busca el pendiente y abre su sheet
+  useEffect(() => {
+    if (!pendingEventId.current || events.length === 0) return;
+    const evento = events.find(e => e.id_externo === pendingEventId.current);
+    if (evento) {
+      setSelectedEvent(evento);
+      pendingEventId.current = null;
+    }
+  }, [events]);
 
   // ── Funciones de ruta ─────────────────────────────────────────────────────
   const cancelarRuta = () => {
@@ -128,8 +112,6 @@ export default function MapScreen() {
     cancelarRuta();
     setRouteTarget(evento);
     setSelectedEvent(null);
-    panOffset.current = HALF_TRANSLATE;
-    panelY.setValue(HALF_TRANSLATE);
   };
 
   const cambiarModo = (modo: RouteMode) => {
@@ -150,18 +132,15 @@ export default function MapScreen() {
     ? { latitude: routeTarget.coordenadas.latitud, longitude: routeTarget.coordenadas.longitud }
     : null;
 
-  const modos: { key: RouteMode; icon: IoniconName; label: string }[] = [
-    { key: "WALKING", icon: "walk",  label: "Caminando"  },
-    { key: "DRIVING", icon: "car",   label: "En auto"    },
-    { key: "TRANSIT", icon: "bus",   label: "Transporte" },
-  ];
-
   // ─────────────────────────────────────────────────────────────────────────
   return (
     <View style={styles.container}>
 
       {/* MAPA */}
       <MapView
+        ref={mapRef}
+        toolbarEnabled={false}
+        showsMyLocationButton={false}
         style={styles.map}
         initialRegion={{ latitude: coords.lat, longitude: coords.lng, latitudeDelta: 0.05, longitudeDelta: 0.05 }}
         showsUserLocation
@@ -200,109 +179,18 @@ export default function MapScreen() {
         )}
       </MapView>
 
-      {/* PANEL DE RUTA DESLIZABLE */}
-      {routeTarget && (
-        <Animated.View
-          style={[
-            styles.routePanel,
-            { backgroundColor: colors.card },
-            { transform: [{ translateY: panelY }] },
-          ]}
-        >
-          <View style={styles.dragHandle} {...panResponder.panHandlers}>
-            <View style={[styles.handleBar, { backgroundColor: colors.border }]} />
-            <View style={styles.routeHeader}>
-              <Ionicons name="location" size={18} color={colors.confirm} />
-              <Text style={[styles.routeEventName, { color: colors.text }]} numberOfLines={1}>
-                {routeTarget.nombre_evento}
-              </Text>
-              <TouchableOpacity onPress={cancelarRuta} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                <Ionicons name="close" size={22} color={colors.subtext} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.modeTabs}>
-              {modos.map((m) => {
-                const activo = routeMode === m.key;
-                return (
-                  <TouchableOpacity
-                    key={m.key}
-                    style={[
-                      styles.modeTab,
-                      { borderColor: activo ? colors.confirm : colors.border },
-                      activo && { backgroundColor: colors.confirm + "20" },
-                    ]}
-                    onPress={() => cambiarModo(m.key)}
-                  >
-                    <Ionicons name={m.icon} size={20} color={activo ? colors.confirm : colors.subtext} />
-                    <Text style={[styles.modeTabLabel, { color: activo ? colors.confirm : colors.subtext }]}>
-                      {m.label}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </View>
+      {/* PANEL DE RUTA */}
+      <RoutePanel
+        event={routeTarget}
+        routeMode={routeMode}
+        routeInfo={routeInfo}
+        routeSteps={routeSteps}
+        routeError={routeError}
+        onClose={cancelarRuta}
+        onModeChange={cambiarModo}
+      />
 
-          {!routeInfo && !routeError && (
-            <ActivityIndicator size="small" color={colors.confirm} style={{ marginVertical: 16 }} />
-          )}
-          {routeError && (
-            <Text style={[styles.routeErrorText, { color: colors.error ?? "#e53e3e" }]}>
-              No se encontró ruta para este modo de transporte.
-            </Text>
-          )}
-
-          {routeInfo && (
-            <>
-              <View style={styles.summaryRow}>
-                <View style={[styles.summaryCard, { backgroundColor: colors.primary + "15" }]}>
-                  <Text style={[styles.summaryLabel, { color: colors.subtext }]}>Distancia</Text>
-                  <Text style={[styles.summaryValue, { color: colors.primary }]}>
-                    {routeInfo.km.toFixed(1)}
-                    <Text style={[styles.summaryUnit, { color: colors.subtext }]}> km</Text>
-                  </Text>
-                </View>
-                <View style={[styles.summaryCard, { backgroundColor: colors.confirm + "15" }]}>
-                  <Text style={[styles.summaryLabel, { color: colors.subtext }]}>Tiempo est.</Text>
-                  <Text style={[styles.summaryValue, { color: colors.confirm }]}>
-                    {routeInfo.min}
-                    <Text style={[styles.summaryUnit, { color: colors.subtext }]}> min</Text>
-                  </Text>
-                </View>
-              </View>
-
-              {routeSteps.length > 0 && (
-                <>
-                  <Text style={[styles.stepsTitle, { color: colors.subtext }]}>Instrucciones</Text>
-                  <ScrollView style={styles.stepsList} showsVerticalScrollIndicator={false} nestedScrollEnabled>
-                    {routeSteps.map((step, index) => {
-                      const esUltimo = index === routeSteps.length - 1;
-                      const texto    = stripHtml(step.html_instructions);
-                      const icono    = iconoPaso(texto, esUltimo);
-                      return (
-                        <View
-                          key={index}
-                          style={[styles.step, !esUltimo && { borderBottomWidth: 0.5, borderBottomColor: colors.border }]}
-                        >
-                          <View style={[styles.stepIconWrap, { backgroundColor: (esUltimo ? colors.primary : colors.confirm) + "20" }]}>
-                            <Ionicons name={icono} size={14} color={esUltimo ? colors.primary : colors.confirm} />
-                          </View>
-                          <Text style={[styles.stepText, { color: colors.text }]} numberOfLines={2}>{texto}</Text>
-                          {!esUltimo && (
-                            <Text style={[styles.stepDist, { color: colors.subtext }]}>{step.distance.text}</Text>
-                          )}
-                        </View>
-                      );
-                    })}
-                  </ScrollView>
-                </>
-              )}
-            </>
-          )}
-        </Animated.View>
-      )}
-
-      {/* DETALLE DEL EVENTO — ya no usa Modal, no oscurece el mapa */}
+      {/* DETALLE DEL EVENTO */}
       <EventDetailSheet
         event={selectedEvent}
         isSaved={selectedEvent ? isSaved(selectedEvent.id_externo) : false}
@@ -313,14 +201,24 @@ export default function MapScreen() {
         onNavigate={() => { if (selectedEvent) iniciarRuta(selectedEvent); }}
       />
 
-      {/* DateSelector y FAB — ocultos cuando hay ruta activa */}
-      {!routeTarget && <DateSelector date={date} onChange={setDate} />}
+      {/* DateSelector y FABs — ocultos cuando hay ruta activa, evento abierto o chat visible */}
+      {!routeTarget && !selectedEvent && !chatVisible && (
+        <DateSelector date={date} onChange={setDate} />
+      )}
       {!routeTarget && !selectedEvent && (
         <TouchableOpacity
           style={[styles.fab, { backgroundColor: colors.primary }]}
           onPress={() => setChatVisible(true)}
         >
           <Ionicons name="chatbubble-ellipses" size={24} color={colors.confirm} />
+        </TouchableOpacity>
+      )}
+      {!routeTarget && !selectedEvent && (
+        <TouchableOpacity
+          style={[styles.fabCentrar, { backgroundColor: colors.card }]}
+          onPress={centrarMapa}
+        >
+          <Ionicons name="navigate" size={22} color={colors.confirm} />
         </TouchableOpacity>
       )}
 
@@ -334,39 +232,16 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   map:       { flex: 1 },
   loader:    { flex: 1 },
-
-  routePanel: {
-    position: "absolute", bottom: 0, left: 0, right: 0,
-    height: PANEL_HEIGHT,
-    borderTopLeftRadius: 20, borderTopRightRadius: 20,
-    elevation: 12,
-    shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 12, shadowOffset: { width: 0, height: -3 },
-    paddingHorizontal: 16, paddingBottom: 30,
-  },
-  dragHandle:     { paddingTop: 10, paddingBottom: 4 },
-  handleBar:      { width: 40, height: 4, borderRadius: 2, alignSelf: "center", marginBottom: 12 },
-  routeHeader:    { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 },
-  routeEventName: { flex: 1, fontWeight: "bold", fontSize: 14 },
-  modeTabs:       { flexDirection: "row", gap: 8, marginBottom: 12 },
-  modeTab:        { flex: 1, alignItems: "center", paddingVertical: 8, borderRadius: 10, borderWidth: 1, gap: 4 },
-  modeTabLabel:   { fontSize: 11 },
-  routeErrorText: { fontSize: 13, marginVertical: 8, paddingHorizontal: 4 },
-  summaryRow:     { flexDirection: "row", gap: 10, marginBottom: 14 },
-  summaryCard:    { flex: 1, borderRadius: 12, padding: 12 },
-  summaryLabel:   { fontSize: 11, marginBottom: 4 },
-  summaryValue:   { fontSize: 22, fontWeight: "bold" },
-  summaryUnit:    { fontSize: 13, fontWeight: "normal" },
-  stepsTitle:     { fontSize: 12, marginBottom: 6 },
-  stepsList:      { flex: 1 },
-  step:           { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 10 },
-  stepIconWrap:   { width: 30, height: 30, borderRadius: 15, alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  stepText:       { flex: 1, fontSize: 12, lineHeight: 17 },
-  stepDist:       { fontSize: 11, flexShrink: 0 },
-
   fab: {
     position: "absolute", bottom: 100, right: 20,
     width: 56, height: 56, borderRadius: 28,
     alignItems: "center", justifyContent: "center",
     elevation: 6, shadowColor: "#000", shadowOpacity: 0.2, shadowRadius: 6,
+  },
+  fabCentrar: {
+    position: "absolute", bottom: 170, right: 20,
+    width: 44, height: 44, borderRadius: 22,
+    alignItems: "center", justifyContent: "center",
+    elevation: 6, shadowColor: "#000", shadowOpacity: 0.15, shadowRadius: 6,
   },
 });
