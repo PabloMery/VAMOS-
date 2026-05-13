@@ -1,10 +1,13 @@
-import { useColors } from "@/hooks/use-theme-color";
-import Entypo from '@expo/vector-icons/Entypo';
+// components/DateSelector.tsx
+
+import { useTheme } from "@/hooks/useTheme";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 type Props = {
-  date: Date;
+  date:     Date;
   onChange: (date: Date) => void;
 };
 
@@ -12,8 +15,8 @@ type Props = {
 function formatDate(date: Date): string {
   return date.toLocaleDateString("es-CL", {
     weekday: "long",
-    day: "numeric",
-    month: "long",
+    day:     "numeric",
+    month:   "long",
   });
 }
 
@@ -25,27 +28,37 @@ function addDays(date: Date, days: number): Date {
 
 export function DateSelector({ date, onChange }: Props) {
   const [showPicker, setShowPicker] = useState(false);
-  const colors = useColors();
+  const { colors } = useTheme();
+
   return (
     <View style={[styles.container, { backgroundColor: colors.card }]}>
-      {/* Ícono calendario  */}
-      <TouchableOpacity 
-        onPress={() => setShowPicker(true)} 
-        style={styles.iconWrapper}
-      >
-        <Entypo name="calendar" size={24} color="#ff7300" />
-      </TouchableOpacity>
+
       <View style={styles.row}>
-        <TouchableOpacity onPress={() => onChange(addDays(date, -1))}>
-          <Text style={[styles.arrow, { color: colors.purple }]}>◀</Text>
+        {/* Flecha izquierda */}
+        <TouchableOpacity
+          onPress={() => onChange(addDays(date, -1))}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Ionicons name="chevron-back" size={20} color={colors.primary} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowPicker(true)}>
-          <Text style={[styles.dateText, { color: colors.text }]}>{formatDate(date)}</Text>
+
+        {/* Fecha tapeable — abre el picker */}
+        <TouchableOpacity style={styles.dateBtn} onPress={() => setShowPicker(true)}>
+          <Ionicons name="calendar-outline" size={15} color={colors.confirm} />
+          <Text style={[styles.dateText, { color: colors.text }]}>
+            {formatDate(date)}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onChange(addDays(date, 1))}>
-          <Text style={[styles.arrow, { color: colors.purple }]}>▶</Text>
+
+        {/* Flecha derecha */}
+        <TouchableOpacity
+          onPress={() => onChange(addDays(date, 1))}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Ionicons name="chevron-forward" size={20} color={colors.primary} />
         </TouchableOpacity>
       </View>
+
       {showPicker && (
         <DateTimePicker
           value={date}
@@ -66,37 +79,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 50,
     alignSelf: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 10, // Un poco más de aire
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
     elevation: 5,
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    zIndex: 100, // Asegura que esté por encima del mapa
+    shadowColor: "#000", shadowOpacity: 0.12, shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    zIndex: 100,
   },
-  iconWrapper: {
-    marginBottom: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  arrow: {
-    fontSize: 18,
-    color: "#ff7300",
-    paddingHorizontal: 4,
-  },
-  dateText: {
-    fontSize: 15,
-    fontWeight: "600",
-    textTransform: "capitalize",  // "martes" → "Martes"
-    color: "#8c00ff",
-  },
+  row:      { flexDirection: "row", alignItems: "center", gap: 8 },
+  dateBtn:  { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 4 },
+  dateText: { fontSize: 14, fontWeight: "600", textTransform: "capitalize" },
 });
