@@ -1,47 +1,23 @@
 // app/grupo/[id].tsx
 
+import { EstadoModal, ESTADOS } from "@/components/EstadoModal";
 import { useGrupos } from "../context/GruposContext";
 import { EstadoMiembro } from "../services/groupApi";
 import { useTheme } from "@/hooks/useTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import {
-  Modal,
-  ScrollView,
-  Share,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-// ─── Configuración de estados ─────────────────────────────────────────────────
-type EstadoConfig = {
-  label: string;
-  icon:  React.ComponentProps<typeof Ionicons>["name"];
-  color: (c: ReturnType<typeof useTheme>["colors"]) => string;
-};
-
-const ESTADOS: Record<EstadoMiembro, EstadoConfig> = {
-  pendiente:  { label: "En casa",        icon: "home-outline",             color: c => c.primary  },
-  en_camino:  { label: "En camino",      icon: "arrow-forward-circle",     color: c => c.confirm  },
-  llegue:     { label: "En el evento",   icon: "checkmark-circle",         color: c => c.success  },
-  cancelado:  { label: "Cancelado",      icon: "close-circle",             color: c => c.error    },
-  esperando:  { label: "Esperando fuera",icon: "hourglass-outline",        color: c => c.warning  },
-};
-
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 const MOCK_USER_ID = "yo";
 
-// ─── Formatear fecha ──────────────────────────────────────────────────────────
-// Convierte "2025-04-03" o "03-04-2025" a "3 Abril"
 function formatearFecha(fecha?: string): string {
   if (!fecha) return "";
   const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
                  "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
   const partes = fecha.split("-");
-  const [anio, mes, dia] = partes[0].length === 4
+  const [, mes, dia] = partes[0].length === 4
     ? [partes[0], partes[1], partes[2]]
     : [partes[2], partes[1], partes[0]];
   return `${parseInt(dia)} ${meses[parseInt(mes) - 1]}`;
@@ -52,7 +28,7 @@ export default function GrupoScreen() {
   const { id, eventoNombre, fechaEvento } = useLocalSearchParams<{
     id: string;
     eventoNombre?: string;
-    fechaEvento?: string;
+    fechaEvento?:  string;
   }>();
 
   const { misGrupos, actualizarEstado } = useGrupos();
@@ -74,10 +50,10 @@ export default function GrupoScreen() {
     );
   }
 
-  const miMiembro    = grupo.miembros.find(m => m.usuario_id === MOCK_USER_ID);
+  const miMiembro     = grupo.miembros.find(m => m.usuario_id === MOCK_USER_ID);
   const otrosMiembros = grupo.miembros.filter(m => m.usuario_id !== MOCK_USER_ID);
-  const miEstadoCfg  = miMiembro ? ESTADOS[miMiembro.estado] : ESTADOS.pendiente;
-  const miColor      = miEstadoCfg.color(colors);
+  const miEstadoCfg   = ESTADOS[miMiembro?.estado ?? "pendiente"];
+  const miColor       = miEstadoCfg.color(colors);
 
   const compartir = async () => {
     await Share.share({
@@ -123,12 +99,9 @@ export default function GrupoScreen() {
 
         {/* ── Tu fila ── */}
         <View style={[styles.miFilaContainer, { backgroundColor: colors.card }]}>
-          {/* Avatar */}
           <View style={[styles.avatar, { backgroundColor: colors.primary + "20" }]}>
             <Ionicons name="person" size={22} color={colors.primary} />
           </View>
-
-          {/* Nombre + estado */}
           <View style={styles.miInfo}>
             <Text style={[styles.miNombre, { color: colors.text }]}>
               {miMiembro?.nombre_usuario ?? "Tú"}{" "}
@@ -138,13 +111,9 @@ export default function GrupoScreen() {
               {miEstadoCfg.label}
             </Text>
           </View>
-
-          {/* Ícono de estado */}
-          <View style={[styles.estadoIconBox, { borderColor: miColor, backgroundColor: miColor + "18" }]}>
+          <View style={[styles.iconBox, { borderColor: miColor, backgroundColor: miColor + "18" }]}>
             <Ionicons name={miEstadoCfg.icon} size={20} color={miColor} />
           </View>
-
-          {/* Botón cambiar estado */}
           <TouchableOpacity
             style={[styles.cambiarBtn, { backgroundColor: colors.confirm }]}
             onPress={() => setModalVisible(true)}
@@ -157,8 +126,8 @@ export default function GrupoScreen() {
         {otrosMiembros.length > 0 && (
           <View style={[styles.miembrosCard, { backgroundColor: colors.card }]}>
             {otrosMiembros.map((m, index) => {
-              const cfg    = ESTADOS[m.estado as EstadoMiembro] ?? ESTADOS.pendiente;
-              const color  = cfg.color(colors);
+              const cfg      = ESTADOS[m.estado as EstadoMiembro] ?? ESTADOS.pendiente;
+              const color    = cfg.color(colors);
               const esUltimo = index === otrosMiembros.length - 1;
               return (
                 <View
@@ -168,12 +137,9 @@ export default function GrupoScreen() {
                     !esUltimo && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
                   ]}
                 >
-                  {/* Avatar */}
                   <View style={[styles.avatar, { backgroundColor: colors.primary + "20" }]}>
                     <Ionicons name="person" size={22} color={colors.primary} />
                   </View>
-
-                  {/* Nombre + estado */}
                   <View style={styles.miembroInfo}>
                     <Text style={[styles.miembroNombre, { color: colors.subtext }]}>
                       {m.nombre_usuario}
@@ -182,9 +148,7 @@ export default function GrupoScreen() {
                       {cfg.label}
                     </Text>
                   </View>
-
-                  {/* Ícono de estado en caja */}
-                  <View style={[styles.estadoIconBox, { borderColor: color, backgroundColor: color + "18" }]}>
+                  <View style={[styles.iconBox, { borderColor: color, backgroundColor: color + "18" }]}>
                     <Ionicons name={cfg.icon} size={20} color={color} />
                   </View>
                 </View>
@@ -206,50 +170,13 @@ export default function GrupoScreen() {
 
       </ScrollView>
 
-      {/* ── Modal selector de estado ── */}
-      <Modal visible={modalVisible} transparent animationType="slide">
-        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={styles.modalOverlay}>
-            <TouchableWithoutFeedback>
-              <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
-
-                <View style={[styles.modalHandle, { backgroundColor: colors.border }]} />
-                <Text style={[styles.modalTitulo, { color: colors.text }]}>¿Cómo estás?</Text>
-
-                {(Object.entries(ESTADOS) as [EstadoMiembro, EstadoConfig][]).map(([key, cfg]) => {
-                  const activo = miMiembro?.estado === key;
-                  const color  = cfg.color(colors);
-                  return (
-                    <TouchableOpacity
-                      key={key}
-                      style={[
-                        styles.modalOpcion,
-                        { borderBottomColor: colors.border },
-                        activo && { backgroundColor: color + "10" },
-                      ]}
-                      onPress={() => {
-                        actualizarEstado(grupo.id, key);
-                        setModalVisible(false);
-                      }}
-                    >
-                      <View style={[styles.estadoIconBox, { borderColor: color, backgroundColor: color + "18" }]}>
-                        <Ionicons name={cfg.icon} size={20} color={color} />
-                      </View>
-                      <Text style={[styles.modalOpcionText, { color: activo ? color : colors.text }]}>
-                        {cfg.label}
-                      </Text>
-                      {activo && (
-                        <Ionicons name="checkmark" size={20} color={color} />
-                      )}
-                    </TouchableOpacity>
-                  );
-                })}
-
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </TouchableWithoutFeedback>
-      </Modal>
+      {/* ── Modal de estado ── */}
+      <EstadoModal
+        visible={modalVisible}
+        estadoActual={miMiembro?.estado}
+        onSelect={(estado) => actualizarEstado(grupo.id, estado)}
+        onClose={() => setModalVisible(false)}
+      />
 
     </View>
   );
@@ -261,25 +188,19 @@ const styles = StyleSheet.create({
   centered:           { alignItems: "center", justifyContent: "center", gap: 12 },
   errorText:          { fontSize: 15 },
   backLink:           { fontSize: 15, fontWeight: "600", marginTop: 8 },
-
   backBtn:            { position: "absolute", top: 56, left: 16, zIndex: 10 },
-
   scroll:             { paddingTop: 100, paddingHorizontal: 20, paddingBottom: 48, gap: 16 },
 
-  // Fecha
   fechaContainer:     { alignItems: "center", gap: 4 },
   fechaLabel:         { fontSize: 16, fontWeight: "600" },
   fechaValor:         { fontSize: 22, fontWeight: "800" },
 
-  // Evento
   eventoNombre:       { fontSize: 16, fontWeight: "600", textAlign: "center" },
 
-  // Encabezado grupo
   grupoHeader:        { flexDirection: "row", alignItems: "baseline", gap: 12, marginTop: 8 },
   grupoTitulo:        { fontSize: 28, fontWeight: "800" },
   participantesCount: { fontSize: 16 },
 
-  // Tu fila
   miFilaContainer:    { flexDirection: "row", alignItems: "center", gap: 10,
                         padding: 14, borderRadius: 16,
                         elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6 },
@@ -288,7 +209,6 @@ const styles = StyleSheet.create({
   yoTag:              { fontSize: 12, fontWeight: "400" },
   miEstadoTexto:      { fontSize: 20, fontWeight: "700", marginTop: 2 },
 
-  // Otros miembros
   miembrosCard:       { borderRadius: 16, overflow: "hidden",
                         elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6 },
   miembroFila:        { flexDirection: "row", alignItems: "center", gap: 12, padding: 14 },
@@ -296,26 +216,14 @@ const styles = StyleSheet.create({
   miembroNombre:      { fontSize: 13 },
   miembroEstadoTexto: { fontSize: 20, fontWeight: "700", marginTop: 2 },
 
-  // Compartir
   compartirBtn:       { flexDirection: "row", alignItems: "center", justifyContent: "center",
                         gap: 8, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5 },
   compartirBtnText:   { fontSize: 14, fontWeight: "600" },
 
-  // Compartidos
   avatar:             { width: 44, height: 44, borderRadius: 22,
                         alignItems: "center", justifyContent: "center", flexShrink: 0 },
-  estadoIconBox:      { width: 36, height: 36, borderRadius: 8, borderWidth: 1.5,
+  iconBox:            { width: 36, height: 36, borderRadius: 8, borderWidth: 1.5,
                         alignItems: "center", justifyContent: "center", flexShrink: 0 },
   cambiarBtn:         { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20, flexShrink: 0 },
   cambiarBtnText:     { color: "white", fontSize: 12, fontWeight: "700" },
-
-  // Modal
-  modalOverlay:       { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.4)" },
-  modalContent:       { borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingBottom: 40 },
-  modalHandle:        { width: 40, height: 4, borderRadius: 2, alignSelf: "center", marginTop: 12, marginBottom: 8 },
-  modalTitulo:        { fontSize: 16, fontWeight: "700", paddingHorizontal: 20, paddingVertical: 12 },
-  modalOpcion:        { flexDirection: "row", alignItems: "center", gap: 14,
-                        paddingHorizontal: 20, paddingVertical: 14,
-                        borderBottomWidth: StyleSheet.hairlineWidth },
-  modalOpcionText:    { flex: 1, fontSize: 16, fontWeight: "500" },
 });
