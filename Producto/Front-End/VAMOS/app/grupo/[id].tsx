@@ -5,52 +5,68 @@ import { EstadoMiembro } from "../services/groupApi";
 import { useTheme } from "@/hooks/useTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
-import { Share, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import {
+  Modal,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 // ─── Configuración de estados ─────────────────────────────────────────────────
 type EstadoConfig = {
-  label:  string;
-  icon:   React.ComponentProps<typeof Ionicons>["name"];
-  color:  (c: ReturnType<typeof useTheme>["colors"]) => string;
+  label: string;
+  icon:  React.ComponentProps<typeof Ionicons>["name"];
+  color: (c: ReturnType<typeof useTheme>["colors"]) => string;
 };
 
 const ESTADOS: Record<EstadoMiembro, EstadoConfig> = {
-  pendiente:  { label: "Aún no salgo", icon: "time-outline",             color: c => c.subtext  },
-  en_camino:  { label: "En camino",    icon: "walk-outline",             color: c => c.info     },
-  llegue:     { label: "Llegué",       icon: "checkmark-circle-outline", color: c => c.success  },
-  cancelado:  { label: "Cancelé",      icon: "close-circle-outline",     color: c => c.error    },
-  esperando:  { label: "Esperando",    icon: "hourglass-outline",        color: c => c.warning  },
+  pendiente:  { label: "En casa",        icon: "home-outline",             color: c => c.primary  },
+  en_camino:  { label: "En camino",      icon: "arrow-forward-circle",     color: c => c.confirm  },
+  llegue:     { label: "En el evento",   icon: "checkmark-circle",         color: c => c.success  },
+  cancelado:  { label: "Cancelado",      icon: "close-circle",             color: c => c.error    },
+  esperando:  { label: "Esperando fuera",icon: "hourglass-outline",        color: c => c.warning  },
 };
 
-// Mock user id — igual que en GruposContext
 const MOCK_USER_ID = "yo";
+
+// ─── Formatear fecha ──────────────────────────────────────────────────────────
+// Convierte "2025-04-03" o "03-04-2025" a "3 Abril"
+function formatearFecha(fecha?: string): string {
+  if (!fecha) return "";
+  const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                 "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  const partes = fecha.split("-");
+  const [anio, mes, dia] = partes[0].length === 4
+    ? [partes[0], partes[1], partes[2]]
+    : [partes[2], partes[1], partes[0]];
+  return `${parseInt(dia)} ${meses[parseInt(mes) - 1]}`;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function GrupoScreen() {
-  const { id, eventoNombre } = useLocalSearchParams<{ id: string; eventoNombre?: string }>();
+  const { id, eventoNombre, fechaEvento } = useLocalSearchParams<{
+    id: string;
+    eventoNombre?: string;
+    fechaEvento?: string;
+  }>();
+
   const { misGrupos, actualizarEstado } = useGrupos();
-  const { colors, spacing, radius } = useTheme();
+  const { colors } = useTheme();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const grupo = misGrupos.find(g => g.id === id);
 
-  // ── Compartir link de invitación ──────────────────────────────────────────
-  const compartir = async () => {
-    if (!grupo) return;
-    // TODO Fase 3: reemplazar con Linking.createURL(`grupo/${grupo.invite_code}`)
-    // cuando el deep link esté configurado en app.json
-    await Share.share({
-      message: `Unite a mi grupo en Vamos?!\nCódigo de invitación: ${grupo.invite_code}`,
-    });
-  };
-
-  // ── Guardia: grupo no encontrado ──────────────────────────────────────────
+  // ── Guardia ───────────────────────────────────────────────────────────────
   if (!grupo) {
     return (
       <View style={[styles.container, styles.centered, { backgroundColor: colors.background }]}>
         <Ionicons name="people-outline" size={48} color={colors.border} />
-        <Text style={[styles.errorText, { color: colors.subtext }]}>
-          No se encontró el grupo
-        </Text>
+        <Text style={[styles.errorText, { color: colors.subtext }]}>No se encontró el grupo</Text>
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={[styles.backLink, { color: colors.primary }]}>Volver</Text>
         </TouchableOpacity>
@@ -58,158 +74,248 @@ export default function GrupoScreen() {
     );
   }
 
-  const miMiembro = grupo.miembros.find(m => m.usuario_id === MOCK_USER_ID);
+  const miMiembro    = grupo.miembros.find(m => m.usuario_id === MOCK_USER_ID);
   const otrosMiembros = grupo.miembros.filter(m => m.usuario_id !== MOCK_USER_ID);
+  const miEstadoCfg  = miMiembro ? ESTADOS[miMiembro.estado] : ESTADOS.pendiente;
+  const miColor      = miEstadoCfg.color(colors);
+
+  const compartir = async () => {
+    await Share.share({
+      message: `Unite a mi grupo en Vamos?!\nCódigo: ${grupo.invite_code}`,
+    });
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
 
-      {/* ── Cabecera ── */}
-      <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
-        <TouchableOpacity onPress={() => router.back()} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
-        </TouchableOpacity>
-        <View style={{ flex: 1 }}>
-          <Text style={[styles.headerTitle, { color: colors.text }]} numberOfLines={1}>
-            {eventoNombre ?? "Grupo"}
-          </Text>
-          <Text style={[styles.headerSub, { color: colors.subtext }]}>
-            {grupo.miembros.length} {grupo.miembros.length === 1 ? "persona" : "personas"}
-          </Text>
-        </View>
-        <TouchableOpacity
-          style={[styles.shareBtn, { backgroundColor: colors.primary + "18" }]}
-          onPress={compartir}
-        >
-          <Ionicons name="share-outline" size={20} color={colors.primary} />
-        </TouchableOpacity>
-      </View>
+      {/* ── Botón volver ── */}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => router.back()}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      >
+        <Ionicons name="arrow-back" size={24} color={colors.text} />
+      </TouchableOpacity>
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
 
-        {/* ── Tu estado ── */}
-        <Text style={[styles.sectionTitle, { color: colors.subtext }]}>Tu estado</Text>
-        <View style={styles.estadosGrid}>
-          {(Object.entries(ESTADOS) as [EstadoMiembro, EstadoConfig][]).map(([key, cfg]) => {
-            const activo = miMiembro?.estado === key;
-            const color  = cfg.color(colors);
-            return (
-              <TouchableOpacity
-                key={key}
-                style={[
-                  styles.estadoChip,
-                  { borderColor: activo ? color : colors.border },
-                  activo && { backgroundColor: color + "20" },
-                ]}
-                onPress={() => actualizarEstado(grupo.id, key)}
-              >
-                <Ionicons name={cfg.icon} size={16} color={activo ? color : colors.subtext} />
-                <Text style={[styles.estadoChipText, { color: activo ? color : colors.subtext }]}>
-                  {cfg.label}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+        {/* ── Fecha del evento ── */}
+        <View style={styles.fechaContainer}>
+          <Ionicons name="calendar" size={28} color={colors.confirm} />
+          <Text style={[styles.fechaLabel, { color: colors.confirm }]}>Fecha evento</Text>
+          <Text style={[styles.fechaValor, { color: colors.primary }]}>
+            {formatearFecha(fechaEvento)}
+          </Text>
+        </View>
+
+        {/* ── Nombre del evento ── */}
+        <Text style={[styles.eventoNombre, { color: colors.text }]} numberOfLines={2}>
+          {eventoNombre}
+        </Text>
+
+        {/* ── Encabezado del grupo ── */}
+        <View style={styles.grupoHeader}>
+          <Text style={[styles.grupoTitulo, { color: colors.text }]}>Grupo</Text>
+          <Text style={[styles.participantesCount, { color: colors.subtext }]}>
+            {grupo.miembros.length} {grupo.miembros.length === 1 ? "Participante" : "Participantes"}
+          </Text>
+        </View>
+
+        {/* ── Tu fila ── */}
+        <View style={[styles.miFilaContainer, { backgroundColor: colors.card }]}>
+          {/* Avatar */}
+          <View style={[styles.avatar, { backgroundColor: colors.primary + "20" }]}>
+            <Ionicons name="person" size={22} color={colors.primary} />
+          </View>
+
+          {/* Nombre + estado */}
+          <View style={styles.miInfo}>
+            <Text style={[styles.miNombre, { color: colors.text }]}>
+              {miMiembro?.nombre_usuario ?? "Tú"}{" "}
+              <Text style={[styles.yoTag, { color: colors.subtext }]}>(Yo)</Text>
+            </Text>
+            <Text style={[styles.miEstadoTexto, { color: colors.text }]}>
+              {miEstadoCfg.label}
+            </Text>
+          </View>
+
+          {/* Ícono de estado */}
+          <View style={[styles.estadoIconBox, { borderColor: miColor, backgroundColor: miColor + "18" }]}>
+            <Ionicons name={miEstadoCfg.icon} size={20} color={miColor} />
+          </View>
+
+          {/* Botón cambiar estado */}
+          <TouchableOpacity
+            style={[styles.cambiarBtn, { backgroundColor: colors.confirm }]}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={styles.cambiarBtnText}>Cambiar estado</Text>
+          </TouchableOpacity>
         </View>
 
         {/* ── Otros miembros ── */}
         {otrosMiembros.length > 0 && (
-          <>
-            <Text style={[styles.sectionTitle, { color: colors.subtext, marginTop: spacing.lg }]}>
-              Grupo
-            </Text>
-            <View style={[styles.miembrosCard, { backgroundColor: colors.card }]}>
-              {otrosMiembros.map((m, index) => {
-                const cfg   = ESTADOS[m.estado as EstadoMiembro] ?? ESTADOS.pendiente;
-                const color = cfg.color(colors);
-                const esUltimo = index === otrosMiembros.length - 1;
-                return (
-                  <View
-                    key={m.usuario_id}
-                    style={[
-                      styles.miembroRow,
-                      !esUltimo && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
-                    ]}
-                  >
-                    {/* Avatar placeholder */}
-                    <View style={[styles.avatar, { backgroundColor: colors.primary + "20" }]}>
-                      <Ionicons name="person" size={16} color={colors.primary} />
-                    </View>
-                    <Text style={[styles.miembroNombre, { color: colors.text }]}>
-                      {m.usuario_id === "otro_usuario" ? "Otro usuario" : m.usuario_id}
-                    </Text>
-                    <View style={[styles.estadoBadge, { backgroundColor: color + "20" }]}>
-                      <Ionicons name={cfg.icon} size={12} color={color} />
-                      <Text style={[styles.estadoBadgeText, { color }]}>{cfg.label}</Text>
-                    </View>
+          <View style={[styles.miembrosCard, { backgroundColor: colors.card }]}>
+            {otrosMiembros.map((m, index) => {
+              const cfg    = ESTADOS[m.estado as EstadoMiembro] ?? ESTADOS.pendiente;
+              const color  = cfg.color(colors);
+              const esUltimo = index === otrosMiembros.length - 1;
+              return (
+                <View
+                  key={m.id}
+                  style={[
+                    styles.miembroFila,
+                    !esUltimo && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.border },
+                  ]}
+                >
+                  {/* Avatar */}
+                  <View style={[styles.avatar, { backgroundColor: colors.primary + "20" }]}>
+                    <Ionicons name="person" size={22} color={colors.primary} />
                   </View>
-                );
-              })}
-            </View>
-          </>
+
+                  {/* Nombre + estado */}
+                  <View style={styles.miembroInfo}>
+                    <Text style={[styles.miembroNombre, { color: colors.subtext }]}>
+                      {m.nombre_usuario}
+                    </Text>
+                    <Text style={[styles.miembroEstadoTexto, { color: colors.text }]}>
+                      {cfg.label}
+                    </Text>
+                  </View>
+
+                  {/* Ícono de estado en caja */}
+                  <View style={[styles.estadoIconBox, { borderColor: color, backgroundColor: color + "18" }]}>
+                    <Ionicons name={cfg.icon} size={20} color={color} />
+                  </View>
+                </View>
+              );
+            })}
+          </View>
         )}
 
-        {/* ── Código de invitación ── */}
-        <Text style={[styles.sectionTitle, { color: colors.subtext, marginTop: spacing.lg }]}>
-          Invitar
-        </Text>
-        <View style={[styles.codigoCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <View>
-            <Text style={[styles.codigoLabel, { color: colors.subtext }]}>Código de invitación</Text>
-            <Text style={[styles.codigoValor, { color: colors.primary }]}>{grupo.invite_code}</Text>
-          </View>
-          <TouchableOpacity
-            style={[styles.compartirBtn, { backgroundColor: colors.primary }]}
-            onPress={compartir}
-          >
-            <Ionicons name="share-outline" size={16} color="white" />
-            <Text style={styles.compartirBtnText}>Compartir</Text>
-          </TouchableOpacity>
-        </View>
+        {/* ── Compartir código ── */}
+        <TouchableOpacity
+          style={[styles.compartirBtn, { backgroundColor: colors.primary + "18", borderColor: colors.primary }]}
+          onPress={compartir}
+        >
+          <Ionicons name="share-outline" size={16} color={colors.primary} />
+          <Text style={[styles.compartirBtnText, { color: colors.primary }]}>
+            Invitar · código {grupo.invite_code}
+          </Text>
+        </TouchableOpacity>
 
       </ScrollView>
+
+      {/* ── Modal selector de estado ── */}
+      <Modal visible={modalVisible} transparent animationType="slide">
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
+
+                <View style={[styles.modalHandle, { backgroundColor: colors.border }]} />
+                <Text style={[styles.modalTitulo, { color: colors.text }]}>¿Cómo estás?</Text>
+
+                {(Object.entries(ESTADOS) as [EstadoMiembro, EstadoConfig][]).map(([key, cfg]) => {
+                  const activo = miMiembro?.estado === key;
+                  const color  = cfg.color(colors);
+                  return (
+                    <TouchableOpacity
+                      key={key}
+                      style={[
+                        styles.modalOpcion,
+                        { borderBottomColor: colors.border },
+                        activo && { backgroundColor: color + "10" },
+                      ]}
+                      onPress={() => {
+                        actualizarEstado(grupo.id, key);
+                        setModalVisible(false);
+                      }}
+                    >
+                      <View style={[styles.estadoIconBox, { borderColor: color, backgroundColor: color + "18" }]}>
+                        <Ionicons name={cfg.icon} size={20} color={color} />
+                      </View>
+                      <Text style={[styles.modalOpcionText, { color: activo ? color : colors.text }]}>
+                        {cfg.label}
+                      </Text>
+                      {activo && (
+                        <Ionicons name="checkmark" size={20} color={color} />
+                      )}
+                    </TouchableOpacity>
+                  );
+                })}
+
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
     </View>
   );
 }
 
 // ─── Estilos ──────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  container:        { flex: 1 },
-  centered:         { alignItems: "center", justifyContent: "center", gap: 12 },
-  errorText:        { fontSize: 15 },
-  backLink:         { fontSize: 15, fontWeight: "600", marginTop: 8 },
+  container:          { flex: 1 },
+  centered:           { alignItems: "center", justifyContent: "center", gap: 12 },
+  errorText:          { fontSize: 15 },
+  backLink:           { fontSize: 15, fontWeight: "600", marginTop: 8 },
 
-  header:           { flexDirection: "row", alignItems: "center", gap: 12,
-                      paddingTop: 56, paddingBottom: 16, paddingHorizontal: 16,
-                      borderBottomWidth: StyleSheet.hairlineWidth },
-  headerTitle:      { fontSize: 16, fontWeight: "700" },
-  headerSub:        { fontSize: 12, marginTop: 2 },
-  shareBtn:         { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
+  backBtn:            { position: "absolute", top: 56, left: 16, zIndex: 10 },
 
-  scroll:           { padding: 16, paddingBottom: 48 },
-  sectionTitle:     { fontSize: 12, fontWeight: "600", textTransform: "uppercase",
-                      letterSpacing: 0.5, marginBottom: 10 },
+  scroll:             { paddingTop: 100, paddingHorizontal: 20, paddingBottom: 48, gap: 16 },
 
-  estadosGrid:      { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  estadoChip:       { flexDirection: "row", alignItems: "center", gap: 6,
-                      paddingHorizontal: 12, paddingVertical: 8,
-                      borderRadius: 20, borderWidth: 1.5 },
-  estadoChipText:   { fontSize: 13, fontWeight: "600" },
+  // Fecha
+  fechaContainer:     { alignItems: "center", gap: 4 },
+  fechaLabel:         { fontSize: 16, fontWeight: "600" },
+  fechaValor:         { fontSize: 22, fontWeight: "800" },
 
-  miembrosCard:     { borderRadius: 14, overflow: "hidden",
-                      elevation: 1, shadowColor: "#000", shadowOpacity: 0.04, shadowRadius: 4 },
-  miembroRow:       { flexDirection: "row", alignItems: "center", gap: 12, padding: 12 },
-  avatar:           { width: 34, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center" },
-  miembroNombre:    { flex: 1, fontSize: 14, fontWeight: "500" },
-  estadoBadge:      { flexDirection: "row", alignItems: "center", gap: 4,
-                      paddingHorizontal: 8, paddingVertical: 3, borderRadius: 20 },
-  estadoBadgeText:  { fontSize: 11, fontWeight: "600" },
+  // Evento
+  eventoNombre:       { fontSize: 16, fontWeight: "600", textAlign: "center" },
 
-  codigoCard:       { flexDirection: "row", alignItems: "center", justifyContent: "space-between",
-                      padding: 16, borderRadius: 14, borderWidth: 1 },
-  codigoLabel:      { fontSize: 11, marginBottom: 4 },
-  codigoValor:      { fontSize: 22, fontWeight: "800", letterSpacing: 2 },
-  compartirBtn:     { flexDirection: "row", alignItems: "center", gap: 6,
-                      paddingHorizontal: 14, paddingVertical: 10, borderRadius: 20 },
-  compartirBtnText: { color: "white", fontSize: 13, fontWeight: "700" },
+  // Encabezado grupo
+  grupoHeader:        { flexDirection: "row", alignItems: "baseline", gap: 12, marginTop: 8 },
+  grupoTitulo:        { fontSize: 28, fontWeight: "800" },
+  participantesCount: { fontSize: 16 },
+
+  // Tu fila
+  miFilaContainer:    { flexDirection: "row", alignItems: "center", gap: 10,
+                        padding: 14, borderRadius: 16,
+                        elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6 },
+  miInfo:             { flex: 1 },
+  miNombre:           { fontSize: 14, fontWeight: "600" },
+  yoTag:              { fontSize: 12, fontWeight: "400" },
+  miEstadoTexto:      { fontSize: 20, fontWeight: "700", marginTop: 2 },
+
+  // Otros miembros
+  miembrosCard:       { borderRadius: 16, overflow: "hidden",
+                        elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6 },
+  miembroFila:        { flexDirection: "row", alignItems: "center", gap: 12, padding: 14 },
+  miembroInfo:        { flex: 1 },
+  miembroNombre:      { fontSize: 13 },
+  miembroEstadoTexto: { fontSize: 20, fontWeight: "700", marginTop: 2 },
+
+  // Compartir
+  compartirBtn:       { flexDirection: "row", alignItems: "center", justifyContent: "center",
+                        gap: 8, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5 },
+  compartirBtnText:   { fontSize: 14, fontWeight: "600" },
+
+  // Compartidos
+  avatar:             { width: 44, height: 44, borderRadius: 22,
+                        alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  estadoIconBox:      { width: 36, height: 36, borderRadius: 8, borderWidth: 1.5,
+                        alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  cambiarBtn:         { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20, flexShrink: 0 },
+  cambiarBtnText:     { color: "white", fontSize: 12, fontWeight: "700" },
+
+  // Modal
+  modalOverlay:       { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.4)" },
+  modalContent:       { borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingBottom: 40 },
+  modalHandle:        { width: 40, height: 4, borderRadius: 2, alignSelf: "center", marginTop: 12, marginBottom: 8 },
+  modalTitulo:        { fontSize: 16, fontWeight: "700", paddingHorizontal: 20, paddingVertical: 12 },
+  modalOpcion:        { flexDirection: "row", alignItems: "center", gap: 14,
+                        paddingHorizontal: 20, paddingVertical: 14,
+                        borderBottomWidth: StyleSheet.hairlineWidth },
+  modalOpcionText:    { flex: 1, fontSize: 16, fontWeight: "500" },
 });

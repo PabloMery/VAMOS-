@@ -51,6 +51,17 @@ export default function MapScreen() {
     );
   };
 
+  // Función helper para abrir un evento y centrar el mapa
+  const abrirEventoEnMapa = (evento: Event) => {
+    setSelectedEvent(evento);
+    mapRef.current?.animateToRegion({
+      latitude:      evento.coordenadas.latitud,
+      longitude:     evento.coordenadas.longitud,
+      latitudeDelta:  0.01,  // zoom más cercano que el inicial
+      longitudeDelta: 0.01,
+    }, 600); // 600ms de animación
+  };
+
   // ── Hooks ─────────────────────────────────────────────────────────────────
   const { saveEvent, confirmEvent, isSaved, isConfirmed } = useSavedEvents();
   const { colors } = useTheme();
@@ -70,28 +81,38 @@ export default function MapScreen() {
   // ── Navegación desde saved.tsx ────────────────────────────────────────────
   const pendingEventId = useRef<string | null>(null);
 
-  const { openEventId, eventDate } = useLocalSearchParams<{
+  const { openEventId, eventDate, t} = useLocalSearchParams<{
     openEventId?: string;
     eventDate?: string;
+    t?:           string;
   }>();
 
   // 1. Cuando llegan los params: ajusta la fecha y marca el evento pendiente
+  // 1. Cuando llegan los params
   useEffect(() => {
     if (!openEventId || !eventDate) return;
     pendingEventId.current = openEventId;
+
     const partes = eventDate.split("-");
     const fechaParsed = partes[0].length === 4
       ? new Date(eventDate)
       : new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
     if (!isNaN(fechaParsed.getTime())) setDate(fechaParsed);
-  }, [openEventId, eventDate]);
 
-  // 2. Cuando los eventos cargan: busca el pendiente y abre su sheet
+    // Si los eventos ya están cargados con esa fecha, buscar de una vez
+    const evento = events.find(e => e.id_externo === openEventId);
+    if (evento) {
+      abrirEventoEnMapa(evento);
+      pendingEventId.current = null;
+    }
+  }, [openEventId, eventDate, t]);
+
+  // 2. Cuando los eventos cargan
   useEffect(() => {
     if (!pendingEventId.current || events.length === 0) return;
     const evento = events.find(e => e.id_externo === pendingEventId.current);
     if (evento) {
-      setSelectedEvent(evento);
+      abrirEventoEnMapa(evento);
       pendingEventId.current = null;
     }
   }, [events]);
@@ -208,10 +229,12 @@ export default function MapScreen() {
         }}
         onViewGroup={() => {
           if (!grupoDelEvento || !selectedEvent) return;
+          const nombre = selectedEvent.nombre_evento;
+          const fecha  = selectedEvent.fecha_evento;
           setSelectedEvent(null);
           router.push({
             pathname: "/grupo/[id]",
-            params: { id: grupoDelEvento.id, eventoNombre: selectedEvent.nombre_evento },
+            params: { id: grupoDelEvento.id, eventoNombre: nombre, fechaEvento: fecha },
           });
         }}
       />

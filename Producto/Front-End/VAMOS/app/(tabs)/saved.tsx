@@ -9,23 +9,23 @@ import { useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSavedEvents } from "../context/SavedEventsContext";
 
-// ─── Labels de estado de miembro en grupo ─────────────────────────────────────
-const ESTADO_LABELS: Record<string, string> = {
-  pendiente: "Aún no salgo",
-  en_camino: "En camino",
-  llegue:    "Llegué",
-  cancelado: "Cancelé",
-  esperando: "Esperando fuera",
-};
+// ─── Formatear fecha (igual que en grupo/[id].tsx) ────────────────────────────
+function formatearFecha(fecha?: string): string {
+  if (!fecha) return "";
+  const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                 "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  const partes = fecha.split("-");
+  const [, mes, dia] = partes[0].length === 4
+    ? [partes[0], partes[1], partes[2]]
+    : [partes[2], partes[1], partes[0]];
+  return `${parseInt(dia)} ${meses[parseInt(mes) - 1]}`;
+}
 
 // ─── Navegar al mapa abriendo el evento ───────────────────────────────────────
 const irAlEvento = (item: Event) => {
   router.push({
     pathname: "/",
-    params: {
-      openEventId: item.id_externo,
-      eventDate:   item.fecha_evento,
-    },
+    params: { openEventId: item.id_externo, eventDate: item.fecha_evento, t: Date.now().toString(), },
   });
 };
 
@@ -35,43 +35,47 @@ type TarjetaProps = { event: Event; onRemove: () => void };
 function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
   const { colors } = useTheme();
   return (
-    <View style={[styles.card, { backgroundColor: colors.card, borderLeftColor: colors.primary }]}>
+    <View style={[styles.card, { backgroundColor: colors.card }]}>
 
-      <View style={styles.cardHeader}>
-        <View style={[styles.iconoBadge, { backgroundColor: colors.primary + "18" }]}>
-          <Ionicons name="help" size={16} color={colors.primary} />
+      {/* Banda superior: tipo + fecha */}
+      <View style={[styles.cardBanda, { backgroundColor: colors.primary + "15" }]}>
+        <View style={styles.bandaTipo}>
+          <Ionicons name="help" size={12} color={colors.primary} />
+          <Text style={[styles.bandaTipoText, { color: colors.primary }]}>GUARDADO</Text>
         </View>
-        <Text style={[styles.cardTitle, { color: colors.text }]} numberOfLines={2}>
-          {event.nombre_evento}
+        <Text style={[styles.bandaFecha, { color: colors.primary }]}>
+          {formatearFecha(event.fecha_evento)}
         </Text>
       </View>
 
-      <View style={styles.cardDetails}>
-        <View style={styles.detailRow}>
+      {/* Cuerpo */}
+      <View style={styles.cardBody}>
+        <Text style={[styles.eventNombre, { color: colors.text }]} numberOfLines={2}>
+          {event.nombre_evento}
+        </Text>
+        <View style={styles.locationRow}>
           <Ionicons name="location-outline" size={14} color={colors.subtext} />
-          <Text style={[styles.detailText, { color: colors.subtext }]} numberOfLines={1}>
+          <Text style={[styles.locationText, { color: colors.subtext }]} numberOfLines={1}>
             {event.lugar_texto}
-          </Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Ionicons name="calendar-outline" size={14} color={colors.subtext} />
-          <Text style={[styles.detailText, { color: colors.subtext }]}>
-            {event.fecha_evento}
           </Text>
         </View>
       </View>
 
-      <View style={styles.actionsRow}>
+      {/* Acciones */}
+      <View style={[styles.cardFooter, { borderTopColor: colors.border }]}>
         <TouchableOpacity
-          style={[styles.verBtn, { backgroundColor: colors.primary + "18" }]}
+          style={[styles.pillBtn, { backgroundColor: colors.primary + "18" }]}
           onPress={() => irAlEvento(event)}
         >
           <Ionicons name="map-outline" size={14} color={colors.primary} />
-          <Text style={[styles.verBtnText, { color: colors.primary }]}>Ver en mapa</Text>
+          <Text style={[styles.pillBtnText, { color: colors.primary }]}>Ver en mapa</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.removeBtn} onPress={onRemove}>
+        <TouchableOpacity
+          style={[styles.pillBtn, { backgroundColor: colors.error + "12" }]}
+          onPress={onRemove}
+        >
           <Ionicons name="trash-outline" size={14} color={colors.error} />
-          <Text style={[styles.removeBtnText, { color: colors.error }]}>Quitar</Text>
+          <Text style={[styles.pillBtnText, { color: colors.error }]}>Quitar</Text>
         </TouchableOpacity>
       </View>
 
@@ -92,93 +96,69 @@ function TarjetaConfirmado({ event, onRemove, grupoId, eventoNombre }: TarjetaCo
   const grupo = grupoId ? misGrupos.find(g => g.id === grupoId) : null;
 
   return (
-    <View style={[styles.card, { backgroundColor: colors.card, borderLeftColor: colors.confirm }]}>
+    <View style={[styles.card, { backgroundColor: colors.card }]}>
 
-      <View style={styles.cardHeader}>
-        <View style={[styles.iconoBadge, { backgroundColor: colors.confirm + "18" }]}>
-          <Ionicons name="alert" size={16} color={colors.confirm} />
+      {/* Banda superior: tipo + fecha */}
+      <View style={[styles.cardBanda, { backgroundColor: colors.confirm + "15" }]}>
+        <View style={styles.bandaTipo}>
+          <Ionicons name="alert" size={12} color={colors.confirm} />
+          <Text style={[styles.bandaTipoText, { color: colors.confirm }]}>CONFIRMADO</Text>
         </View>
-        <Text style={[styles.cardTitle, { color: colors.text }]} numberOfLines={2}>
-          {event.nombre_evento}
+        <Text style={[styles.bandaFecha, { color: colors.confirm }]}>
+          {formatearFecha(event.fecha_evento)}
         </Text>
       </View>
 
-      <View style={styles.cardDetails}>
-        <View style={styles.detailRow}>
+      {/* Cuerpo */}
+      <View style={styles.cardBody}>
+        <Text style={[styles.eventNombre, { color: colors.text }]} numberOfLines={2}>
+          {event.nombre_evento}
+        </Text>
+        <View style={styles.locationRow}>
           <Ionicons name="location-outline" size={14} color={colors.subtext} />
-          <Text style={[styles.detailText, { color: colors.subtext }]} numberOfLines={1}>
+          <Text style={[styles.locationText, { color: colors.subtext }]} numberOfLines={1}>
             {event.lugar_texto}
           </Text>
         </View>
-        <View style={styles.detailRow}>
-          <Ionicons name="calendar-outline" size={14} color={colors.subtext} />
-          <Text style={[styles.detailText, { color: colors.subtext }]}>
-            {event.fecha_evento}
-          </Text>
-        </View>
+
+        {/* Bloque grupo */}
+        {grupo ? (
+          <TouchableOpacity
+            style={[styles.grupoBandaActivo, { backgroundColor: colors.primary + "12", borderColor: colors.primary + "40" }]}
+            onPress={() => router.push({
+              pathname: "/grupo/[id]",
+              params: { id: grupo.id, eventoNombre, fechaEvento: event.fecha_evento },
+            })}
+          >
+            <Ionicons name="people" size={14} color={colors.primary} />
+            <Text style={[styles.grupoActivoText, { color: colors.primary }]}>
+              Grupo · {grupo.miembros.length} {grupo.miembros.length === 1 ? "persona" : "personas"}
+            </Text>
+            <Ionicons name="chevron-forward" size={14} color={colors.primary} />
+          </TouchableOpacity>
+        ) : (
+          <View style={[styles.grupoBandaVacia, { backgroundColor: colors.surfaceAlt }]}>
+            <Ionicons name="people-outline" size={14} color={colors.subtext} />
+            <Text style={[styles.grupoVacioText, { color: colors.subtext }]}>Sin grupo activo</Text>
+          </View>
+        )}
       </View>
 
-      {/* ── Bloque de grupo ──────────────────────────────────────────────── */}
-      <View style={[styles.grupoDivider, { borderTopColor: colors.border }]} />
-
-      {grupo ? (
-        // Tiene grupo: muestra chips de estado de miembros
-        <View style={styles.grupoSection}>
-          <Ionicons name="people" size={14} color={colors.confirm} />
-          <View style={{ flex: 1, gap: 6 }}>
-            <View style={styles.miembrosList}>
-              {grupo.miembros.map((m) => (
-                <View
-                  key={m.usuario_id}
-                  style={[styles.estadoChip, { backgroundColor: colors.confirm + "18" }]}
-                >
-                  <Text style={[styles.estadoChipText, { color: colors.confirm }]}>
-                    {ESTADO_LABELS[m.estado] ?? m.estado}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
-      ) : (
-        // Sin grupo
-        <View style={styles.grupoSection}>
-          <Ionicons name="people-outline" size={14} color={colors.subtext} />
-          <Text style={[styles.grupoLabel, { color: colors.subtext }]}>
-            Sin grupo activo
-          </Text>
-        </View>
-      )}
-
       {/* Acciones */}
-      <View style={styles.actionsRow}>
-        <View style={styles.leftActions}>
-          <TouchableOpacity
-            style={[styles.verBtn, { backgroundColor: colors.confirm + "18" }]}
-            onPress={() => irAlEvento(event)}
-          >
-            <Ionicons name="map-outline" size={14} color={colors.confirm} />
-            <Text style={[styles.verBtnText, { color: colors.confirm }]}>Ver en mapa</Text>
-          </TouchableOpacity>
-
-          {/* Botón Ver grupo — solo si tiene grupo */}
-          {grupo && (
-            <TouchableOpacity
-              style={[styles.verBtn, { backgroundColor: colors.primary + "18" }]}
-              onPress={() => router.push({
-                pathname: "/grupo/[id]",
-                params: { id: grupo.id, eventoNombre },
-              })}
-            >
-              <Ionicons name="people-outline" size={14} color={colors.primary} />
-              <Text style={[styles.verBtnText, { color: colors.primary }]}>Ver grupo</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <TouchableOpacity style={styles.removeBtn} onPress={onRemove}>
+      <View style={[styles.cardFooter, { borderTopColor: colors.border }]}>
+        <TouchableOpacity
+          style={[styles.pillBtn, { backgroundColor: colors.confirm + "18" }]}
+          onPress={() => irAlEvento(event)}
+        >
+          <Ionicons name="map-outline" size={14} color={colors.confirm} />
+          <Text style={[styles.pillBtnText, { color: colors.confirm }]}>Ver en mapa</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.pillBtn, { backgroundColor: colors.error + "12" }]}
+          onPress={onRemove}
+        >
           <Ionicons name="close-circle-outline" size={14} color={colors.error} />
-          <Text style={[styles.removeBtnText, { color: colors.error }]}>Desconfirmar</Text>
+          <Text style={[styles.pillBtnText, { color: colors.error }]}>Desconfirmar</Text>
         </TouchableOpacity>
       </View>
 
@@ -278,45 +258,52 @@ export default function SavedScreen() {
 
 // ─── Estilos ──────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  container:      { flex: 1, paddingTop: 60, paddingHorizontal: 16 },
-  title:          { fontSize: 22, fontWeight: "bold", marginBottom: 16 },
+  container:        { flex: 1, paddingTop: 60, paddingHorizontal: 16 },
+  title:            { fontSize: 22, fontWeight: "800", marginBottom: 16 },
 
-  tabRow:         { flexDirection: "row", borderRadius: 12, marginBottom: 16, padding: 4 },
-  tabButton:      { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center",
-                    gap: 6, paddingVertical: 9, borderRadius: 10 },
-  tabText:        { fontSize: 13, fontWeight: "600" },
+  tabRow:           { flexDirection: "row", borderRadius: 12, marginBottom: 16, padding: 4 },
+  tabButton:        { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center",
+                      gap: 6, paddingVertical: 9, borderRadius: 10 },
+  tabText:          { fontSize: 13, fontWeight: "600" },
 
-  list:           { paddingBottom: 32 },
+  list:             { paddingBottom: 32 },
 
-  card: {
-    borderRadius: 14, padding: 14, marginBottom: 10, borderLeftWidth: 4,
-    elevation: 2, shadowColor: "#000", shadowOpacity: 0.06, shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  cardHeader:     { flexDirection: "row", alignItems: "flex-start", gap: 10, marginBottom: 10 },
-  iconoBadge:     { width: 30, height: 30, borderRadius: 15, alignItems: "center",
-                    justifyContent: "center", flexShrink: 0, marginTop: 1 },
-  cardTitle:      { flex: 1, fontSize: 14, fontWeight: "700", lineHeight: 20 },
+  // Card
+  card:             { borderRadius: 16, marginBottom: 12, overflow: "hidden",
+                      elevation: 3, shadowColor: "#000", shadowOpacity: 0.08,
+                      shadowRadius: 8, shadowOffset: { width: 0, height: 2 } },
 
-  cardDetails:    { gap: 5, marginBottom: 10 },
-  detailRow:      { flexDirection: "row", alignItems: "center", gap: 6 },
-  detailText:     { fontSize: 13, flex: 1 },
+  // Banda superior
+  cardBanda:        { flexDirection: "row", alignItems: "center", justifyContent: "space-between",
+                      paddingHorizontal: 14, paddingVertical: 10 },
+  bandaTipo:        { flexDirection: "row", alignItems: "center", gap: 5 },
+  bandaTipoText:    { fontSize: 11, fontWeight: "800", letterSpacing: 0.5 },
+  bandaFecha:       { fontSize: 13, fontWeight: "700" },
 
-  grupoDivider:   { borderTopWidth: StyleSheet.hairlineWidth, marginBottom: 10 },
-  grupoSection:   { flexDirection: "row", alignItems: "flex-start", gap: 8, marginBottom: 10 },
-  grupoLabel:     { fontSize: 12, flex: 1, lineHeight: 17 },
-  miembrosList:   { flexDirection: "row", flexWrap: "wrap", gap: 6 },
-  estadoChip:     { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 20 },
-  estadoChipText: { fontSize: 11, fontWeight: "600" },
+  // Cuerpo
+  cardBody:         { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4, gap: 8 },
+  eventNombre:      { fontSize: 18, fontWeight: "700", lineHeight: 24 },
+  locationRow:      { flexDirection: "row", alignItems: "center", gap: 6 },
+  locationText:     { fontSize: 13, flex: 1 },
 
-  actionsRow:     { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 4 },
-  leftActions:    { flexDirection: "row", gap: 8 },
-  verBtn:         { flexDirection: "row", alignItems: "center", gap: 5,
-                    paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20 },
-  verBtnText:     { fontSize: 12, fontWeight: "600" },
-  removeBtn:      { flexDirection: "row", alignItems: "center", gap: 5 },
-  removeBtnText:  { fontSize: 12, fontWeight: "600" },
+  // Grupo
+  grupoBandaActivo: { flexDirection: "row", alignItems: "center", gap: 8,
+                      paddingHorizontal: 12, paddingVertical: 8,
+                      borderRadius: 10, borderWidth: 1, marginTop: 4 },
+  grupoActivoText:  { flex: 1, fontSize: 13, fontWeight: "600" },
+  grupoBandaVacia:  { flexDirection: "row", alignItems: "center", gap: 8,
+                      paddingHorizontal: 12, paddingVertical: 8,
+                      borderRadius: 10, marginTop: 4 },
+  grupoVacioText:   { fontSize: 13 },
 
-  emptyContainer: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
-  emptyText:      { fontSize: 14, textAlign: "center", lineHeight: 20 },
+  // Footer
+  cardFooter:       { flexDirection: "row", gap: 8, padding: 12,
+                      borderTopWidth: StyleSheet.hairlineWidth },
+  pillBtn:          { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center",
+                      gap: 6, paddingVertical: 9, borderRadius: 20 },
+  pillBtnText:      { fontSize: 13, fontWeight: "600" },
+
+  // Empty
+  emptyContainer:   { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
+  emptyText:        { fontSize: 14, textAlign: "center", lineHeight: 20 },
 });
