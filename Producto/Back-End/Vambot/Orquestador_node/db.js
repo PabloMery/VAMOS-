@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
-require('dotenv').config();
-console.log("Usuario leído del .env:", process.env.DB_USER);
-// Creamos la conexión utilizando las credenciales de tu .env
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -10,13 +10,43 @@ const pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-// Prueba rápida para verificar que el Orquestador "ve" la base de datos
+// ==========================================
+// FUNCIÓN DE AUTO-MIGRACIÓN (El Bibliotecario)
+// ==========================================
+const inicializarTablas = async () => {
+  try {
+    const query = `
+      -- 1. Tabla para agrupar las conversaciones
+      CREATE TABLE IF NOT EXISTS sesiones_chat (
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          usuario_id INTEGER NOT NULL,
+          creado_en TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+
+      -- 2. Tabla para guardar cada burbuja de texto
+      CREATE TABLE IF NOT EXISTS mensajes_chat (
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          sesion_id UUID REFERENCES sesiones_chat(id) ON DELETE CASCADE,
+          rol VARCHAR(15) CHECK (rol IN ('user', 'assistant')),
+          contenido TEXT NOT NULL,
+          creado_en TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    
+    // Ejecutamos la creación de tablas
+    await pool.query(query);
+    console.log('✅ Tablas de historial (sesiones y mensajes) listas en PostgreSQL.');
+  } catch (error) {
+    console.error('❌ Error crítico al crear las tablas de historial:', error);
+  }
+};
+
+// Evento para confirmar la conexión básica
 pool.on('connect', () => {
-  console.log('✅ Conexión establecida con la Base de Datos PostgreSQL (vamos_eventos)');
+  console.log('✅ Conectado al Pool de PostgreSQL (vamos_eventos)');
 });
 
-pool.on('error', (err) => {
-  console.error('❌ Error inesperado en la conexión de PostgreSQL', err);
-});
+// Ejecutamos la función apenas este archivo sea leído por el servidor
+inicializarTablas();
 
 module.exports = pool;
