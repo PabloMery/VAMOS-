@@ -9,7 +9,11 @@ from datetime import datetime
 import calendar
 from tqdm import tqdm
 import time
+from dotenv import load_dotenv
+
 print("2. Librerías importadas...")
+
+load_dotenv()
 
 # Ajuste para que Python encuentre la carpeta 'Utils'
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
