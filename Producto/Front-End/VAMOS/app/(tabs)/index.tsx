@@ -63,7 +63,7 @@ export default function MapScreen() {
   };
 
   // ── Hooks ─────────────────────────────────────────────────────────────────
-  const { saveEvent, confirmEvent, isSaved, isConfirmed } = useSavedEvents();
+  const { saveEvent, confirmEvent, removeEvent, isSaved, isConfirmed } = useSavedEvents();
   const { colors } = useTheme();
   const { getGrupoPorEvento, crearGrupo } = useGrupos();
 
@@ -88,7 +88,6 @@ export default function MapScreen() {
   }>();
 
   // 1. Cuando llegan los params: ajusta la fecha y marca el evento pendiente
-  // 1. Cuando llegan los params
   useEffect(() => {
     if (!openEventId || !eventDate) return;
     pendingEventId.current = openEventId;
@@ -221,11 +220,11 @@ export default function MapScreen() {
         onClose={() => setSelectedEvent(null)}
         onSave={() => { if (selectedEvent) { saveEvent(selectedEvent); setSelectedEvent(null); } }}
         onConfirm={() => { if (selectedEvent) { confirmEvent(selectedEvent); setSelectedEvent(null); } }}
+        onRemove={() => { if (selectedEvent) { removeEvent(selectedEvent.id_externo); setSelectedEvent(null); } }}
         onNavigate={() => { if (selectedEvent) iniciarRuta(selectedEvent); }}
         onCreateGroup={async () => {
           if (!selectedEvent) return;
           await crearGrupo(selectedEvent.id_externo);
-          // El sheet se actualiza solo porque grupoDelEvento viene del contexto reactivo
         }}
         onViewGroup={() => {
           if (!grupoDelEvento || !selectedEvent) return;

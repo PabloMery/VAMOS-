@@ -22,7 +22,7 @@
       "package": "com.luis_ma.vamos",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDh4KrWkq0X_LaXn2PRhDyJDq198h7qQLk"
+          "apiKey": ""
         }
       },
       "predictiveBackGestureEnabled": false

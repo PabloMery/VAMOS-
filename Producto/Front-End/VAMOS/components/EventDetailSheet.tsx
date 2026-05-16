@@ -13,16 +13,17 @@ type Props = {
   isConfirmed:    boolean;
   grupoId?:       string | null;       // id del grupo si el usuario ya tiene uno para este evento
   onClose:        () => void;
-  onSave:         () => void;
-  onConfirm:      () => void;
+  onSave:         () => void;          // guardar (cuando no está guardado)
+  onConfirm:      () => void;          // confirmar (cuando no está confirmado)
+  onRemove:       () => void;          // quitar de guardados o confirmados
   onNavigate:     () => void;
-  onCreateGroup?: () => void;          // crear grupo (solo aparece si isConfirmed && !grupoId)
-  onViewGroup?:   () => void;          // ver grupo  (solo aparece si isConfirmed &&  grupoId)
+  onCreateGroup?: () => void;
+  onViewGroup?:   () => void;
 };
 
 export function EventDetailSheet({
   event, isSaved, isConfirmed, grupoId,
-  onClose, onSave, onConfirm, onNavigate,
+  onClose, onSave, onConfirm, onRemove, onNavigate,
   onCreateGroup, onViewGroup,
 }: Props) {
   const theme = useTheme();
@@ -84,14 +85,18 @@ export function EventDetailSheet({
 
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
-            {/* Botones Guardar / Confirmar */}
+            {/* ── Botones Guardar / Confirmar ─────────────────────────────────
+                Funcionan como toggle:
+                  - Si NO está guardado/confirmado → toca para activar
+                  - Si SÍ está guardado/confirmado → toca para quitar
+            ─────────────────────────────────────────────────────────────────── */}
             <View style={styles.actionRow}>
               <TouchableOpacity
                 style={[styles.actionBtn, {
                   backgroundColor: isSaved ? theme.colors.primary : theme.colors.primary + "18",
                   borderColor: theme.colors.primary,
                 }]}
-                onPress={onSave}
+                onPress={isSaved ? onRemove : onSave}
               >
                 <Ionicons
                   name={isSaved ? "help" : "help-outline"}
@@ -108,7 +113,7 @@ export function EventDetailSheet({
                   backgroundColor: isConfirmed ? theme.colors.confirm : theme.colors.confirm + "18",
                   borderColor: theme.colors.confirm,
                 }]}
-                onPress={onConfirm}
+                onPress={isConfirmed ? onRemove : onConfirm}
               >
                 <Ionicons
                   name={isConfirmed ? "alert" : "alert-outline"}
@@ -140,7 +145,6 @@ export function EventDetailSheet({
                 <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
                 {grupoId ? (
-                  // Ya tiene grupo para este evento
                   <TouchableOpacity
                     style={[styles.grupoBtn, {
                       backgroundColor: theme.colors.primary + "18",
@@ -154,7 +158,6 @@ export function EventDetailSheet({
                     </Text>
                   </TouchableOpacity>
                 ) : (
-                  // No tiene grupo todavía
                   <TouchableOpacity
                     style={[styles.grupoBtn, {
                       backgroundColor: theme.colors.surface,
