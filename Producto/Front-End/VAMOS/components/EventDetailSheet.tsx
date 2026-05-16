@@ -94,7 +94,7 @@ export function EventDetailSheet({
                 onPress={onSave}
               >
                 <Ionicons
-                  name={isSaved ? "heart" : "heart-outline"}
+                  name={isSaved ? "help" : "help-outline"}
                   size={18}
                   color={isSaved ? "white" : theme.colors.primary}
                 />
@@ -111,7 +111,7 @@ export function EventDetailSheet({
                 onPress={onConfirm}
               >
                 <Ionicons
-                  name={isConfirmed ? "checkmark-circle" : "checkmark-circle-outline"}
+                  name={isConfirmed ? "alert" : "alert-outline"}
                   size={18}
                   color={isConfirmed ? "white" : theme.colors.confirm}
                 />
