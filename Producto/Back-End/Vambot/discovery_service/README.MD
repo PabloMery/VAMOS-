@@ -43,12 +43,23 @@ pip install -r requirements.txt
 
 Crea el archivo `.env` en `discovery_service/`:
 ```env
-GEMINI_API_KEY=tu_api_key_aqui
-DB_HOST=localhost
+DJANGO_SECRET_KEY=django-insecure-clave-desarrollo-1234567890abcdef
+
+# --- BASE DE DATOS (Red Interna de Docker) ---
+# DB_HOST DEBE ser 'db' para que Node, Django y FastAPI la encuentren
+DB_HOST=db
 DB_PORT=5432
-DB_NAME=eventos_municipalidad
-DB_USER=pablo_admin
-DB_PASS=tu_password
+DB_NAME=vamos_eventos
+DB_USER=vamos_admin
+DB_PASSWORD=vamos_secreto
+DB_PASS=vamos_secreto 
+
+# --- NODE.JS ORQUESTADOR (Service A) ---
+PORT=3000
+HOST=0.0.0.0
+DISCOVERY_SERVICE_URL=http://discovery:8001
+
+# --- IA VAMBOT (Discovery Service & Worker) ---
 IDIOMA=español
 RAG_TOP_N=5
 SYNC_FRESHNESS_THRESHOLD_HOURS=24

@@ -1,97 +1,44 @@
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
-import { useEffect, useState } from 'react';
+import * as React from 'react';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
-// Pablo lo h1zo 
-// Necesario para que el navegador cierre correctamente al volver a la app
-WebBrowser.maybeCompleteAuthSession();
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+  scopes: ['profile', 'email'],
+});
 
-const API_URL = 'http://10.0.2.2:8000/api/usuarios'; // Android emulator
-// const API_URL = 'http://TU_IP_LOCAL:8000/api/usuarios'; // Celular físico
+export const useGoogleAuth = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [response, setResponse] = React.useState<any>(null);
 
-type UsuarioVAMOS = {
-  id:         number;
-  email:      string;
-  nombre:     string;
-  apellido:   string;
-  avatar_url: string | null;
-};
-
-type AuthState = {
-  accessToken:  string | null;
-  refreshToken: string | null;
-  usuario:      UsuarioVAMOS | null;
-};
-
-export function useGoogleAuth() {
-  const [authState, setAuthState] = useState<AuthState>({
-    accessToken:  null,
-    refreshToken: null,
-    usuario:      null,
-  });
-  const [loading, setLoading] = useState(false);
-  const [error,   setError]   = useState<string | null>(null);
-
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: 'TU_GOOGLE_CLIENT_ID_ANDROID.apps.googleusercontent.com',
-    // webClientId: 'TU_GOOGLE_CLIENT_ID_WEB.apps.googleusercontent.com', // opcional
-  });
-
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      if (authentication?.idToken) {
-        enviarTokenAlBackend(authentication.idToken);
-      }
-    }
-  }, [response]);
-
-  async function enviarTokenAlBackend(idToken: string) {
+  const iniciarSesion = async () => {
     setLoading(true);
     setError(null);
-
     try {
-      const res = await fetch(`${API_URL}/auth/google/`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ id_token: idToken }),
-      });
+      await GoogleSignin.hasPlayServices();
+      
+      const userInfo = await GoogleSignin.signIn();
+      
+      // ✅ Esta es la extracción correcta para la versión moderna de la librería
+      const idToken = userInfo.data?.idToken;
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Error al autenticar');
+      if (idToken) {
+        setResponse({ type: 'success', authentication: { idToken } });
+      } else {
+        setError('No se obtuvo el pase de seguridad de Google');
       }
-
-      const data = await res.json();
-
-      setAuthState({
-        accessToken:  data.access,
-        refreshToken: data.refresh,
-        usuario:      data.usuario,
-      });
-
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err: any) {
+      if (err.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('El usuario cerró la ventana de Google');
+      } else if (err.code === statusCodes.IN_PROGRESS) {
+        setError('El inicio de sesión ya está en proceso');
+      } else {
+        setError('Error de Google: ' + err.message);
+      }
     } finally {
       setLoading(false);
     }
-  }
-
-  function cerrarSesion() {
-    setAuthState({
-      accessToken:  null,
-      refreshToken: null,
-      usuario:      null,
-    });
-  }
-
-  return {
-    usuario:      authState.usuario,
-    accessToken:  authState.accessToken,
-    estaLogueado: !!authState.accessToken,
-    loading,
-    error,
-    iniciarSesion: () => promptAsync(),
-    cerrarSesion,
   };
-}
+
+  return { iniciarSesion, response, loading, error };
+};

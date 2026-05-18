@@ -1,5 +1,5 @@
 services:
-  # 1. LA BASE DE DATOS
+  # 1. BASE DE DATOS
   db:
     image: ankane/pgvector:latest
     container_name: vamos_postgres_db
@@ -14,8 +14,13 @@ services:
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5435:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-  # 2. PGADMIN
+  # 2. PGADMIN (¡De vuelta a la vida!)
   pgadmin:
     image: dpage/pgadmin4
     container_name: vamos_pgadmin
@@ -26,19 +31,20 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
-  # 3. EL BACKEND (Django API)
+  # 3. DJANGO API
   api:
     build: .
     container_name: vamos_django_api
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     env_file:
       - .env
     environment:
@@ -46,23 +52,27 @@ services:
       - DB_PORT=5432
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
 
-  # 4. EL WORKER DE EMBEDDINGS (Ajustado a Vambot/)
+  # 4. WORKER DE EMBEDDINGS
   worker:
     build: .
     container_name: vamos_worker_embeddings
     command: python Vambot/discovery_service/worker_embeddings.py
     volumes:
       - .:/app
-    depends_on:
-      - db
     env_file:
       - .env
     environment:
       - DB_HOST=db
       - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
 
-  # 5. EL DISCOVERY SERVICE (Ajustado a Vambot/discovery_service/)
+  # 5. DISCOVERY SERVICE (FastAPI)
   discovery:
     build: .
     container_name: vamos_discovery_service
@@ -71,13 +81,35 @@ services:
       - .:/app
     ports:
       - "8001:8001"
-    depends_on:
-      - db
     env_file:
       - .env
     environment:
       - DB_HOST=db
       - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # 6. ORQUESTADOR (Node.js)
+  orquestador:
+    build: 
+      context: ./Vambot/Orquestador_node
+    container_name: vamos_orquestador_node
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DISCOVERY_SERVICE_URL=http://discovery:8001
+    depends_on:
+      # Ajustado a sintaxis de diccionario para no romper Docker Compose
+      db:
+        condition: service_healthy
+      discovery:
+        condition: service_started
 
 volumes:
   postgres_data:
