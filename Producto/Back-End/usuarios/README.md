@@ -171,10 +171,29 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS':  True,
 }
 
-AUTH_USER_MODEL = 'usuarios.UsuarioVAMOS'
+AUTH_USER_MODEL = 'usuarios vamos'
 ```
 
 ---
+
+## Iniciar Base de datos 
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py migrate --database=eventos_db
+
+## Crear Super usuario
+
+python manage.py createsuperuser
+Te va a pedir:
+
+Username
+Email
+Password (dos veces)
+
+Luego abre el navegador en:
+
+http://localhost:8000/admin/
 
 ## 📦 Dependencias
 
