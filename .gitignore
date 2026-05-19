@@ -102,10 +102,10 @@ yarn-error.*
 .expo/
 expo-env.d.ts
 web-build/
-
+**/expo-env.d.ts
 # Carpetas nativas generadas (se regeneran con prebuild)
-/ios
-/android
+**/ios
+**/android
 .kotlin/
 
 # Metro bundler

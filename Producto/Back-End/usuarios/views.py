@@ -95,6 +95,7 @@ def google_auth(request):
             'nombre':     usuario.first_name,
             'apellido':   usuario.last_name,
             'avatar_url': usuario.avatar_url,
+            'es_nuevo':   creado,
         }
     }, status=status.HTTP_200_OK)
 
