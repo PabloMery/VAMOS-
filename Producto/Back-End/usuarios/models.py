@@ -32,15 +32,6 @@ class UsuarioVAMOS(AbstractUser):
     def __str__(self):
         return f"{self.email} ({self.get_full_name()})"
 
-class AsistenciaEvento(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    evento_id = models.CharField(max_length=255) 
-    estado = models.CharField(max_length=50)
-    fecha_actualizacion = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'vamos_asistencia'
-
 #Logica de Listas, Grupos de Usuarios por eventos y Códigos de Invitación        
 def generar_invite_code():
     return get_random_string(length=6).upper()
