@@ -20,6 +20,12 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
+      "package": "com.luis_ma.vamos",
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      },
       "predictiveBackGestureEnabled": false
     },
     "web": {
@@ -49,6 +55,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fdb61664-7ed1-4553-a4a1-d1638bcd092e"
+      }
     }
   }
 }

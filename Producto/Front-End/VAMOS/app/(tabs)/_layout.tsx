@@ -17,17 +17,17 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="notifications"
-        options={{
-          title: "Notificaciones",
-          tabBarIcon: ({ focused }) => <Entypo name="bell" size={24} color="#ff7300" />,
-        }}
-      />
-      <Tabs.Screen
         name="index"
         options={{
           title: "Mapa",
           tabBarIcon: ({ focused }) => <Entypo name="map" size={24} color="#ff7300" />,
+        }}
+      />      
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notificaciones",
+          tabBarIcon: ({ focused }) => <Entypo name="bell" size={24} color="#ff7300" />,
         }}
       />
       <Tabs.Screen

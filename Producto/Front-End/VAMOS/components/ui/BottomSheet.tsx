@@ -82,6 +82,24 @@ export function BottomSheet({
     }
   }, [visible]);
 
+  // ── Teclado: subir a FULL automáticamente ────────────────────────────────
+  // Guarda dónde estaba el panel antes del teclado para restaurar después.
+  const snapBeforeKeyboard = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!visible) return;
+
+    if (keyboardOffset > 0 && currentSnap.current !== SNAP_FULL) {
+      // Teclado se abrió → recordar posición actual y subir a FULL
+      snapBeforeKeyboard.current = currentSnap.current;
+      snapTo(SNAP_FULL);
+    } else if (keyboardOffset === 0 && snapBeforeKeyboard.current !== null) {
+      // Teclado se cerró → volver a donde estaba
+      snapTo(snapBeforeKeyboard.current);
+      snapBeforeKeyboard.current = null;
+    }
+  }, [keyboardOffset]);
+
   // ── Snap a posición ────────────────────────────────────────────────────────
   const snapTo = (target: number) => {
     currentSnap.current = target;
@@ -141,8 +159,12 @@ export function BottomSheet({
         {
           // top animado controla qué porcentaje de pantalla ocupa el panel
           top: topAnim,
-          // translateY sube el panel cuando el teclado aparece
-          transform: [{ translateY: -keyboardOffset }],
+          // El panel SIEMPRE llega hasta el fondo de la pantalla (bottom: 0).
+          // El teclado se pone encima, tapando la parte de abajo del panel.
+          // paddingBottom empuja el contenido (input, mensajes) hacia arriba
+          // para que quede visible sobre el teclado.
+          bottom: 0,
+          paddingBottom: keyboardOffset,
         },
       ]}
     >
@@ -165,8 +187,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: 0,
-    // Sin height fijo — el panel ocupa de `top` hasta el fondo de la pantalla
+    // bottom se controla inline (siempre 0 — el panel llega hasta el fondo)
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
     elevation: 14,

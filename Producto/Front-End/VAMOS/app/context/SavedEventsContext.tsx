@@ -25,6 +25,9 @@ export function SavedEventsProvider({ children }: { children: ReactNode }) {
   const [confirmed, setConfirmed] = useState<Event[]>([]);
 
   function saveEvent(event: Event) {
+    // Si ya está confirmado, no lo agregamos a guardados (confirmar > guardar)
+    if (confirmed.some((e) => e.id_externo === event.id_externo)) return;
+
     setSaved((prev) =>
       prev.find((e) => e.id_externo === event.id_externo) ? prev : [...prev, event]
     );
