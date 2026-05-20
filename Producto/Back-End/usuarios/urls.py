@@ -14,4 +14,15 @@ urlpatterns = [
     path('perfil/',       views.perfil_usuario,       name='perfil-usuario'),
 
     path('mi-asistencia/', ActualizarEstadoAsistenciaView.as_view(), name='mi_asistencia'),
+    
+    #Rutas para Listado de Eventos, Grupos de Usuarios por eventos y Códigos de Invitación
+    path('eventos/mis-eventos/', views.MisEventosGuardadosView.as_view(), name='mis_eventos'),
+    path('eventos/guardar/', views.GuardarEventoView.as_view(), name='guardar_evento'), # Para "Me interesa"
+    
+    path('grupos/', views.CreateGroupView.as_view(), name='crear_grupo'),
+    path('grupos/unirse/', views.JoinGroupByCodeView.as_view(), name='unirse_grupo'),
+    path('grupos/mis-grupos/', views.GetMyGroupsView.as_view(), name='mis_grupos'),
+    path('grupos/<int:grupo_id>/', views.GetGroupDetailView.as_view(), name='detalle_grupo'),
+    path('grupos/<int:grupo_id>/estado/', views.UpdateMyStatusView.as_view(), name='actualizar_estado'),
+    path('grupos/<int:grupo_id>/salir/', views.LeaveGroupView.as_view(), name='salir_grupo'),
 ]    
