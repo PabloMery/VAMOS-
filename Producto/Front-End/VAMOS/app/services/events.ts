@@ -1,16 +1,8 @@
-// app/services/events.ts
+// services/events.ts
 //
 // Funciones para obtener eventos.
-//
-// ESTADO ACTUAL DEL BACKEND:
-//   eventos/views.py está vacío → NO hay endpoints de eventos todavía.
-//   Cuando tus compañeros los implementen, solo cambias USE_MOCK = false
-//   y todo debería funcionar (las funciones ya apuntan a las rutas esperadas).
-//
-// CONFIRMAR ASISTENCIA:
-//   No existe un endpoint /eventos/<id>/confirmar/.
-//   Lo que sí existe es POST /api/usuarios/mi-asistencia/ (en usersApi.ts).
-//   "Guardar" sigue siendo 100% local (SavedEventsContext).
+// USE_MOCK = false → usa la API real de Django.
+// Si necesitas volver al mock (backend caído), cámbialo a true.
 
 import { Event } from '@/types/Event';
 import { apiRequest } from './apiClient';
@@ -19,15 +11,80 @@ import { mockEvents } from '@/data/mockEvents';
 // ---------------------------------------------------------------------------
 // SWITCH MOCK ↔ REAL
 // ---------------------------------------------------------------------------
-// Ponlo en false cuando el backend tenga los endpoints de eventos listos.
-// Así no tienes que cambiar nada más en la app.
-const USE_MOCK = true;
+const USE_MOCK = false;  // ← Ahora usa la API real
 
 // ---------------------------------------------------------------------------
 // FILTRO
 // ---------------------------------------------------------------------------
-
 export type EventFilter = 'hoy' | 'semana' | 'mes' | 'todos';
+
+// ---------------------------------------------------------------------------
+// MAPEO: respuesta del backend → tipo Event de la app
+// ---------------------------------------------------------------------------
+// El backend devuelve campos con nombres distintos a los que usa la app.
+// Esta función traduce para que el resto de la app no tenga que cambiar.
+//
+//   Backend                →  App (Event)
+//   precio_numerico        →  precio
+//   estado_general         →  estado_evento
+//   fecha_proxima          →  fecha_evento
+//   fechas_evento (array)  →  (se ignora, usamos fecha_proxima o la fecha filtrada)
+
+interface EventoAPI {
+  id_externo: string;
+  nombre_evento: string;
+  fechas_evento: { fecha: string; estado_dia: string }[];
+  fecha_proxima: string | null;
+  hora_inicio: string | null;
+  hora_fin: string | null;
+  horario_variable: boolean;
+  categoria: string | null;
+  precio_numerico: number | null;
+  requiere_inscripcion: boolean;
+  cupos_llenos: boolean;
+  lugar_texto: string;
+  coordenadas: { latitud: number; longitud: number } | null;
+  url_oficial: string;
+  estado_general: string | null;
+  origen_datos: string;
+}
+
+function mapearEvento(raw: EventoAPI, fechaFiltro?: string): Event {
+  // Si filtramos por fecha exacta y el evento tiene esa fecha, usarla.
+  // Si no, usar fecha_proxima. Si tampoco hay, usar la primera fecha disponible.
+  let fechaEvento = raw.fecha_proxima ?? '';
+
+  if (fechaFiltro && /^\d{4}-\d{2}-\d{2}$/.test(fechaFiltro)) {
+    // Verificar si el evento tiene la fecha que estamos filtrando
+    const tieneFecha = raw.fechas_evento?.some((f) => f.fecha === fechaFiltro);
+    if (tieneFecha) {
+      fechaEvento = fechaFiltro;
+    }
+  }
+
+  // Buscar el estado_dia de la fecha específica que estamos mostrando
+  const fechaInfo = raw.fechas_evento?.find((f) => f.fecha === fechaEvento);
+  const estadoEvento = fechaInfo?.estado_dia ?? raw.estado_general ?? '';
+
+return {
+    id_externo: raw.id_externo,
+    nombre_evento: raw.nombre_evento,
+    fecha_evento: fechaEvento,
+    hora_inicio: raw.hora_inicio,
+    hora_fin: raw.hora_fin,
+    horario_variable: raw.horario_variable ?? false,
+    categoria: raw.categoria ?? '',
+    precio: raw.precio_numerico,
+    requiere_inscripcion: raw.requiere_inscripcion ?? false,
+    lugar_texto: raw.lugar_texto ?? '',
+    coordenadas: raw.coordenadas ?? { latitud: 0, longitud: 0 },
+    url_oficial: raw.url_oficial ?? '',
+    estado_evento: estadoEvento,
+    origen_datos: raw.origen_datos ?? '',
+    descripcion: '',
+    imagen_url: null,
+  };
+}
 
 // ---------------------------------------------------------------------------
 // LECTURA
@@ -36,75 +93,78 @@ export type EventFilter = 'hoy' | 'semana' | 'mes' | 'todos';
 /**
  * Devuelve la lista de eventos.
  *
- * Mientras USE_MOCK sea true → devuelve los datos de mockEvents.ts.
- * Cuando sea false → llama a GET /api/eventos/?fecha=hoy|semana|mes
+ * Acepta un EventFilter ('hoy', 'semana', 'mes', 'todos')
+ * o una fecha exacta como string 'YYYY-MM-DD'.
  *
- * NOTA: cuando el backend implemente este endpoint, verifica que:
- *   1. La respuesta sea un array de objetos con los campos de tipo Event
- *   2. El query param "fecha" funcione como filtro
- *   3. Las coordenadas vengan como { latitud, longitud } (no lat/lng)
+ * Ejemplos:
+ *   getEvents('hoy')          → GET /api/eventos/?fecha=hoy
+ *   getEvents('2026-05-20')   → GET /api/eventos/?fecha=2026-05-20
+ *   getEvents('todos')        → GET /api/eventos/
  */
 export async function getEvents(
-  filter: EventFilter = 'todos',
+  filter: EventFilter | string = 'todos',
 ): Promise<Event[]> {
   if (USE_MOCK) {
     return filtrarEventosMock(filter);
   }
 
   const query = filter !== 'todos' ? `?fecha=${filter}` : '';
-  return apiRequest<Event[]>(`/eventos/${query}`);
+
+  try {
+    const datos = await apiRequest<EventoAPI[]>(`/eventos/${query}`, { auth: false });
+    return datos.map((raw) => mapearEvento(raw, filter));
+  } catch (error) {
+    console.error('Error al obtener eventos:', error);
+    return [];
+  }
 }
 
 /**
  * Devuelve el detalle completo de un evento por su id_externo.
- *
- * Con mock → busca en el array local.
- * Sin mock → llama a GET /api/eventos/<id>/
  */
 export async function getEventById(id: string): Promise<Event | null> {
   if (USE_MOCK) {
     return mockEvents.find((e) => e.id_externo === id) ?? null;
   }
 
-  return apiRequest<Event>(`/eventos/${id}/`);
+  try {
+    const raw = await apiRequest<EventoAPI>(`/eventos/${id}/`, { auth: false });
+    return mapearEvento(raw);
+  } catch (error) {
+    console.error('Error al obtener evento:', error);
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
 // FILTRO LOCAL (solo para mock)
 // ---------------------------------------------------------------------------
 
-function filtrarEventosMock(filter: EventFilter): Event[] {
+function filtrarEventosMock(filter: string): Event[] {
   if (filter === 'todos') return mockEvents;
 
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
   return mockEvents.filter((evento) => {
-    // fecha_evento puede venir como "YYYY-MM-DD" o "DD-MM-YYYY"
     const partes = evento.fecha_evento.includes('-')
       ? evento.fecha_evento.split('-')
       : [];
 
     let fechaEvento: Date;
     if (partes.length === 3 && partes[0].length === 4) {
-      // YYYY-MM-DD
-      fechaEvento = new Date(
-        Number(partes[0]),
-        Number(partes[1]) - 1,
-        Number(partes[2]),
-      );
+      fechaEvento = new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
     } else if (partes.length === 3) {
-      // DD-MM-YYYY
-      fechaEvento = new Date(
-        Number(partes[2]),
-        Number(partes[1]) - 1,
-        Number(partes[0]),
-      );
+      fechaEvento = new Date(Number(partes[2]), Number(partes[1]) - 1, Number(partes[0]));
     } else {
-      return true; // si no se puede parsear, incluirlo
+      return true;
     }
 
     fechaEvento.setHours(0, 0, 0, 0);
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(filter)) {
+      return evento.fecha_evento === filter;
+    }
 
     switch (filter) {
       case 'hoy':
