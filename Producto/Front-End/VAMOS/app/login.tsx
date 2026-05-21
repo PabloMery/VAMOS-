@@ -31,7 +31,7 @@ export default function LoginScreen() {
   async function manejarLoginExitoso(idToken: string) {
     try {
       const res = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/usuarios/auth/google/`,
+        `${process.env.EXPO_PUBLIC_API_URL}/usuarios/auth/google/`,
         {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -81,6 +81,16 @@ export default function LoginScreen() {
           </Text>
         )}
 
+        <TouchableOpacity
+          style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
+          onPress={() => router.replace('/(tabs)')}
+          disabled={loading}
+        >
+              <Text style={[styles.textoBoton, { color: theme.colors.text }]}>
+                Continuar sin Google
+              </Text>
+        </TouchableOpacity>
+        
         <TouchableOpacity
           style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
           onPress={iniciarSesion}
