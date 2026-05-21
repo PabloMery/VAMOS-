@@ -2,26 +2,14 @@
 
 import { EstadoModal, ESTADOS } from "@/components/EstadoModal";
 import { useGrupos } from "../context/GruposContext";
+import { useAuth } from "../context/AuthContext";
 import { EstadoMiembro } from "../services/groupApi";
 import { useTheme } from "@/hooks/useTheme";
+import { formatearFecha } from "../utils/fecha";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-const MOCK_USER_ID = "yo";
-
-function formatearFecha(fecha?: string): string {
-  if (!fecha) return "";
-  const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                 "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-  const partes = fecha.split("-");
-  const [, mes, dia] = partes[0].length === 4
-    ? [partes[0], partes[1], partes[2]]
-    : [partes[2], partes[1], partes[0]];
-  return `${parseInt(dia)} ${meses[parseInt(mes) - 1]}`;
-}
+import { Alert, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function GrupoScreen() {
@@ -32,8 +20,12 @@ export default function GrupoScreen() {
   }>();
 
   const { misGrupos, actualizarEstado } = useGrupos();
+  const { usuario } = useAuth();
   const { colors } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
+
+  // Id real del usuario logueado (reemplaza el antiguo MOCK_USER_ID = "yo")
+  const miUserId = usuario?.id?.toString() ?? "";
 
   const grupo = misGrupos.find(g => g.id === id);
 
@@ -50,8 +42,8 @@ export default function GrupoScreen() {
     );
   }
 
-  const miMiembro     = grupo.miembros.find(m => m.usuario_id === MOCK_USER_ID);
-  const otrosMiembros = grupo.miembros.filter(m => m.usuario_id !== MOCK_USER_ID);
+  const miMiembro     = grupo.miembros.find(m => m.usuario_id === miUserId);
+  const otrosMiembros = grupo.miembros.filter(m => m.usuario_id !== miUserId);
   const miEstadoCfg   = ESTADOS[miMiembro?.estado ?? "pendiente"];
   const miColor       = miEstadoCfg.color(colors);
 
@@ -59,6 +51,14 @@ export default function GrupoScreen() {
     await Share.share({
       message: `Unite a mi grupo en Vamos?!\nCódigo: ${grupo.invite_code}`,
     });
+  };
+
+  const handleCambiarEstado = async (estado: EstadoMiembro) => {
+    try {
+      await actualizarEstado(grupo.id, estado);
+    } catch {
+      Alert.alert("Error", "No se pudo actualizar el estado");
+    }
   };
 
   return (
@@ -174,7 +174,7 @@ export default function GrupoScreen() {
       <EstadoModal
         visible={modalVisible}
         estadoActual={miMiembro?.estado}
-        onSelect={(estado) => actualizarEstado(grupo.id, estado)}
+        onSelect={handleCambiarEstado}
         onClose={() => setModalVisible(false)}
       />
 

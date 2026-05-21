@@ -83,6 +83,16 @@ export default function LoginScreen() {
 
         <TouchableOpacity
           style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
+          onPress={() => router.replace('/(tabs)')}
+          disabled={loading}
+        >
+              <Text style={[styles.textoBoton, { color: theme.colors.text }]}>
+                Continuar sin Google
+              </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
           onPress={iniciarSesion}
           disabled={loading}
         >
