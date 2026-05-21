@@ -31,7 +31,7 @@ export default function LoginScreen() {
   async function manejarLoginExitoso(idToken: string) {
     try {
       const res = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/usuarios/auth/google/`,
+        `${process.env.EXPO_PUBLIC_API_URL}/usuarios/auth/google/`,
         {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
