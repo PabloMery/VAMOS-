@@ -192,6 +192,7 @@ export async function apiRequest<T>(
 
   // Algunas respuestas (DELETE 204) no traen cuerpo.
   const text = await response.text();
+  console.log('📡 Respuesta:', response.status, endpoint, text.substring(0, 200));
   const data = text ? JSON.parse(text) : null;
 
   if (!response.ok) {
