@@ -86,7 +86,7 @@ export function EstadoModal({ visible, estadoActual, onSelect, onClose }: Props)
 
 // ─── Estilos ──────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  overlay:    { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.4)" },
+  overlay: { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.15)" },
   content:    { borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingBottom: 40 },
   handle:     { width: 40, height: 4, borderRadius: 2, alignSelf: "center",
                 marginTop: 12, marginBottom: 8 },

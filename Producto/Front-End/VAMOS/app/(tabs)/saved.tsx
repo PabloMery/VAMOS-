@@ -8,6 +8,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSavedEvents } from "@/context/SavedEventsContext";
+import JoinGroupModal from "@/components/JoinGroupModal";
 
 // ─── Formatear fecha (igual que en grupo/[id].tsx) ────────────────────────────
 function formatearFecha(fecha?: string): string {
@@ -188,10 +189,11 @@ function EmptyState({ tab }: { tab: "guardados" | "confirmados" }) {
 // ─── Pantalla principal ───────────────────────────────────────────────────────
 export default function SavedScreen() {
   const [tab, setTab] = useState<"guardados" | "confirmados">("guardados");
+  const [joinModalVisible, setJoinModalVisible] = useState(false);
 
   const { saved, confirmed, removeEvent } = useSavedEvents();
   const { colors } = useTheme();
-  const { getGrupoPorEvento } = useGrupos();
+  const { getGrupoPorEvento, misGrupos } = useGrupos();
 
   const data = tab === "guardados" ? saved : confirmed;
 
@@ -223,12 +225,22 @@ export default function SavedScreen() {
         })}
       </View>
 
+      {/* ── Botón unirse a grupo ── */}
+      <TouchableOpacity
+        style={[styles.joinBtn, { borderColor: colors.primary, backgroundColor: colors.primary + "18" }]}
+        onPress={() => setJoinModalVisible(true)}
+      >
+        <Ionicons name="enter-outline" size={18} color={colors.primary} />
+        <Text style={[styles.joinBtnText, { color: colors.primary }]}>Unirse a un grupo</Text>
+      </TouchableOpacity>
+
       {/* ── Lista ── */}
       {data.length === 0 ? (
         <EmptyState tab={tab} />
       ) : (
         <FlatList
           data={data}
+          extraData={misGrupos}
           keyExtractor={(item) => item.id_externo}
           contentContainerStyle={styles.list}
           renderItem={({ item }) => {
@@ -252,6 +264,12 @@ export default function SavedScreen() {
           }}
         />
       )}
+
+      {/* ── Modal para unirse con código ── */}
+      <JoinGroupModal
+        visible={joinModalVisible}
+        onClose={() => setJoinModalVisible(false)}
+      />
     </View>
   );
 }
@@ -261,10 +279,15 @@ const styles = StyleSheet.create({
   container:        { flex: 1, paddingTop: 60, paddingHorizontal: 16 },
   title:            { fontSize: 22, fontWeight: "800", marginBottom: 16 },
 
-  tabRow:           { flexDirection: "row", borderRadius: 12, marginBottom: 16, padding: 4 },
+  tabRow:           { flexDirection: "row", borderRadius: 12, marginBottom: 12, padding: 4 },
   tabButton:        { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center",
                       gap: 6, paddingVertical: 9, borderRadius: 10 },
   tabText:          { fontSize: 13, fontWeight: "600" },
+
+  joinBtn:          { flexDirection: "row", alignItems: "center", justifyContent: "center",
+                      gap: 8, paddingVertical: 12, borderRadius: 14,
+                      borderWidth: 1.5, marginBottom: 16 },
+  joinBtnText:      { fontSize: 14, fontWeight: "600" },
 
   list:             { paddingBottom: 32 },
 
