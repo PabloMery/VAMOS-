@@ -4,7 +4,7 @@ import { useTheme } from "@/hooks/useTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
-import { useSavedEvents } from "../context/SavedEventsContext";
+import { useSavedEvents } from "@/context/SavedEventsContext";
 
 export default function ProfileScreen() {
   const [notificaciones, setNotificaciones] = useState(true);

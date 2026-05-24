@@ -1,7 +1,7 @@
 // components/EstadoModal.tsx
 
 import { useTheme } from "@/hooks/useTheme";
-import { EstadoMiembro } from "@/app/services/groupApi";
+import { EstadoMiembro } from "@/services/groupApi";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   Modal,
