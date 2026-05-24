@@ -5,7 +5,7 @@ import { DateSelector } from "@/components/DateSelector";
 import { EventDetailSheet } from "@/components/EventDetailSheet";
 import { EventMarker, EventStatus } from "@/components/EventMarker";
 import { RouteMode, RoutePanel, RouteStep } from "@/components/RoutePanel";
-import { useGrupos } from "../context/GruposContext";
+import { useGrupos } from "../../context/GruposContext";
 import { useTheme } from "@/hooks/useTheme";
 import { useEvents } from "@/hooks/useEvents";
 import { Event } from "@/types/Event";
@@ -22,7 +22,7 @@ import {
 } from "react-native";
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
-import { useSavedEvents } from "../context/SavedEventsContext";
+import { useSavedEvents } from "@/context/SavedEventsContext";
 
 // ─── API Key ───────────────────────────────────────────────────────────────────
 const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
@@ -232,7 +232,7 @@ export default function MapScreen() {
           const fecha  = selectedEvent.fecha_evento;
           setSelectedEvent(null);
           router.push({
-            pathname: "/grupo/[id]",
+            pathname: "../grupo/[id]",
             params: { id: grupoDelEvento.id, eventoNombre: nombre, fechaEvento: fecha },
           });
         }}

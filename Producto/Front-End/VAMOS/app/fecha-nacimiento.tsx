@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform, ActivityIndicator }
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useRouter } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
-// Ajusta estas rutas a donde moviste tus servicios y contextos
 import { apiRequest } from '@/services/apiClient'; 
 import { useAuth } from '@/context/AuthContext'; 
 
@@ -42,10 +41,10 @@ export default function FechaNacimientoScreen() {
   };
 
   // 2. Función para guardar y validar
+  const { completarRegistro } = useAuth();
+
   const guardarFecha = async () => {
     const edad = calcularEdad(date);
-
-    // Validación estricta: Menores de 18 no pasan
     if (edad < 18) {
       setError("Lo sentimos, debes tener al menos 18 años para usar VAMOS.");
       return;
@@ -53,20 +52,15 @@ export default function FechaNacimientoScreen() {
 
     setLoading(true);
     try {
-      // 3. Enviamos la fecha al backend (Formato YYYY-MM-DD)
       const fechaFormateada = date.toISOString().split('T')[0];
-      
-      // Asumiendo que harás un endpoint PATCH en Django para actualizar el perfil
       await apiRequest('/usuarios/perfil/', {
         method: 'PATCH',
+        auth: true, 
         body: { fecha_nacimiento: fechaFormateada }
       });
 
-      // ¡Éxito! Lo mandamos a la app principal
-      router.replace('/(tabs)');
-      
+      await completarRegistro(); // ← esto actualiza el contexto y dispara la redirección
     } catch (e) {
-      console.log('Error al guardar fecha:', e);
       setError("Hubo un problema al guardar tu fecha. Intenta de nuevo.");
     } finally {
       setLoading(false);

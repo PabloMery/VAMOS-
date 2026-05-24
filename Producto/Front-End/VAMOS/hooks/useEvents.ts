@@ -11,7 +11,7 @@
 
 import { useEffect, useState } from "react";
 import { Event } from "../types/Event";
-import { getEvents } from "@/app/services/events";
+import { getEvents } from "@/services/events";
 
 export function useEvents(lat: number, lng: number, date: Date) {
   const [events, setEvents] = useState<Event[]>([]);
