@@ -8,6 +8,7 @@ type UsuarioVAMOS = {
   nombre:       string;
   apellido:     string;
   avatar_url:   string | null;
+  fecha_nacimiento:  string | null;
   es_nuevo?:    boolean;
 };
 
@@ -15,11 +16,11 @@ type AuthContextType = {
   usuario:        UsuarioVAMOS | null;
   accessToken:    string | null;
   estaLogueado:   boolean;
-  esUsuarioNuevo: boolean;
+  necesitaFecha:  boolean;
   cargando:       boolean;
-  guardarSesion:       (access: string, refresh: string, usuario: UsuarioVAMOS) => Promise<void>;
-  cerrarSesion:        () => Promise<void>;
-  completarRegistro:   () => Promise<void>;
+  guardarSesion:     (access: string, refresh: string, usuario: UsuarioVAMOS) => Promise<void>;
+  cerrarSesion:      () => Promise<void>;
+  completarRegistro: () => Promise<void>;
 };
 
 // ── Contexto ───────────────────────────────────
@@ -36,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [usuario,        setUsuario]        = useState<UsuarioVAMOS | null>(null);
   const [accessToken,    setAccessToken]    = useState<string | null>(null);
   const [cargando,       setCargando]       = useState(true);
-  const [esUsuarioNuevo, setEsUsuarioNuevo] = useState(false);
+  const [necesitaFecha, setNecesitaFecha] = useState(false);
 
   // Al abrir la app, revisar si hay sesión guardada
   useEffect(() => {
@@ -46,8 +47,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const userStr = await SecureStore.getItemAsync('usuario');
 
         if (token && userStr) {
+          const usuarioParsed = JSON.parse(userStr);
           setAccessToken(token);
-          setUsuario(JSON.parse(userStr));
+          setUsuario(usuarioParsed);
+          setNecesitaFecha(!usuarioParsed.fecha_nacimiento);
         }
       } catch (e) {
         console.log('Error cargando sesión:', e);
@@ -72,12 +75,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUsuario(usuario);
 
     // Si es usuario nuevo lo marcamos para redirigir a fecha nacimiento
-    setEsUsuarioNuevo(usuario.es_nuevo ?? false);
+    setNecesitaFecha(!usuario.fecha_nacimiento);  
   }
 
   // Se llama cuando el usuario completa el formulario de fecha nacimiento
   async function completarRegistro() {
-    setEsUsuarioNuevo(false);
+    setNecesitaFecha(false);
 
     if (usuario) {
       const usuarioActualizado = { ...usuario, es_nuevo: false };
@@ -93,21 +96,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setAccessToken(null);
     setUsuario(null);
-    setEsUsuarioNuevo(false);
   }
 
   return (
-    <AuthContext.Provider value={{
-      usuario,
-      accessToken,
-      estaLogueado:   !!accessToken,
-      esUsuarioNuevo,
-      cargando,
-      guardarSesion,
-      cerrarSesion,
-      completarRegistro,
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  <AuthContext.Provider value={{
+    usuario,
+    accessToken,
+    estaLogueado:  !!accessToken,
+    necesitaFecha,        // ← esta línea
+    cargando,
+    guardarSesion,
+    cerrarSesion,
+    completarRegistro,
+  }}>
+    {children}
+  </AuthContext.Provider>
+);
 }

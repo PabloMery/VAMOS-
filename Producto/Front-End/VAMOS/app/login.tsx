@@ -1,4 +1,4 @@
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
@@ -15,7 +15,7 @@ import {
 export default function LoginScreen() {
   const theme                                        = useTheme();
   const router                                       = useRouter();
-  const { guardarSesion, estaLogueado, esUsuarioNuevo } = useAuth();
+  const { guardarSesion, estaLogueado, necesitaFecha } = useAuth();
   const { iniciarSesion, response, loading, error } = useGoogleAuth();
 
   // Cuando Google responde exitosamente
@@ -31,7 +31,7 @@ export default function LoginScreen() {
   async function manejarLoginExitoso(idToken: string) {
     try {
       const res = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/usuarios/auth/google/`,
+        `${process.env.EXPO_PUBLIC_API_URL}/usuarios/auth/google/`,
         {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -52,13 +52,13 @@ export default function LoginScreen() {
   // Redirigir según el estado
   useEffect(() => {
     if (estaLogueado) {
-      if (esUsuarioNuevo) {
+      if (necesitaFecha) {
         router.replace('/fecha-nacimiento' as any);
       } else {
         router.replace('/(tabs)');
       }
     }
-  }, [estaLogueado, esUsuarioNuevo]);
+  }, [estaLogueado, necesitaFecha]);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -81,6 +81,16 @@ export default function LoginScreen() {
           </Text>
         )}
 
+        <TouchableOpacity
+          style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
+          onPress={() => router.replace('/(tabs)')}
+          disabled={loading}
+        >
+              <Text style={[styles.textoBoton, { color: theme.colors.text }]}>
+                Continuar sin Google
+              </Text>
+        </TouchableOpacity>
+        
         <TouchableOpacity
           style={[styles.botonGoogle, { backgroundColor: theme.colors.card }]}
           onPress={iniciarSesion}

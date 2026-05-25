@@ -1,13 +1,13 @@
 // app/(tabs)/saved.tsx
 
-import { useGrupos } from "../context/GruposContext";
+import { useGrupos } from "@/context/GruposContext";
 import { useTheme } from "@/hooks/useTheme";
 import { Event } from "@/types/Event";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useSavedEvents } from "../context/SavedEventsContext";
+import { useSavedEvents } from "@/context/SavedEventsContext";
 
 // ─── Formatear fecha (igual que en grupo/[id].tsx) ────────────────────────────
 function formatearFecha(fecha?: string): string {
@@ -126,7 +126,7 @@ function TarjetaConfirmado({ event, onRemove, grupoId, eventoNombre }: TarjetaCo
           <TouchableOpacity
             style={[styles.grupoBandaActivo, { backgroundColor: colors.primary + "12", borderColor: colors.primary + "40" }]}
             onPress={() => router.push({
-              pathname: "/grupo/[id]",
+              pathname: "../grupo/[id]",
               params: { id: grupo.id, eventoNombre, fechaEvento: event.fecha_evento },
             })}
           >

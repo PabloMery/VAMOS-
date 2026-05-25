@@ -1,123 +1,135 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-  Alert
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useRouter } from 'expo-router';
-import { useAuth } from '@/app/context/AuthContext';
 import { useTheme } from '@/hooks/useTheme';
+import { apiRequest } from '@/services/apiClient'; 
+import { useAuth } from '@/context/AuthContext'; 
 
 export default function FechaNacimientoScreen() {
   const theme = useTheme();
   const router = useRouter();
-  
-  // Extraemos el token del contexto para autorizar la petición
-  const { accessToken, completarRegistro } = useAuth(); 
-  
-  const [fecha, setFecha] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { cerrarSesion } = useAuth(); // Necesitamos esto para expulsarlos si mienten con la edad
 
-  // Función para manejar el cambio en el input y poner las barras automáticamente (DD/MM/AAAA)
-  const manejarCambioFecha = (texto: string) => {
-    let textoLimpio = texto.replace(/[^0-9]/g, '');
-    if (textoLimpio.length > 2) textoLimpio = textoLimpio.substring(0, 2) + '/' + textoLimpio.substring(2);
-    if (textoLimpio.length > 5) textoLimpio = textoLimpio.substring(0, 5) + '/' + textoLimpio.substring(5);
-    setFecha(textoLimpio.substring(0, 10));
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // 1. Función para calcular la edad exacta
+  const calcularEdad = (fechaNacimiento: Date) => {
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+    
+    // Si aún no ha llegado su mes de cumpleaños, o es el mes pero no ha llegado el día, restamos 1 año
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+      edad--;
+    }
+    return edad;
   };
 
+  const onChangeDate = (event: any, selectedDate?: Date) => {
+    // En Android el picker se cierra solo al seleccionar, en iOS no
+    if (Platform.OS === 'android') {
+      setShowPicker(false);
+    }
+    if (selectedDate) {
+      setDate(selectedDate);
+      setError(null); // Limpiamos errores al cambiar la fecha
+    }
+  };
+
+  // 2. Función para guardar y validar
+  const { completarRegistro } = useAuth();
+
   const guardarFecha = async () => {
-    if (fecha.length < 10) {
-      Alert.alert('Formato inválido', 'Por favor usa el formato DD/MM/AAAA');
+    const edad = calcularEdad(date);
+    if (edad < 18) {
+      setError("Lo sentimos, debes tener al menos 18 años para usar VAMOS.");
       return;
     }
 
     setLoading(true);
     try {
-      // 1. Enviamos el dato a nuestro Django (Asegúrate de que esta URL coincida con tu backend)
-      const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/usuarios/perfil/`, {
+      const fechaFormateada = date.toISOString().split('T')[0];
+      await apiRequest('/usuarios/perfil/', {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}` // 👈 Pase VIP
-        },
-        // Django suele requerir formato AAAA-MM-DD para bases de datos, lo transformamos:
-        body: JSON.stringify({ 
-          fecha_nacimiento: fecha.split('/').reverse().join('-') 
-        }),
+        auth: true, 
+        body: { fecha_nacimiento: fechaFormateada }
       });
 
-      if (!res.ok) throw new Error('Error al guardar en el servidor');
-
-      // 2. Actualizamos el estado global (AuthContext) para que sepa que ya no es nuevo
-      await completarRegistro();
-
-      // 3. ¡Bienvenido a VAMOS! Lo mandamos al mapa
-      router.replace('/(tabs)');
-
-    } catch (error) {
-      console.log('Error al guardar fecha:', error);
-      Alert.alert('Error', 'No pudimos guardar tu información. Intenta de nuevo.');
+      await completarRegistro(); // ← esto actualiza el contexto y dispara la redirección
+    } catch (e) {
+      setError("Hubo un problema al guardar tu fecha. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
   };
 
+  // Función para cancelar si son menores de edad y quieren salir
+  const cancelarYSalir = async () => {
+    await cerrarSesion(); // Borra los tokens del SecureStore
+    router.replace('/'); // Vuelve al Login
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      
       <View style={styles.header}>
-        <Text style={[styles.titulo, { color: theme.colors.text }]}>
-          Ya casi estamos
-        </Text>
+        <Text style={[styles.titulo, { color: theme.colors.text }]}>¿Cuándo naciste?</Text>
         <Text style={[styles.subtitulo, { color: theme.colors.subtext }]}>
-          Necesitamos tu fecha de nacimiento para recomendarte los mejores eventos municipales.
+          Necesitamos tu fecha de nacimiento para asegurarnos de que tienes la edad adecuada para usar la aplicación.
         </Text>
       </View>
 
-      <View style={styles.formulario}>
-        <Text style={[styles.label, { color: theme.colors.text }]}>
-          Fecha de Nacimiento
-        </Text>
-        <TextInput
-          style={[
-            styles.input, 
-            { 
-              backgroundColor: theme.colors.card, 
-              color: theme.colors.text,
-              borderColor: theme.colors.border 
-            }
-          ]}
-          placeholder="DD/MM/AAAA"
-          placeholderTextColor={theme.colors.subtle}
-          keyboardType="numeric"
-          value={fecha}
-          onChangeText={manejarCambioFecha}
-          maxLength={10}
-        />
+      <View style={styles.content}>
+        {/* Botón para abrir el calendario en Android/iOS */}
+        <TouchableOpacity 
+          style={[styles.dateSelector, { borderColor: theme.colors.border }]} 
+          onPress={() => setShowPicker(true)}
+        >
+          <Text style={[styles.dateText, { color: theme.colors.primary }]}>
+            {date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </Text>
+        </TouchableOpacity>
 
+        {showPicker && (
+          <DateTimePicker
+            value={date}
+            mode="date"
+            display="spinner" // O 'default', 'inline' dependiendo de tu diseño
+            maximumDate={new Date()} // No pueden nacer en el futuro
+            onChange={onChangeDate}
+          />
+        )}
+
+        {/* Cierre en iOS */}
+        {showPicker && Platform.OS === 'ios' && (
+          <TouchableOpacity onPress={() => setShowPicker(false)}>
+            <Text style={{ color: theme.colors.primary, textAlign: 'center', marginTop: 10 }}>Confirmar fecha</Text>
+          </TouchableOpacity>
+        )}
+
+        {error && <Text style={[styles.error, { color: theme.colors.danger }]}>{error}</Text>}
+      </View>
+
+      <View style={styles.footer}>
         <TouchableOpacity
-          style={[
-            styles.botonGuardar, 
-            { 
-              backgroundColor: fecha.length === 10 ? theme.colors.primary : theme.colors.border 
-            }
-          ]}
+          style={[styles.botonGuardar, { backgroundColor: theme.colors.primary }]}
           onPress={guardarFecha}
-          disabled={loading || fecha.length < 10}
+          disabled={loading}
         >
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.textoBoton}>Comenzar a explorar</Text>
+            <Text style={styles.textoBoton}>Continuar</Text>
           )}
         </TouchableOpacity>
-      </View>
 
+        <TouchableOpacity onPress={cancelarYSalir} style={{ marginTop: 20 }}>
+          <Text style={[styles.textoCancelar, { color: theme.colors.subtext }]}>Volver al inicio de sesión</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -125,46 +137,58 @@ export default function FechaNacimientoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 100,
+    padding: 24,
+    justifyContent: 'space-between',
   },
   header: {
-    marginBottom: 40,
+    marginTop: 60,
   },
   titulo: {
     fontSize: 32,
     fontWeight: '700',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   subtitulo: {
     fontSize: 16,
     lineHeight: 24,
   },
-  formulario: {
-    gap: 16,
+  content: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginLeft: 4,
-  },
-  input: {
+  dateSelector: {
     borderWidth: 1,
     borderRadius: 12,
-    padding: 16,
-    fontSize: 18,
-    letterSpacing: 2,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  dateText: {
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  error: {
     textAlign: 'center',
+    fontSize: 14,
+    marginTop: 10,
+    fontWeight: '600',
+  },
+  footer: {
+    marginBottom: 40,
   },
   botonGuardar: {
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    marginTop: 20,
   },
   textoBoton: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  textoCancelar: {
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: '500',
   }
 });

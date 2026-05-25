@@ -1,10 +1,10 @@
 import { ActivityIndicator, View } from 'react-native';
 import { Redirect } from 'expo-router';
-import { useAuth } from '@/app/context/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function IndexScreen() {
-  const { estaLogueado, cargando, esUsuarioNuevo } = useAuth();
+  const { estaLogueado, cargando, necesitaFecha } = useAuth();
   const theme = useTheme();
 
   if (cargando) {
@@ -16,6 +16,6 @@ export default function IndexScreen() {
   }
 
   if (!estaLogueado) return <Redirect href="/login" />;
-  if (esUsuarioNuevo) return <Redirect href="/fecha-nacimiento" />;
+  if (necesitaFecha) return <Redirect href="/fecha-nacimiento" />;
   return <Redirect href="/(tabs)" />;
 }

@@ -10,7 +10,7 @@ urlpatterns = [
     path('auth/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
 
     # Perfil del usuario autenticado
-    path('perfil/',       views.perfil_usuario,       name='perfil-usuario'),
+    path('perfil/', views.perfil_usuario, name='perfil-usuario'),
     
     #Rutas para Listado de Eventos, Grupos de Usuarios por eventos y Códigos de Invitación
     path('eventos/mis-eventos/', views.MisEventosGuardadosView.as_view(), name='mis_eventos'),

@@ -2,7 +2,7 @@
 
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useTheme } from "@/hooks/useTheme";
-import { askVambot, EventoVambot } from "@/app/services/Vambotapi";
+import { askVambot, EventoVambot } from "@/services/Vambotapi";
 import { useUserLocation } from "@/hooks/useUserLocation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useEffect, useRef, useState } from "react";

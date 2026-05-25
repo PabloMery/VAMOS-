@@ -52,7 +52,7 @@ export const VAMBOT_BASE_URL =
 //   - access:  dura poco (minutos/horas), se manda en cada petición.
 //   - refresh: dura más (días), sirve para pedir un nuevo access sin re-login.
 
-const ACCESS_KEY = 'vamos_access_token';
+const ACCESS_KEY = 'accessToken';
 const REFRESH_KEY = 'vamos_refresh_token';
 
 /** Guarda ambos tokens después de un login exitoso. */
@@ -192,6 +192,7 @@ export async function apiRequest<T>(
 
   // Algunas respuestas (DELETE 204) no traen cuerpo.
   const text = await response.text();
+  console.log('📡 Respuesta:', response.status, endpoint, text.substring(0, 200));
   const data = text ? JSON.parse(text) : null;
 
   if (!response.ok) {
