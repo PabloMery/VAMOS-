@@ -1,15 +1,16 @@
 // app/grupo/[id].tsx
 
 import { EstadoModal, ESTADOS } from "@/components/EstadoModal";
-import { useGrupos } from "../../context/GruposContext";
-import { useAuth } from "../../context/AuthContext";
-import { EstadoMiembro } from "../../services/groupApi";
+import { useGrupos } from "@/context/GruposContext";
+import { useAuth } from "@/context/AuthContext";
+import { EstadoMiembro } from "@/services/groupApi";
 import { useTheme } from "@/hooks/useTheme";
-import { formatearFecha } from "../../utils/fecha";
+import { formatearFecha } from "@/utils/fecha";
+import { compartirInvitacion } from "@/utils/branchLinks";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Alert, ScrollView, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function GrupoScreen() {
@@ -24,10 +25,11 @@ export default function GrupoScreen() {
   const { colors } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Id real del usuario logueado (reemplaza el antiguo MOCK_USER_ID = "yo")
+  // Id real del usuario logueado
   const miUserId = usuario?.id?.toString() ?? "";
 
-  const grupo = misGrupos.find(g => g.id === id);
+  // FIX: comparar como strings (backend devuelve id numérico, params es string)
+  const grupo = misGrupos.find(g => String(g.id) === String(id));
 
   // ── Guardia ───────────────────────────────────────────────────────────────
   if (!grupo) {
@@ -47,9 +49,14 @@ export default function GrupoScreen() {
   const miEstadoCfg   = ESTADOS[miMiembro?.estado ?? "pendiente"];
   const miColor       = miEstadoCfg.color(colors);
 
-  const compartir = async () => {
-    await Share.share({
-      message: `Unite a mi grupo en Vamos?!\nCódigo: ${grupo.invite_code}`,
+  // Compartir con Branch (o fallback con texto plano si Branch no está instalado)
+  const compartir = () => {
+    compartirInvitacion({
+      inviteCode:   grupo.invite_code,
+      eventoId:     grupo.evento_id,
+      eventoNombre: eventoNombre ?? "un evento",
+      fechaEvento:  fechaEvento ?? "",
+      grupoId:      String(grupo.id),
     });
   };
 

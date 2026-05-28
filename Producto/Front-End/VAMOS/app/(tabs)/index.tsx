@@ -63,7 +63,7 @@ export default function MapScreen() {
   };
 
   // ── Hooks ─────────────────────────────────────────────────────────────────
-  const { saveEvent, confirmEvent, removeEvent, isSaved, isConfirmed } = useSavedEvents();
+  const { saveEvent, confirmEvent, removeEvent, isSaved, isConfirmed, cargando: cargandoSaved} = useSavedEvents();
   const { colors } = useTheme();
   const { getGrupoPorEvento, crearGrupo } = useGrupos();
 
@@ -166,10 +166,11 @@ export default function MapScreen() {
         initialRegion={{ latitude: coords.lat, longitude: coords.lng, latitudeDelta: 0.05, longitudeDelta: 0.05 }}
         showsUserLocation
       >
-        {events.map((event) => {
+        {!cargandoSaved && events.map((event) => {
           const status: EventStatus = isConfirmed(event.id_externo)
             ? "confirmado"
             : isSaved(event.id_externo) ? "guardado" : "neutral";
+            console.log(event.id_externo, "saved:", isSaved(event.id_externo), "confirmed:", isConfirmed(event.id_externo));
           return (
             <EventMarker
               key={event.id_externo}

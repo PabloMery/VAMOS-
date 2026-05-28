@@ -1,14 +1,19 @@
 // context/SavedEventsContext.tsx
 //
-// Fase 3: sincroniza guardados/confirmados con el backend.
-// - Si hay token → carga los IDs desde el backend al montar
-// - Cada saveEvent/confirmEvent también llama al backend
-// - removeEvent sigue siendo solo local (falta endpoint DELETE en backend)
+// Estado de eventos guardados y confirmados.
+//
+// FIX aplicado: ahora usa useAuth() para saber cuándo hay token.
+// Antes revisaba el token una sola vez al montar con getToken(),
+// pero AuthContext aún no había terminado de cargar → siempre null
+// → nunca sincronizaba con el backend → al cerrar la app se perdía todo.
+//
+// Ahora: escucha accessToken de AuthContext. Cuando cambia de null a
+// un valor real, carga los eventos del backend automáticamente.
 
 import { Event } from "@/types/Event";
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
-import { getToken } from "../services/apiClient";
-import { getMisEventos, guardarEvento } from "@/services/savedEventsApi";
+import { useAuth } from "./AuthContext";
+import { getMisEventos, guardarEvento } from "../services/savedEventsApi";
 import { getEventById } from "../services/events";
 
 type SavedEventsContextType = {
@@ -32,21 +37,23 @@ export function useSavedEvents() {
 }
 
 export function SavedEventsProvider({ children }: { children: ReactNode }) {
+  const { accessToken } = useAuth();
+
   const [saved, setSaved] = useState<Event[]>([]);
   const [confirmed, setConfirmed] = useState<Event[]>([]);
   const [cargando, setCargando] = useState(false);
 
   // ── Cargar listas desde el backend ───────────────────────────────────────
-  // El backend devuelve solo IDs, así que después hay que buscar el evento
-  // completo para cada uno.
   const refrescarEventos = useCallback(async () => {
     setCargando(true);
     try {
+      console.log("📥 Cargando eventos guardados del backend...");
+
       // 1. Traer los IDs del backend
       const { saved: savedIds, confirmed: confirmedIds } = await getMisEventos();
+      console.log(`📥 Backend respondió: ${savedIds.length} guardados, ${confirmedIds.length} confirmados`);
 
       // 2. Para cada ID, traer el evento completo.
-      //    Juntamos todos los IDs para no hacer llamadas duplicadas.
       const todosIds = [...new Set([...savedIds, ...confirmedIds])];
       const eventosMap = new Map<string, Event>();
 
@@ -70,25 +77,29 @@ export function SavedEventsProvider({ children }: { children: ReactNode }) {
           .map((id) => eventosMap.get(id))
           .filter((e): e is Event => e !== undefined)
       );
+
+      console.log("✅ Eventos guardados cargados correctamente");
     } catch (error) {
-      console.error("Error cargando eventos guardados:", error);
+      console.error("❌ Error cargando eventos guardados:", error);
     } finally {
       setCargando(false);
     }
   }, []);
 
-  // Al montar, cargar solo si hay token
+  // ── Reaccionar al estado de autenticación ────────────────────────────────
+  // Cuando accessToken cambia (login/logout), actuar:
+  //   - null → limpiar listas (no hay sesión)
+  //   - string → cargar desde el backend
   useEffect(() => {
-    const cargar = async () => {
-      const token = await getToken();
-      if (!token) {
-        console.log("⏭️ Sin token, eventos guardados solo en local");
-        return;
-      }
+    if (accessToken) {
+      console.log("🔑 Token detectado, cargando eventos guardados...");
       refrescarEventos();
-    };
-    cargar();
-  }, [refrescarEventos]);
+    } else {
+      // Sin token: limpiar listas (logout o primera carga sin sesión)
+      setSaved([]);
+      setConfirmed([]);
+    }
+  }, [accessToken, refrescarEventos]);
 
   // ── Guardar evento (me interesa) ─────────────────────────────────────────
   function saveEvent(event: Event) {
@@ -100,14 +111,12 @@ export function SavedEventsProvider({ children }: { children: ReactNode }) {
       prev.find((e) => e.id_externo === event.id_externo) ? prev : [...prev, event]
     );
 
-    // Sincronizar con backend (sin await para no bloquear la UI)
-    getToken().then((token) => {
-      if (token) {
-        guardarEvento(event.id_externo, "saved").catch((err) =>
-          console.error("Error sincronizando guardado:", err)
-        );
-      }
-    });
+    // Sincronizar con backend
+    if (accessToken) {
+      guardarEvento(event.id_externo, "saved").catch((err) =>
+        console.error("❌ Error sincronizando guardado:", err)
+      );
+    }
   }
 
   // ── Confirmar evento (voy a ir) ──────────────────────────────────────────
@@ -119,13 +128,11 @@ export function SavedEventsProvider({ children }: { children: ReactNode }) {
     );
 
     // Sincronizar con backend
-    getToken().then((token) => {
-      if (token) {
-        guardarEvento(event.id_externo, "confirmed").catch((err) =>
-          console.error("Error sincronizando confirmado:", err)
-        );
-      }
-    });
+    if (accessToken) {
+      guardarEvento(event.id_externo, "confirmed").catch((err) =>
+        console.error("❌ Error sincronizando confirmado:", err)
+      );
+    }
   }
 
   // ── Quitar evento ────────────────────────────────────────────────────────

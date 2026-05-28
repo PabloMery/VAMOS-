@@ -1,44 +1,24 @@
+// app/_layout.tsx
+//
+// Layout raíz. Providers + listener de Branch deep links.
+// La lógica de redirección por auth vive en app/index.tsx.
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import { useEffect } from 'react';
 import { SavedEventsProvider } from '@/context/SavedEventsContext';
 import { GruposProvider } from '../context/GruposContext';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import { AuthProvider } from '../context/AuthContext';
+import { useBranchLinks } from '@/hooks/useBranchLinks';
 
-function RootNavigator() {
-  const { estaLogueado, necesitaFecha, cargando } = useAuth();
-  const router   = useRouter();
-  const segments = useSegments();
-
-  useEffect(() => {
-  if (cargando) return;
-
-  const enTabs        = segments[0] === '(tabs)';
-  const enFechaNac    = segments[0] === 'fecha-nacimiento';
-  const enLogin       = segments[0] === 'login';
-  
-  // ← reemplaza la comparación problemática por esto
-  const enInicio      = !segments[0] || enLogin || (segments as string[])[0] === 'index';
-
-  if (!estaLogueado && !enInicio) {
-    router.replace('/');
-    return;
-  }
-
-  if (estaLogueado && necesitaFecha && !enFechaNac) {
-    router.replace('/fecha-nacimiento');
-    return;
-  }
-
-  if (estaLogueado && !necesitaFecha && !enTabs) {
-    router.replace('/(tabs)');
-  }
-}, [estaLogueado, necesitaFecha, cargando, segments]);
-
+// Componente interno que usa los hooks (necesita estar dentro de los providers)
+function AppContent() {
   const colorScheme = useColorScheme();
+
+  // Escuchar links de Branch para invitaciones a grupos
+  useBranchLinks();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -58,7 +38,7 @@ export default function RootLayout() {
     <AuthProvider>
       <GruposProvider>
         <SavedEventsProvider>
-          <RootNavigator />
+          <AppContent />
         </SavedEventsProvider>
       </GruposProvider>
     </AuthProvider>
