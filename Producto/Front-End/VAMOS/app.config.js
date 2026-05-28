@@ -49,7 +49,15 @@ module.exports = {
       "@react-native-community/datetimepicker",
       "expo-secure-store",
       "expo-web-browser",
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-build-properties",
+        {
+          android: {
+            usesCleartextTraffic: true
+          }
+        }
+      ]
     ],
     experiments: {
       typedRoutes: true,
