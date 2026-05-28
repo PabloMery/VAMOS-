@@ -1,11 +1,11 @@
 // app/grupo/[id].tsx
 
 import { EstadoModal, ESTADOS } from "@/components/EstadoModal";
-import { useGrupos } from "../context/GruposContext";
-import { useAuth } from "../context/AuthContext";
-import { EstadoMiembro } from "../services/groupApi";
+import { useGrupos } from "../../context/GruposContext";
+import { useAuth } from "../../context/AuthContext";
+import { EstadoMiembro } from "../../services/groupApi";
 import { useTheme } from "@/hooks/useTheme";
-import { formatearFecha } from "../utils/fecha";
+import { formatearFecha } from "../../utils/fecha";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";

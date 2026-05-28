@@ -40,10 +40,7 @@ def get_db_connection():
 # 3. Construcción del texto a vectorizar
 # ──────────────────────────────────────────────
 def construir_texto_embedding(nombre: str, categoria: str, lugar: str) -> str:
-    """
-    Combina los campos disponibles en un texto limpio.
-    Omite los campos que vengan vacíos o nulos.
-    """
+
     partes = [
         nombre    or "",
         categoria or "",
@@ -55,43 +52,31 @@ def construir_texto_embedding(nombre: str, categoria: str, lugar: str) -> str:
 # 4. Procesamiento del batch
 # ──────────────────────────────────────────────
 def procesar_embeddings() -> bool:
-    """
-    Retorna True si no había eventos que procesar (worker debe dormir).
-    Retorna False si procesó un batch (puede haber más, continuar pronto).
-    """
     try:
         conn = get_db_connection()
     except PgOperationalError as e:
         logger.error("No se pudo conectar a la BD: %s", e)
-        return True  # dormir y reintentar
-
+        return True  
     try:
         cursor = conn.cursor()
-
-        # — Buscar eventos sin vector —
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT id_externo, nombre_evento, categoria, lugar_texto
             FROM eventos
             WHERE embedding IS NULL
               AND nombre_evento IS NOT NULL
             LIMIT %s;
-        """, (BATCH_SIZE,))
-
+            """
+        , (BATCH_SIZE,))
         eventos = cursor.fetchall()
-
         if not eventos:
             logger.info("Sin eventos nuevos. Durmiendo %ss...", SLEEP_SECONDS)
             return True
-
         logger.info("Procesando batch de %d eventos...", len(eventos))
-
-        # — Construir textos combinados —
         textos = [
             construir_texto_embedding(r[1], r[2], r[3])
             for r in eventos
         ]
-
-        # — Generar embeddings con Gemini —
         try:
             resultado   = genai.embed_content(
                 model=MODEL_EMBEDDING,

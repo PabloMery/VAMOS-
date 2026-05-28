@@ -49,16 +49,17 @@ export default function LoginScreen() {
     }
   }
 
-  // Redirigir según el estado
   useEffect(() => {
     if (estaLogueado) {
       if (necesitaFecha) {
-        router.replace('/fecha-nacimiento' as any);
+        router.replace('/fecha-nacimiento');
       } else {
         router.replace('/(tabs)');
       }
     }
-  }, [estaLogueado, necesitaFecha]);
+  }, 
+  
+  [estaLogueado, necesitaFecha]);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>

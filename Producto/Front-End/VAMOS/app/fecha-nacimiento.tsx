@@ -16,13 +16,11 @@ export default function FechaNacimientoScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 1. Función para calcular la edad exacta
   const calcularEdad = (fechaNacimiento: Date) => {
     const hoy = new Date();
     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
     const mes = hoy.getMonth() - fechaNacimiento.getMonth();
     
-    // Si aún no ha llegado su mes de cumpleaños, o es el mes pero no ha llegado el día, restamos 1 año
     if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
       edad--;
     }
@@ -40,7 +38,6 @@ export default function FechaNacimientoScreen() {
     }
   };
 
-  // 2. Función para guardar y validar
   const { completarRegistro } = useAuth();
 
   const guardarFecha = async () => {
@@ -59,7 +56,7 @@ export default function FechaNacimientoScreen() {
         body: { fecha_nacimiento: fechaFormateada }
       });
 
-      await completarRegistro(); // ← esto actualiza el contexto y dispara la redirección
+      await completarRegistro(); 
     } catch (e) {
       setError("Hubo un problema al guardar tu fecha. Intenta de nuevo.");
     } finally {
@@ -67,10 +64,9 @@ export default function FechaNacimientoScreen() {
     }
   };
 
-  // Función para cancelar si son menores de edad y quieren salir
   const cancelarYSalir = async () => {
-    await cerrarSesion(); // Borra los tokens del SecureStore
-    router.replace('/'); // Vuelve al Login
+    await cerrarSesion();
+    router.replace('/');
   };
 
   return (

@@ -107,5 +107,5 @@ FastAPI genera una interfaz de pruebas automática. Una vez que `main.py` esté 
 - [x] Guardrails del chatbot (restricciones al LLM).
 - [x] Connection pooling en Discovery Service.
 - [x] Worker de embeddings actualizado (sin `descripcion`, logging, rate limit inteligente).
-- [ ] Orquestador de Sesiones (Node.js).
-- [ ] Integración con App Móvil (React Native).
+- [x] Orquestador de Sesiones (Node.js).
+- [x] Integración con App Móvil (React Native).

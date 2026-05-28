@@ -1,14 +1,28 @@
-// app/services/vambotApi.ts
+// app/services/Vambotapi.ts
 //
-// Cliente para el servicio de Vambot (FastAPI en puerto 8001).
-// Este servicio es SEPARADO del backend Django — tiene su propia URL.
+// Cliente para el servicio de Vambot.
+// El flujo correcto es:
 //
-// Endpoint único:
-//   POST /ask
-//   Body:    { mensaje: string, latitud?: number, longitud?: number }
-//   Returns: { respuesta_texto: string, eventos_encontrados: EventoVambot[] }
+//   App móvil → Orquestador Node:3000/chat → Discovery FastAPI:8001/ask
+//
+// El orquestador se encarga de:
+//   1. Validar el JWT del usuario
+//   2. Guardar el historial de conversación en PostgreSQL
+//   3. Reenviar la pregunta al Discovery Service (FastAPI)
+//
+// La URL base apunta al orquestador (puerto 3000), NO al FastAPI directamente.
 
-import { VAMBOT_BASE_URL } from './apiClient';
+import { getToken } from './apiClient';
+
+// ---------------------------------------------------------------------------
+// CONFIGURACIÓN
+// ---------------------------------------------------------------------------
+// En el .env del frontend agregar:
+//   EXPO_PUBLIC_ORQUESTADOR_URL=http://TU_IP_EC2:3000
+//
+// Si la variable no existe usa localhost como fallback.
+const ORQUESTADOR_URL =
+  process.env.EXPO_PUBLIC_ORQUESTADOR_URL ?? 'http://localhost:3000';
 
 // ---------------------------------------------------------------------------
 // TIPOS
@@ -16,24 +30,24 @@ import { VAMBOT_BASE_URL } from './apiClient';
 
 /** Un evento que Vambot encontró como relevante a la pregunta. */
 export type EventoVambot = {
-  titulo: string;
-  resumen_corto: string;
+  titulo:             string;
+  resumen_corto:      string;
   distancia_estimada: string | null;
-  fecha: string;
-  link_url: string;
-  datos_frescos: boolean;
+  fecha:              string;
+  link_url:           string;
+  datos_frescos:      boolean;
 };
 
-/** Lo que devuelve POST /ask */
+/** Lo que devuelve POST /chat del orquestador */
 export type VambotResponse = {
-  respuesta_texto: string;
+  respuesta_texto:     string;
   eventos_encontrados: EventoVambot[];
 };
 
-/** Lo que mandamos al bot */
+/** Lo que mandamos al orquestador */
 type VambotRequest = {
-  mensaje: string;
-  latitud?: number;
+  mensaje:   string;
+  latitud?:  number;
   longitud?: number;
 };
 
@@ -42,84 +56,117 @@ type VambotRequest = {
 // ---------------------------------------------------------------------------
 
 /**
- * Envía un mensaje a Vambot y devuelve su respuesta.
+ * Envía un mensaje a Vambot a través del orquestador Node.js.
  *
- * No usa apiRequest() porque Vambot corre en otro puerto y no necesita JWT.
- * Es un fetch directo al servicio de IA.
+ * El orquestador valida el JWT, guarda el historial y reenvía
+ * la pregunta al Discovery Service (FastAPI).
  *
- * @param mensaje  - La pregunta del usuario (máx 500 caracteres)
- * @param coords   - Ubicación opcional para recomendaciones cercanas
+ * @param mensaje - La pregunta del usuario (máx 500 caracteres)
+ * @param coords  - Ubicación opcional para recomendaciones cercanas
  *
- * Errores posibles del backend:
- *   422 → mensaje vacío, muy largo, o con patrones sospechosos
- *   429 → demasiadas solicitudes (rate limit de Gemini)
- *   503 → servicio de IA o base de datos no disponible
+ * Errores posibles:
+ *   401 → token expirado o inválido (hay que re-loguearse)
+ *   422 → mensaje con contenido no permitido
+ *   429 → rate limit de Gemini
+ *   504 → timeout del Discovery Service
+ *   500 → error interno del orquestador
  */
 export async function askVambot(
-  mensaje: string,
-  coords?: { latitud: number; longitud: number },
+  mensaje:  string,
+  coords?:  { latitud: number; longitud: number },
 ): Promise<VambotResponse> {
+
+  // 1. Obtener el JWT del usuario desde SecureStore
+  const token = await getToken();
+
+  if (!token) {
+    throw new VambotError(
+      401,
+      'No hay sesión activa. Por favor inicia sesión para usar el asistente.',
+    );
+  }
+
+  // 2. Armar el body
   const body: VambotRequest = {
     mensaje,
     ...(coords && { latitud: coords.latitud, longitud: coords.longitud }),
   };
 
-  // Timeout de 15 segundos para no dejar al usuario esperando eternamente.
-  // Si el servidor no responde en ese tiempo, cancelamos la petición.
+  // 3. Timeout de 25 segundos (un poco más que el timeout del orquestador)
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15_000);
+  const timeout    = setTimeout(() => controller.abort(), 25_000);
 
   let response: Response;
   try {
-    response = await fetch(`${VAMBOT_BASE_URL}/ask`, {
+    response = await fetch(`${ORQUESTADOR_URL}/chat`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type':  'application/json',
+        'Accept':        'application/json',
+        'Authorization': `Bearer ${token}`,   // ← JWT del usuario
       },
-      body: JSON.stringify(body),
+      body:   JSON.stringify(body),
       signal: controller.signal,
     });
   } catch (error: any) {
     clearTimeout(timeout);
-    // AbortError = timeout, TypeError = sin conexión
+
     if (error.name === 'AbortError') {
-      throw new VambotError(0, 'La solicitud tardó demasiado. Verifica tu conexión e intenta de nuevo.');
+      throw new VambotError(
+        0,
+        'La solicitud tardó demasiado. Verifica tu conexión e intenta de nuevo.',
+      );
     }
-    throw new VambotError(0, 'No se pudo conectar al servidor. Verifica que tengas internet.');
+    throw new VambotError(
+      0,
+      'No se pudo conectar al servidor. Verifica que tengas internet.',
+    );
   }
   clearTimeout(timeout);
 
+  // 4. Manejo de errores HTTP
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
+    const detalle   = errorData?.error ?? null;
 
-    // Mensajes amigables según el código de error
-    if (response.status === 422) {
-      // El backend valida: min 1 char, max 500 chars, sin prompt injection
-      const detalle =
-        errorData?.detail?.[0]?.msg ?? 'Mensaje no válido. Intenta reformularlo.';
-      throw new VambotError(422, detalle);
+    switch (response.status) {
+      case 401:
+        throw new VambotError(
+          401,
+          'Tu sesión expiró. Por favor vuelve a iniciar sesión.',
+        );
+      case 422:
+        throw new VambotError(
+          422,
+          detalle ?? 'Mensaje no válido. Intenta reformularlo.',
+        );
+      case 429:
+        throw new VambotError(
+          429,
+          'Demasiadas solicitudes. Espera unos segundos e intenta de nuevo.',
+        );
+      case 504:
+        throw new VambotError(
+          504,
+          'El servicio de IA tardó demasiado. Intenta de nuevo.',
+        );
+      default:
+        throw new VambotError(
+          response.status,
+          detalle ?? 'Ocurrió un error inesperado. Intenta de nuevo.',
+        );
     }
-    if (response.status === 429) {
-      throw new VambotError(
-        429,
-        'Demasiadas solicitudes. Espera unos segundos e intenta de nuevo.',
-      );
-    }
-    if (response.status === 503) {
-      throw new VambotError(
-        503,
-        'El servicio no está disponible en este momento. Intenta más tarde.',
-      );
-    }
-
-    throw new VambotError(
-      response.status,
-      'Ocurrió un error inesperado. Intenta de nuevo.',
-    );
   }
 
-  return response.json();
+  // 5. Parsear y normalizar la respuesta del orquestador
+  const data = await response.json();
+
+  // El orquestador devuelve { sesion_id, respuesta_agente, eventos_encontrados }
+  // Lo normalizamos al formato VambotResponse que usa AIChatModal
+  return {
+    respuesta_texto:     data.respuesta_agente     ?? '',
+    eventos_encontrados: data.eventos_encontrados  ?? [],
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -131,7 +178,7 @@ export class VambotError extends Error {
 
   constructor(status: number, message: string) {
     super(message);
-    this.name = 'VambotError';
+    this.name   = 'VambotError';
     this.status = status;
   }
 }
