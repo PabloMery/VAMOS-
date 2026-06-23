@@ -15,9 +15,7 @@ import {
   updateMyStatus,
   leaveGroup,
 } from "../services/groupApi";
-import { getToken } from "../services/apiClient";
-
-const USE_MOCK = true; // cambiar a false cuando auth funcione
+import { useAuth } from "./AuthContext";
 
 // ─── Tipo del contexto ────────────────────────────────────────────────────────
 type GruposContextType = {
@@ -35,6 +33,7 @@ const GruposContext = createContext<GruposContextType | null>(null);
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 export function GruposProvider({ children }: { children: ReactNode }) {
+  const { accessToken } = useAuth();
   const [misGrupos, setMisGrupos] = useState<GrupoConMiembros[]>([]);
   const [cargando, setCargando]   = useState(false);
 
@@ -42,10 +41,6 @@ export function GruposProvider({ children }: { children: ReactNode }) {
   // Llama a /grupos/mis-grupos/ y después pide el detalle de cada uno
   // (para traer la lista de miembros).
 const refrescarGrupos = useCallback(async () => {
-  if (USE_MOCK) {
-    console.log("🔶 Grupos en modo mock");
-    return; // deja misGrupos vacío, crearGrupo/etc siguen siendo mock
-  }
     setCargando(true);
     try {
       const grupos = await getMyGroups();
@@ -68,18 +63,13 @@ const refrescarGrupos = useCallback(async () => {
   // Cargar grupos apenas monta el provider.
   // Si necesitas esperar a que el usuario esté logueado, puedes importar
   // useAuth y condicionar: if (estaLogueado) refrescarGrupos();
-  useEffect(() => {
-  // No intentar cargar si no hay token (usuario no logueado)
-  const cargar = async () => {
-    const token = await getToken();
-    if (!token) {
-      console.log("⏭️ Sin token, saltando carga de grupos");
-      return;
-    }
+ useEffect(() => {
+  if (accessToken) {
     refrescarGrupos();
-  };
-  cargar();
-}, [refrescarGrupos]);
+  } else {
+    setMisGrupos([]);
+  }
+}, [accessToken, refrescarGrupos]);
 
   // ── Crear grupo ──────────────────────────────────────────────────────────
   const crearGrupo = async (eventoId: string): Promise<GrupoConMiembros> => {

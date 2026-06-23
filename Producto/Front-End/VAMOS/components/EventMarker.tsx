@@ -4,6 +4,7 @@ import { Event } from "@/types/Event";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import { Marker } from "react-native-maps";
+import { memo, useState,useEffect} from "react";
 
 // Los 3 estados visuales que puede tener un evento en el mapa.
 export type EventStatus = "neutral" | "guardado" | "confirmado";
@@ -34,7 +35,7 @@ const STATUS_CONFIG: Record<
   },
 };
 
-export function EventMarker({ event, status = "neutral", onPress }: Props) {
+export const EventMarker = memo(function EventMarker({ event, status = "neutral", onPress }: Props) {
   const config = STATUS_CONFIG[status];
 
   return (
@@ -44,8 +45,6 @@ export function EventMarker({ event, status = "neutral", onPress }: Props) {
         longitude: event.coordenadas.longitud,
       }}
       onPress={() => onPress(event)}
-      // Hace que la PUNTA de la colita sea lo que se ancla a la coordenada
-      // exacta, no el centro del círculo.
       anchor={{ x: 0.5, y: 1 }}
     >
       <View style={styles.container}>
@@ -56,7 +55,12 @@ export function EventMarker({ event, status = "neutral", onPress }: Props) {
       </View>
     </Marker>
   );
-}
+},
+  // Comparador custom: solo re-renderiza si cambia el evento o el status
+  (prev, next) =>
+    prev.event.id_externo === next.event.id_externo &&
+    prev.status === next.status
+);
 
 const styles = StyleSheet.create({
   container: {

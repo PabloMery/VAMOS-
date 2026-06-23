@@ -1,5 +1,18 @@
+// context/AuthContext.tsx
+//
+// Provider de autenticación.
+// FIX: usa saveTokens/getToken/deleteTokens de apiClient.ts
+// para que haya UNA SOLA fuente de verdad de tokens.
+// Antes usaba llaves distintas ('accessToken' vs 'vamos_access_token')
+// y el apiClient nunca encontraba el token.
+
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import * as SecureStore from 'expo-secure-store';
+import {
+  saveTokens as guardarTokensEnStore,
+  getToken,
+  deleteTokens as borrarTokensDelStore,
+} from '../services/apiClient';
 
 // ── Tipos ──────────────────────────────────────
 type UsuarioVAMOS = {
@@ -23,6 +36,9 @@ type AuthContextType = {
   completarRegistro: () => Promise<void>;
 };
 
+// Llave para guardar el objeto usuario (esto no lo maneja apiClient)
+const USUARIO_KEY = 'vamos_usuario';
+
 // ── Contexto ───────────────────────────────────
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -37,20 +53,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [usuario,        setUsuario]        = useState<UsuarioVAMOS | null>(null);
   const [accessToken,    setAccessToken]    = useState<string | null>(null);
   const [cargando,       setCargando]       = useState(true);
-  const [necesitaFecha, setNecesitaFecha] = useState(false);
+  const [necesitaFecha,  setNecesitaFecha]  = useState(false);
 
   // Al abrir la app, revisar si hay sesión guardada
   useEffect(() => {
     async function cargarSesion() {
       try {
-        const token   = await SecureStore.getItemAsync('accessToken');
-        const userStr = await SecureStore.getItemAsync('usuario');
+        // Usa getToken de apiClient (llave 'vamos_access_token')
+        const token   = await getToken();
+        const userStr = await SecureStore.getItemAsync(USUARIO_KEY);
 
         if (token && userStr) {
           const usuarioParsed = JSON.parse(userStr);
           setAccessToken(token);
           setUsuario(usuarioParsed);
           setNecesitaFecha(!usuarioParsed.fecha_nacimiento);
+          console.log('✅ Sesión cargada desde SecureStore');
+        } else {
+          console.log('⏭️ No hay sesión guardada');
         }
       } catch (e) {
         console.log('Error cargando sesión:', e);
@@ -65,17 +85,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function guardarSesion(
     access:  string,
     refresh: string,
-    usuario: UsuarioVAMOS
+    usr: UsuarioVAMOS
   ) {
-    await SecureStore.setItemAsync('accessToken',  access);
-    await SecureStore.setItemAsync('refreshToken', refresh);
-    await SecureStore.setItemAsync('usuario',      JSON.stringify(usuario));
+    // Guardar tokens con apiClient (usa 'vamos_access_token' y 'vamos_refresh_token')
+    await guardarTokensEnStore(access, refresh);
+    // Guardar usuario aparte
+    await SecureStore.setItemAsync(USUARIO_KEY, JSON.stringify(usr));
 
     setAccessToken(access);
-    setUsuario(usuario);
+    setUsuario(usr);
+    setNecesitaFecha(!usr.fecha_nacimiento);
 
-    // Si es usuario nuevo lo marcamos para redirigir a fecha nacimiento
-    setNecesitaFecha(!usuario.fecha_nacimiento);  
+    console.log('✅ Sesión guardada para:', usr.email);
   }
 
   // Se llama cuando el usuario completa el formulario de fecha nacimiento
@@ -84,32 +105,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (usuario) {
       const usuarioActualizado = { ...usuario, es_nuevo: false };
-      await SecureStore.setItemAsync('usuario', JSON.stringify(usuarioActualizado));
+      await SecureStore.setItemAsync(USUARIO_KEY, JSON.stringify(usuarioActualizado));
       setUsuario(usuarioActualizado);
     }
   }
 
   async function cerrarSesion() {
-    await SecureStore.deleteItemAsync('accessToken');
-    await SecureStore.deleteItemAsync('refreshToken');
-    await SecureStore.deleteItemAsync('usuario');
+    // Borrar tokens con apiClient
+    await borrarTokensDelStore();
+    // Borrar usuario
+    await SecureStore.deleteItemAsync(USUARIO_KEY);
 
     setAccessToken(null);
     setUsuario(null);
+    setNecesitaFecha(false);
+
+    console.log('👋 Sesión cerrada');
   }
 
   return (
-  <AuthContext.Provider value={{
-    usuario,
-    accessToken,
-    estaLogueado:  !!accessToken,
-    necesitaFecha,        // ← esta línea
-    cargando,
-    guardarSesion,
-    cerrarSesion,
-    completarRegistro,
-  }}>
-    {children}
-  </AuthContext.Provider>
-);
+    <AuthContext.Provider value={{
+      usuario,
+      accessToken,
+      estaLogueado:  !!accessToken,
+      necesitaFecha,
+      cargando,
+      guardarSesion,
+      cerrarSesion,
+      completarRegistro,
+    }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
