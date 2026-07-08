@@ -1,97 +1,77 @@
-// app/components/ui/EventMarker.tsx
-
 import { Event } from "@/types/Event";
-import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
 import { Marker } from "react-native-maps";
-import { memo, useState,useEffect} from "react";
+import { memo } from "react";
 
-// Los 3 estados visuales que puede tener un evento en el mapa.
 export type EventStatus = "neutral" | "guardado" | "confirmado";
 
 type Props = {
   event: Event;
-  status?: EventStatus;       // default: neutral
-  onPress: (event: Event) => void;
+  status?: EventStatus;
+  count?: number;
+  onPress: () => void;
 };
 
-// Configuración por estado: color de fondo + ícono.
-// Si quieres cambiar la paleta, este es el único lugar a tocar.
-const STATUS_CONFIG: Record<
-  EventStatus,
-  { color: string; icon: keyof typeof Ionicons.glyphMap }
-> = {
+// Mapa de imágenes: para cada estado, guardamos el pin normal y los variantes con número
+const PIN_IMAGES: Record<EventStatus, {
+  normal: any;
+  badge2: any;
+  badge3: any;
+  badge4: any;
+  badge5: any;
+  badgePlus: any;
+}> = {
   neutral: {
-    color: "#6B7280", // gris neutro
-    icon: "location",
+    normal:    require("@/assets/pins/pin_neutral.png"),
+    badge2:    require("@/assets/pins/pin_neutral_badge_2.png"),
+    badge3:    require("@/assets/pins/pin_neutral_badge_3.png"),
+    badge4:    require("@/assets/pins/pin_neutral_badge_4.png"),
+    badge5:    require("@/assets/pins/pin_neutral_badge_5.png"),
+    badgePlus: require("@/assets/pins/pin_neutral_badge_plus.png"),
   },
   guardado: {
-    color: "#8B5CF6", // morado
-    icon: "help-outline",
+    normal:    require("@/assets/pins/pin_guardado.png"),
+    badge2:    require("@/assets/pins/pin_guardado_badge_2.png"),
+    badge3:    require("@/assets/pins/pin_guardado_badge_3.png"),
+    badge4:    require("@/assets/pins/pin_guardado_badge_4.png"),
+    badge5:    require("@/assets/pins/pin_guardado_badge_5.png"),
+    badgePlus: require("@/assets/pins/pin_guardado_badge_plus.png"),
   },
   confirmado: {
-    color: "#F97316", // naranjo
-    icon: "alert-outline",
+    normal:    require("@/assets/pins/pin_confirmado.png"),
+    badge2:    require("@/assets/pins/pin_confirmado_badge_2.png"),
+    badge3:    require("@/assets/pins/pin_confirmado_badge_3.png"),
+    badge4:    require("@/assets/pins/pin_confirmado_badge_4.png"),
+    badge5:    require("@/assets/pins/pin_confirmado_badge_5.png"),
+    badgePlus: require("@/assets/pins/pin_confirmado_badge_plus.png"),
   },
 };
 
-export const EventMarker = memo(function EventMarker({ event, status = "neutral", onPress }: Props) {
-  const config = STATUS_CONFIG[status];
+// Elige la imagen correcta según cuántos eventos hay
+function elegirImagen(status: EventStatus, count: number) {
+  const set = PIN_IMAGES[status];
+  if (count <= 1) return set.normal;
+  if (count === 2) return set.badge2;
+  if (count === 3) return set.badge3;
+  if (count === 4) return set.badge4;
+  if (count === 5) return set.badge5;
+  return set.badgePlus; // 6 o más
+}
+
+export const EventMarker = memo(function EventMarker({
+  event, status = "neutral", count = 1, onPress,
+}: Props) {
+  const source = elegirImagen(status, count);
 
   return (
     <Marker
-      coordinate={{
-        latitude: event.coordenadas.latitud,
-        longitude: event.coordenadas.longitud,
-      }}
-      onPress={() => onPress(event)}
-      anchor={{ x: 0.5, y: 1 }}
-    >
-      <View style={styles.container}>
-        <View style={[styles.circle, { backgroundColor: config.color }]}>
-          <Ionicons name={config.icon} size={20} color="white" />
-        </View>
-        <View style={[styles.tail, { borderTopColor: config.color }]} />
-      </View>
-    </Marker>
+      coordinate={{ latitude: event.coordenadas.latitud, longitude: event.coordenadas.longitud }}
+      onPress={onPress}
+      anchor={{ x: 0.5, y: 0.5 }}
+      image={source}
+    />
   );
-},
-  // Comparador custom: solo re-renderiza si cambia el evento o el status
-  (prev, next) =>
-    prev.event.id_externo === next.event.id_externo &&
-    prev.status === next.status
+}, (prev, next) =>
+  prev.event.id_externo === next.event.id_externo &&
+  prev.status === next.status &&
+  prev.count === next.count
 );
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
-  circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "white",
-    // sombra en iOS
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    // sombra en Android
-    elevation: 4,
-  },
-  // Triángulo apuntando hacia abajo, hecho con el truco clásico de borders.
-  // borderTopColor se asigna dinámicamente para que combine con el círculo.
-  tail: {
-    width: 0,
-    height: 0,
-    borderLeftWidth: 6,
-    borderRightWidth: 6,
-    borderTopWidth: 8,
-    borderLeftColor: "transparent",
-    borderRightColor: "transparent",
-    marginTop: -2, // pega la colita al círculo (oculta el borde blanco que sobra)
-  },
-});

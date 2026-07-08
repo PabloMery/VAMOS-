@@ -13,6 +13,7 @@ type Props = {
   isConfirmed:    boolean;
   grupoId?:       string | null;       // id del grupo si el usuario ya tiene uno para este evento
   onClose:        () => void;
+  onBack?:        () => void; 
   onSave:         () => void;          // guardar (cuando no está guardado)
   onConfirm:      () => void;          // confirmar (cuando no está confirmado)
   onRemove:       () => void;          // quitar de guardados o confirmados
@@ -23,7 +24,7 @@ type Props = {
 
 export function EventDetailSheet({
   event, isSaved, isConfirmed, grupoId,
-  onClose, onSave, onConfirm, onRemove, onNavigate,
+  onClose,onBack, onSave, onConfirm, onRemove, onNavigate,
   onCreateGroup, onViewGroup,
 }: Props) {
   const theme = useTheme();
@@ -50,6 +51,12 @@ export function EventDetailSheet({
         contentContainerStyle={[styles.content, { paddingBottom: theme.spacing.xxl }]}
         keyboardShouldPersistTaps="handled"
       >
+        {onBack && (
+          <TouchableOpacity onPress={onBack} style={styles.backBtn}>
+            <Ionicons name="chevron-back" size={20} color={theme.colors.subtext} />
+            <Text style={[styles.backText, { color: theme.colors.subtext }]}>Volver a la lista</Text>
+          </TouchableOpacity>
+        )}
         {ev && (
           <>
             {/* Chips de categoría / precio / inscripción */}
@@ -222,4 +229,6 @@ const styles = StyleSheet.create({
                       gap: 8, paddingVertical: 12, borderRadius: 12, borderWidth: 1.5 },
   grupoBtnText:     { fontSize: 14, fontWeight: "600" },
   source:           { fontSize: 11, textAlign: "center", marginTop: 16 },
+  backBtn:  { flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 8, alignSelf: "flex-start" },
+  backText: { fontSize: 13, fontWeight: "500" },
 });

@@ -7,6 +7,7 @@
 // y el apiClient nunca encontraba el token.
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import * as SecureStore from 'expo-secure-store';
 import {
   saveTokens as guardarTokensEnStore,
@@ -111,6 +112,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function cerrarSesion() {
+    // Cerrar sesión en Google para que la próxima vez pida elegir cuenta
+    try {
+      await GoogleSignin.signOut();
+    } catch (e) {
+      console.log('Google signOut falló (puede que no hubiera sesión):', e);
+    }
+
     // Borrar tokens con apiClient
     await borrarTokensDelStore();
     // Borrar usuario

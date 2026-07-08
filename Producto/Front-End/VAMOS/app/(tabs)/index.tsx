@@ -1,5 +1,5 @@
 // app/(tabs)/index.tsx
-
+import { PlaceEventListSheet } from "@/components/PlaceEventListSheet";
 import { AIChatModal } from "@/components/AIChatModal";
 import { DateSelector } from "@/components/DateSelector";
 import { EventDetailSheet } from "@/components/EventDetailSheet";
@@ -33,6 +33,7 @@ export default function MapScreen() {
   // ── Estado ────────────────────────────────────────────────────────────────
   const [coords, setCoords]               = useState({ lat: 0, lng: 0 });
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [lugarSeleccionado, setLugarSeleccionado] = useState<Event[] | null>(null);
   const [date, setDate]                   = useState(new Date());
   const [chatVisible, setChatVisible]     = useState(false);
 
@@ -116,6 +117,11 @@ export default function MapScreen() {
     }
   }, [events]);
 
+  useEffect(() => {
+  const sinCoords = events.filter(e => !e.coordenadas?.latitud || e.coordenadas.latitud === 0);
+  console.log(`Total eventos: ${events.length}, sin coordenadas: ${sinCoords.length}`);
+}, [events]);
+
   // ── Funciones de ruta ─────────────────────────────────────────────────────
   const cancelarRuta = () => {
     setRouteTarget(null);
@@ -166,20 +172,37 @@ export default function MapScreen() {
         initialRegion={{ latitude: coords.lat, longitude: coords.lng, latitudeDelta: 0.05, longitudeDelta: 0.05 }}
         showsUserLocation
       >
-        {!cargandoSaved && events.map((event) => {
-          const status: EventStatus = isConfirmed(event.id_externo)
-            ? "confirmado"
-            : isSaved(event.id_externo) ? "guardado" : "neutral";
-            console.log(event.id_externo, "saved:", isSaved(event.id_externo), "confirmed:", isConfirmed(event.id_externo));
+        {!cargandoSaved && (() => {
+        // Agrupar eventos válidos por coordenada
+        const grupos = new Map<string, Event[]>();
+        for (const e of events) {
+          const c = e.coordenadas;
+          if (!c || typeof c.latitud !== "number" || typeof c.longitud !== "number"
+              || isNaN(c.latitud) || isNaN(c.longitud) || c.latitud === 0 || c.longitud === 0) continue;
+          const key = `${c.latitud.toFixed(6)},${c.longitud.toFixed(6)}`;
+          const arr = grupos.get(key);
+          if (arr) arr.push(e); else grupos.set(key, [e]);
+        }
+
+        return Array.from(grupos.entries()).map(([key, lista]) => {
+          const hayConfirmado = lista.some(e => isConfirmed(e.id_externo));
+          const hayGuardado   = lista.some(e => isSaved(e.id_externo));
+          const status: EventStatus = hayConfirmado ? "confirmado" : hayGuardado ? "guardado" : "neutral";
+
           return (
             <EventMarker
-              key={event.id_externo}
-              event={event}
+              key={key}
+              event={lista[0]}
               status={status}
-              onPress={setSelectedEvent}
+              count={lista.length}
+              onPress={() => {
+                if (lista.length === 1) setSelectedEvent(lista[0]);
+                else setLugarSeleccionado(lista);
+              }}
             />
           );
-        })}
+        });
+      })()}
 
         {destination && (
           <MapViewDirections
@@ -214,11 +237,12 @@ export default function MapScreen() {
 
       {/* DETALLE DEL EVENTO */}
       <EventDetailSheet
+        onBack={lugarSeleccionado ? () => setSelectedEvent(null) : undefined}
         event={selectedEvent}
         isSaved={selectedEvent ? isSaved(selectedEvent.id_externo) : false}
         isConfirmed={selectedEvent ? isConfirmed(selectedEvent.id_externo) : false}
         grupoId={grupoDelEvento?.id ?? null}
-        onClose={() => setSelectedEvent(null)}
+        onClose={() => {setSelectedEvent(null); setLugarSeleccionado(null);}}
         onSave={() => { if (selectedEvent) { saveEvent(selectedEvent); setSelectedEvent(null); } }}
         onConfirm={() => { if (selectedEvent) { confirmEvent(selectedEvent); setSelectedEvent(null); } }}
         onRemove={() => { if (selectedEvent) { removeEvent(selectedEvent.id_externo); setSelectedEvent(null); } }}
@@ -239,11 +263,17 @@ export default function MapScreen() {
         }}
       />
 
+      <PlaceEventListSheet
+        eventos={selectedEvent ? null : lugarSeleccionado}
+        onClose={() => setLugarSeleccionado(null)}
+        onSelectEvent={(ev) => setSelectedEvent(ev)}
+      />
+
       {/* DateSelector y FABs */}
-      {!routeTarget && !selectedEvent && !chatVisible && (
+      {!routeTarget && !selectedEvent && !lugarSeleccionado && !chatVisible && (
         <DateSelector date={date} onChange={setDate} />
       )}
-      {!routeTarget && !selectedEvent && (
+      {!routeTarget && !selectedEvent && !lugarSeleccionado &&(
         <TouchableOpacity
           style={[styles.fab, { backgroundColor: colors.primary }]}
           onPress={() => setChatVisible(true)}
@@ -251,7 +281,7 @@ export default function MapScreen() {
           <Ionicons name="chatbubble-ellipses" size={24} color={colors.confirm} />
         </TouchableOpacity>
       )}
-      {!routeTarget && !selectedEvent && (
+      {!routeTarget && !selectedEvent && !lugarSeleccionado &&(
         <TouchableOpacity
           style={[styles.fabCentrar, { backgroundColor: colors.card }]}
           onPress={centrarMapa}
