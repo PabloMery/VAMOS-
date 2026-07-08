@@ -1,6 +1,7 @@
 // app/(tabs)/profile.tsx
 
 import { useAuth } from "@/context/AuthContext";
+import { useThemeMode } from '@/context/ThemeContext';
 import { useSavedEvents } from "@/context/SavedEventsContext";
 import { useTheme } from "@/hooks/useTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -22,9 +23,7 @@ export default function ProfileScreen() {
   const { usuario, estaLogueado, cerrarSesion } = useAuth();
   const { saved, confirmed } = useSavedEvents();
   const router = useRouter();
-
-  const [notificaciones, setNotificaciones] = useState(true);
-  const [ubicacion, setUbicacion] = useState(true);
+  const { modo, setModo } = useThemeMode();
 
   function handleLogout() {
     Alert.alert(
@@ -37,8 +36,8 @@ export default function ProfileScreen() {
           style: "destructive",
           onPress: async () => {
             await cerrarSesion();
-            // Navegar a index.tsx que se encarga de redirigir al login
-            router.replace("/");
+            // Navega al login
+            router.replace("/login");
           },
         },
       ]
@@ -117,32 +116,40 @@ export default function ProfileScreen() {
       </Text>
 
       <View style={[styles.settingsCard, { backgroundColor: colors.card }]}>
-        <View style={[styles.settingRow, { borderBottomColor: colors.border }]}>
-          <View style={styles.settingLabelRow}>
-            <View style={[styles.settingIconBox, { backgroundColor: colors.confirm + "18" }]}>
-              <Ionicons name="notifications-outline" size={18} color={colors.confirm} />
-            </View>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>Notificaciones</Text>
-          </View>
-          <Switch
-            value={notificaciones}
-            onValueChange={setNotificaciones}
-            trackColor={{ true: colors.primary }}
-          />
-        </View>
-
         <View style={styles.settingRow}>
           <View style={styles.settingLabelRow}>
-            <View style={[styles.settingIconBox, { backgroundColor: colors.confirm + "18" }]}>
-              <Ionicons name="location-outline" size={18} color={colors.confirm} />
+            <View style={[styles.settingIconBox, { backgroundColor: colors.primary + "18" }]}>
+              <Ionicons name="moon-outline" size={18} color={colors.primary} />
             </View>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>Usar mi ubicación</Text>
+            <Text style={[styles.settingLabel, { color: colors.text }]}>Tema</Text>
           </View>
-          <Switch
-            value={ubicacion}
-            onValueChange={setUbicacion}
-            trackColor={{ true: colors.primary }}
-          />
+
+          <View style={[styles.segmentedContainer, { backgroundColor: colors.surfaceAlt }]}>
+            {(['light', 'dark', 'system'] as const).map((opcion) => {
+              const activo = modo === opcion;
+              const iconName =
+                opcion === 'light' ? 'sunny-outline'
+                : opcion === 'dark' ? 'moon-outline'
+                : 'phone-portrait-outline';
+
+              return (
+                <TouchableOpacity
+                  key={opcion}
+                  onPress={() => setModo(opcion)}
+                  style={[
+                    styles.segmentedBtn,
+                    activo && { backgroundColor: colors.primary },
+                  ]}
+                >
+                  <Ionicons
+                    name={iconName as any}
+                    size={16}
+                    color={activo ? colors.textInverse : colors.subtext}
+                  />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
       </View>
 
@@ -229,4 +236,18 @@ const styles = StyleSheet.create({
   logoutText: { fontSize: 15, fontWeight: "700" },
 
   version: { textAlign: "center", fontSize: 11, marginTop: 24 },
+  segmentedContainer: {
+  flexDirection: 'row',
+  borderRadius: 8,
+  padding: 2,
+  gap: 2,
+  },
+  segmentedBtn: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 32,
+  },
 });
