@@ -16,6 +16,7 @@ import { VAMBOT_BASE_URL } from './apiClient';
 
 /** Un evento que Vambot encontró como relevante a la pregunta. */
 export type EventoVambot = {
+  id_externo: string;
   titulo: string;
   resumen_corto: string;
   distancia_estimada: string | null;

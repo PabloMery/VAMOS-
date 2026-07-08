@@ -290,7 +290,17 @@ export default function MapScreen() {
         </TouchableOpacity>
       )}
 
-      <AIChatModal visible={chatVisible} onClose={() => setChatVisible(false)} />
+      <AIChatModal
+        visible={chatVisible}
+        onClose={() => setChatVisible(false)}
+        onSelectEvent={(idExterno) => {
+          const evento = events.find(e => e.id_externo === idExterno);
+          if (evento) {
+            setChatVisible(false);
+            abrirEventoEnMapa(evento);
+          }
+        }}
+      />
     </View>
   );
 }

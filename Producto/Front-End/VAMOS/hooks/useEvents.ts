@@ -19,7 +19,13 @@ export function useEvents(lat: number, lng: number, date: Date) {
   const [error, setError] = useState<string | null>(null);
 
   // Convierte Date a string "YYYY-MM-DD"
-  const dateString = date.toISOString().split("T")[0];
+  // Formatea la fecha en zona horaria LOCAL, no UTC.
+  // Usar toISOString() causa corrimientos de un día según la hora.
+  const year  = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day   = String(date.getDate()).padStart(2, "0");
+  const dateString = `${year}-${month}-${day}`;
+  console.log('📅 useEvents dateString:', dateString);
 
   useEffect(() => {
     let cancelled = false;  // evita actualizar estado si el componente se desmontó
