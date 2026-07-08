@@ -80,6 +80,7 @@ class ChatRequest(BaseModel):
         return v
     
 class EventoResponse(BaseModel):
+    id_externo:          str
     titulo:              str
     resumen_corto:       str
     distancia_estimada:  Optional[str] = None
@@ -130,14 +131,16 @@ def buscar_eventos_vector(query_text: str) -> list:
         cur = conn.cursor()
         cur.execute("""
             SELECT 
+                e.id_externo,
                 e.nombre_evento, 
-                f.fecha, 
+                MIN(f.fecha) AS proxima_fecha,
                 e.url_oficial, 
                 e.ultima_actualizacion
             FROM eventos e
             INNER JOIN fechas_eventos f ON e.id_externo = f.id_evento
             WHERE e.embedding IS NOT NULL
             AND f.fecha >= CURRENT_DATE
+            GROUP BY e.id_externo, e.nombre_evento, e.url_oficial, e.ultima_actualizacion, e.embedding
             ORDER BY e.embedding <=> %s::vector 
             LIMIT %s;
         """, (query_vector, TOP_K))
@@ -249,7 +252,7 @@ async def ask_agent(request: ChatRequest):
 
     # ── B. Construir prompt ────────────────────
     contexto_str = "\n".join([
-        f"- Evento: {r[0]} | Fecha: {r[1]} | URL: {r[2]}"
+        f"- Evento: {r[1]} | Fecha: {r[2]} | URL: {r[3]}"
         for r in context_data
     ])
     prompt = build_prompt(contexto_str, request.mensaje)
@@ -275,11 +278,12 @@ async def ask_agent(request: ChatRequest):
     # ── D. Formatear salida ────────────────────
     eventos_formateados = [
         EventoResponse(
-            titulo        = r[0],
+            id_externo    = str(r[0]),
+            titulo        = r[1],
             resumen_corto = "",
-            fecha         = str(r[1]),
-            link_url      = r[2] or "",
-            datos_frescos = calcular_datos_frescos(r[3]),  # ← ahora real
+            fecha         = str(r[2]),
+            link_url      = r[3] or "",
+            datos_frescos = calcular_datos_frescos(r[4]),
         )
         for r in context_data
     ]
