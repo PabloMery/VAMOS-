@@ -11,37 +11,29 @@ type Props = {
   onPress: () => void;
 };
 
-// Mapa de imágenes: para cada estado, guardamos el pin normal y los variantes con número
+// Mapa de imágenes: para cada estado, guardamos el pin normal y los variantes con badge
 const PIN_IMAGES: Record<EventStatus, {
   normal: any;
   badge2: any;
   badge3: any;
-  badge4: any;
-  badge5: any;
   badgePlus: any;
 }> = {
   neutral: {
     normal:    require("@/assets/pins/pin_neutral.png"),
     badge2:    require("@/assets/pins/pin_neutral_badge_2.png"),
     badge3:    require("@/assets/pins/pin_neutral_badge_3.png"),
-    badge4:    require("@/assets/pins/pin_neutral_badge_4.png"),
-    badge5:    require("@/assets/pins/pin_neutral_badge_5.png"),
     badgePlus: require("@/assets/pins/pin_neutral_badge_plus.png"),
   },
   guardado: {
     normal:    require("@/assets/pins/pin_guardado.png"),
     badge2:    require("@/assets/pins/pin_guardado_badge_2.png"),
     badge3:    require("@/assets/pins/pin_guardado_badge_3.png"),
-    badge4:    require("@/assets/pins/pin_guardado_badge_4.png"),
-    badge5:    require("@/assets/pins/pin_guardado_badge_5.png"),
     badgePlus: require("@/assets/pins/pin_guardado_badge_plus.png"),
   },
   confirmado: {
     normal:    require("@/assets/pins/pin_confirmado.png"),
     badge2:    require("@/assets/pins/pin_confirmado_badge_2.png"),
     badge3:    require("@/assets/pins/pin_confirmado_badge_3.png"),
-    badge4:    require("@/assets/pins/pin_confirmado_badge_4.png"),
-    badge5:    require("@/assets/pins/pin_confirmado_badge_5.png"),
     badgePlus: require("@/assets/pins/pin_confirmado_badge_plus.png"),
   },
 };
@@ -52,9 +44,7 @@ function elegirImagen(status: EventStatus, count: number) {
   if (count <= 1) return set.normal;
   if (count === 2) return set.badge2;
   if (count === 3) return set.badge3;
-  if (count === 4) return set.badge4;
-  if (count === 5) return set.badge5;
-  return set.badgePlus; // 6 o más
+  return set.badgePlus; // 4 o más
 }
 
 export const EventMarker = memo(function EventMarker({
