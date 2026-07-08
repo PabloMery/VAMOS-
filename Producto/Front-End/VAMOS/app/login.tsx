@@ -1,5 +1,4 @@
 // app/login.tsx
-
 import { useAuth } from "@/context/AuthContext";
 import { useGoogleAuth } from "@/hooks/useGoogleAuth";
 import { useTheme } from "@/hooks/useTheme";
@@ -129,16 +128,6 @@ export default function LoginScreen() {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.botonSkip, { borderColor: colors.border }]}
-          onPress={() => router.replace("/(tabs)")}
-        >
-          <Ionicons name="arrow-forward" size={18} color={colors.subtext} />
-          <Text style={[styles.textoBotonSkip, { color: colors.subtext }]}>
-            Continuar sin cuenta
-          </Text>
-        </TouchableOpacity>
-
         <Text style={[styles.terminos, { color: colors.subtle }]}>
           Al continuar aceptas nuestros términos de uso
         </Text>
@@ -228,19 +217,6 @@ const styles = StyleSheet.create({
   textoBotonGoogle: {
     fontSize: 16,
     fontWeight: "700",
-  },
-  botonSkip: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 14,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    gap: 8,
-  },
-  textoBotonSkip: {
-    fontSize: 15,
-    fontWeight: "600",
   },
   terminos: {
     textAlign: "center",
