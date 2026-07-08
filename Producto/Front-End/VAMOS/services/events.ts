@@ -78,6 +78,7 @@ return {
     id_externo: raw.id_externo,
     nombre_evento: raw.nombre_evento,
     fecha_evento: fechaEvento,
+    fechas_evento: raw.fechas_evento?.map((f: { fecha: string }) => f.fecha) ?? [fechaEvento],
     hora_inicio: raw.hora_inicio,
     hora_fin: raw.hora_fin,
     horario_variable: raw.horario_variable ?? false,
