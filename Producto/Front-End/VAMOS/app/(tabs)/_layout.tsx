@@ -7,7 +7,13 @@ function Icon({ emoji, focused }: { emoji: string; focused: boolean }) {
     <Text style={{ fontSize: 22, opacity: focused ? 1 : 0.5 }}>{emoji}</Text>
   );
 }
-
+/* <Tabs.Screen
+  name="notifications"
+  options={{
+    title: "Notificaciones",
+    tabBarIcon: ({ focused }) => <Entypo name="bell" size={24} color="#ff7300" />,
+  }}
+/> */
 export default function TabsLayout() {
   return (
     <Tabs
@@ -23,13 +29,6 @@ export default function TabsLayout() {
           tabBarIcon: ({ focused }) => <Entypo name="map" size={24} color="#ff7300" />,
         }}
       />      
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          title: "Notificaciones",
-          tabBarIcon: ({ focused }) => <Entypo name="bell" size={24} color="#ff7300" />,
-        }}
-      />
       <Tabs.Screen
         name="saved"
         options={{
