@@ -168,6 +168,7 @@ export default function MapScreen() {
     cancelarRuta();
     setRouteTarget(evento);
     setSelectedEvent(null);
+    setLugarSeleccionado(null);  
   };
 
   const cambiarModo = (modo: RouteMode) => {
