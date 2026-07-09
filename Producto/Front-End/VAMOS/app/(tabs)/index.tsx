@@ -23,10 +23,23 @@ import {
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { useSavedEvents } from "@/context/SavedEventsContext";
+import { getEventById } from "@/services/events";
 
 // ─── API Key ───────────────────────────────────────────────────────────────────
 const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 
+// ─── Utilidades ──────────────────────────────────────────────────────────────
+// 1. Movemos la función aquí arriba para que sea accesible desde cualquier parte
+const parsearFechaLocal = (fechaStr: string | undefined): Date | null => {
+  if (!fechaStr) return null;
+  const partes = fechaStr.split("-").map(Number);
+  if (partes.length !== 3 || partes.some(isNaN)) return null;
+  const [year, month, day] = partes[0] > 31
+    ? partes
+    : [partes[2], partes[1], partes[0]];
+  const d = new Date(year, month - 1, day);
+  return isNaN(d.getTime()) ? null : d;
+};
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function MapScreen() {
@@ -43,6 +56,8 @@ export default function MapScreen() {
   const [routeSteps, setRouteSteps]   = useState<RouteStep[]>([]);
   const [routeError, setRouteError]   = useState(false);
 
+  // ¡ELIMINADO! Aquí estaban las líneas problemáticas que causaban el loop y error.
+
   // ── Botón de centrar personalizado ────────────────────────────────────────
   const mapRef = useRef<MapView>(null);
   const centrarMapa = () => {
@@ -58,9 +73,34 @@ export default function MapScreen() {
     mapRef.current?.animateToRegion({
       latitude:      evento.coordenadas.latitud,
       longitude:     evento.coordenadas.longitud,
-      latitudeDelta:  0.01,  // zoom más cercano que el inicial
+      latitudeDelta:  0.01,  
       longitudeDelta: 0.01,
-    }, 600); // 600ms de animación
+    }, 600); 
+  };
+
+  const abrirEventoPorId = async (idExterno: string) => {
+    const abrir = (ev: Event) => {
+      // Ahora parsearFechaLocal funciona perfecto porque está fuera del componente
+      const fecha = parsearFechaLocal(ev.fecha_evento);
+      if (fecha) setDate(fecha);
+      abrirEventoEnMapa(ev);
+    };
+
+    const local = events.find((e) => e.id_externo === idExterno);
+    if (local) {
+      abrir(local);
+      return;
+    }
+    try {
+      const remoto = await getEventById(idExterno);
+      if (remoto) {
+        abrir(remoto);
+      } else {
+        console.warn("Evento no encontrado:", idExterno);
+      }
+    } catch (err) {
+      console.warn("Error al traer evento por id:", err);
+    }
   };
 
   // ── Hooks ─────────────────────────────────────────────────────────────────
@@ -93,18 +133,12 @@ export default function MapScreen() {
     if (!openEventId || !eventDate) return;
     pendingEventId.current = openEventId;
 
-    const partes = eventDate.split("-");
-    const fechaParsed = partes[0].length === 4
-      ? new Date(eventDate)
-      : new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
-    if (!isNaN(fechaParsed.getTime())) setDate(fechaParsed);
+    // 2. Usamos nuestra función utilitaria limpia en lugar de duplicar código
+    const fecha = parsearFechaLocal(eventDate);
+    if (fecha) setDate(fecha);
 
-    // Si los eventos ya están cargados con esa fecha, buscar de una vez
-    const evento = events.find(e => e.id_externo === openEventId);
-    if (evento) {
-      abrirEventoEnMapa(evento);
-      pendingEventId.current = null;
-    }
+    abrirEventoPorId(openEventId);
+    pendingEventId.current = null;
   }, [openEventId, eventDate, t]);
 
   // 2. Cuando los eventos cargan
@@ -134,6 +168,7 @@ export default function MapScreen() {
     cancelarRuta();
     setRouteTarget(evento);
     setSelectedEvent(null);
+    setLugarSeleccionado(null);  
   };
 
   const cambiarModo = (modo: RouteMode) => {
@@ -290,7 +325,14 @@ export default function MapScreen() {
         </TouchableOpacity>
       )}
 
-      <AIChatModal visible={chatVisible} onClose={() => setChatVisible(false)} />
+      <AIChatModal
+        visible={chatVisible}
+        onClose={() => setChatVisible(false)}
+        onSelectEvent={(idExterno) => {
+          setChatVisible(false);
+          abrirEventoPorId(idExterno);
+        }}
+      />
     </View>
   );
 }

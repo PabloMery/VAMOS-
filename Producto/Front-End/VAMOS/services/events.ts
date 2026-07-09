@@ -66,10 +66,19 @@ function mapearEvento(raw: EventoAPI, fechaFiltro?: string): Event {
   const fechaInfo = raw.fechas_evento?.find((f) => f.fecha === fechaEvento);
   const estadoEvento = fechaInfo?.estado_dia ?? raw.estado_general ?? '';
 
+if (fechaFiltro) {
+  const tieneFecha = raw.fechas_evento?.some(f => f.fecha === fechaFiltro);
+  console.log('🎯',
+    raw.id_externo.slice(0, 30),
+    '| tieneFecha=', tieneFecha,
+    '| total fechas=', raw.fechas_evento?.length
+  );
+}
 return {
     id_externo: raw.id_externo,
     nombre_evento: raw.nombre_evento,
     fecha_evento: fechaEvento,
+    fechas_evento: raw.fechas_evento?.map((f: { fecha: string }) => f.fecha) ?? [fechaEvento],
     hora_inicio: raw.hora_inicio,
     hora_fin: raw.hora_fin,
     horario_variable: raw.horario_variable ?? false,

@@ -1,5 +1,5 @@
 // components/EventDetailSheet.tsx
-
+import { formatearFechasRepeticion } from "@/utils/fecha";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { useTheme } from "@/hooks/useTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -88,6 +88,35 @@ export function EventDetailSheet({
 
             <InfoRow icon="location-outline" text={ev.lugar_texto}  theme={theme} />
             <InfoRow icon="calendar-outline" text={ev.fecha_evento} theme={theme} />
+            {(() => {
+            const fechas = event?.fechas_evento;
+            if (!fechas || fechas.length <= 1) return null;
+
+            const { texto, extra } = formatearFechasRepeticion(fechas);
+            return (
+              <View style={styles.repeticionRow}>
+                <Ionicons
+                  name="repeat-outline"
+                  size={16}
+                  color={theme.colors.primary}
+                  style={{ marginTop: 2 }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.repeticionLabel, { color: theme.colors.subtext }]}>
+                    Se repite
+                  </Text>
+                  <Text style={[styles.repeticionFechas, { color:theme.colors.text }]}>
+                    {texto}
+                    {extra > 0 && (
+                      <Text style={{ color: theme.colors.primary, fontWeight: "500" }}>
+                        {" "}· +{extra} más
+                      </Text>
+                    )}
+                  </Text>
+                </View>
+              </View>
+            );
+          })()}
             <InfoRow icon="time-outline"     text={horario}         theme={theme} />
 
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
@@ -231,4 +260,18 @@ const styles = StyleSheet.create({
   source:           { fontSize: 11, textAlign: "center", marginTop: 16 },
   backBtn:  { flexDirection: "row", alignItems: "center", gap: 4, marginBottom: 8, alignSelf: "flex-start" },
   backText: { fontSize: 13, fontWeight: "500" },
+  repeticionRow: {
+  flexDirection: "row",
+  alignItems: "flex-start",
+  gap: 10,
+  marginBottom: 10,
+  },
+  repeticionLabel: {
+    fontSize: 12,
+    marginBottom: 2,
+  },
+  repeticionFechas: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
 });

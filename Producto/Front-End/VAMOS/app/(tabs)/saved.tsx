@@ -1,5 +1,5 @@
 // app/(tabs)/saved.tsx
-
+import { proximaFecha } from "@/utils/fecha";
 import { useGrupos } from "@/context/GruposContext";
 import { useTheme } from "@/hooks/useTheme";
 import { Event } from "@/types/Event";
@@ -24,9 +24,10 @@ function formatearFecha(fecha?: string): string {
 
 // ─── Navegar al mapa abriendo el evento ───────────────────────────────────────
 const irAlEvento = (item: Event) => {
+  const fecha = proximaFecha(item.fechas_evento) ?? item.fecha_evento;
   router.push({
     pathname: "/",
-    params: { openEventId: item.id_externo, eventDate: item.fecha_evento, t: Date.now().toString(), },
+    params: { openEventId: item.id_externo, eventDate: fecha, t: Date.now().toString() },
   });
 };
 
@@ -45,7 +46,7 @@ function TarjetaGuardado({ event, onRemove }: TarjetaProps) {
           <Text style={[styles.bandaTipoText, { color: colors.primary }]}>GUARDADO</Text>
         </View>
         <Text style={[styles.bandaFecha, { color: colors.primary }]}>
-          {formatearFecha(event.fecha_evento)}
+          {formatearFecha(proximaFecha(event.fechas_evento) ?? event.fecha_evento)}
         </Text>
       </View>
 
@@ -106,7 +107,7 @@ function TarjetaConfirmado({ event, onRemove, grupoId, eventoNombre }: TarjetaCo
           <Text style={[styles.bandaTipoText, { color: colors.confirm }]}>CONFIRMADO</Text>
         </View>
         <Text style={[styles.bandaFecha, { color: colors.confirm }]}>
-          {formatearFecha(event.fecha_evento)}
+          {formatearFecha(proximaFecha(event.fechas_evento) ?? event.fecha_evento)}
         </Text>
       </View>
 

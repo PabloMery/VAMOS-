@@ -30,11 +30,15 @@ type Message = {
   eventos?: EventosAdjuntos; // solo los mensajes del bot pueden traer eventos
 };
 
-type Props = { visible: boolean; onClose: () => void };
+type Props = {
+  visible: boolean;
+  onClose: () => void;
+  onSelectEvent?: (idExterno: string) => void;
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function AIChatModal({ visible, onClose }: Props) {
+export function AIChatModal({ visible, onClose, onSelectEvent }: Props) {
   const theme = useTheme();
   const { location } = useUserLocation();
 
@@ -124,9 +128,13 @@ export function AIChatModal({ visible, onClose }: Props) {
       key={index}
       style={[styles.eventoCard, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}
       onPress={() => {
-        if (evento.link_url) Linking.openURL(evento.link_url);
+        if (onSelectEvent && evento.id_externo) {
+          onSelectEvent(evento.id_externo);
+        } else if (evento.link_url) {
+          Linking.openURL(evento.link_url);
+        }
       }}
-      activeOpacity={evento.link_url ? 0.7 : 1}
+      activeOpacity={0.7}
     >
       <View style={styles.eventoHeader}>
         <Ionicons name="calendar-outline" size={14} color={theme.colors.confirm} />
@@ -149,7 +157,7 @@ export function AIChatModal({ visible, onClose }: Props) {
         <View style={styles.eventoLinkRow}>
           <Ionicons name="open-outline" size={12} color={theme.colors.primary} />
           <Text style={[styles.eventoLink, { color: theme.colors.primary }]}>
-            Ver más
+            Ver detalles
           </Text>
         </View>
       ) : null}

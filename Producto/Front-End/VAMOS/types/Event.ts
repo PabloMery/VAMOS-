@@ -2,6 +2,7 @@ export type Event = {
   id_externo: string;
   nombre_evento: string;
   fecha_evento: string;
+  fechas_evento?: string[];
   hora_inicio: string | null;
   hora_fin: string | null;
   horario_variable: boolean;
