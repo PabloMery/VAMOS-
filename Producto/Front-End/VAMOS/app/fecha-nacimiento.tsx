@@ -60,6 +60,7 @@ export default function FechaNacimientoScreen() {
       });
 
       await completarRegistro(); // ← esto actualiza el contexto y dispara la redirección
+      router.replace('/(tabs)');   
     } catch (e) {
       setError("Hubo un problema al guardar tu fecha. Intenta de nuevo.");
     } finally {
